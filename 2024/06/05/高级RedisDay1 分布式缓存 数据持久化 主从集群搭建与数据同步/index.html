@@ -29,7 +29,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
     collapseDepth: 2,
   });
 })</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="This is Pequod! Arriving shortly at LZ!" type="application/atom+xml">
-</head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">This is Pequod! Arriving shortly at LZ!</a></h1><p>Ishmael的博客</p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">高级RedisDay1 分布式缓存 数据持久化 主从集群搭建与数据同步</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">高级RedisDay1 分布式缓存 数据持久化 主从集群搭建与数据同步</a></h2><span class="post__date">2025-02-01</span><a href="/tags/Redis%E9%AB%98%E7%BA%A7/"><span class="post__tags">#Redis高级</span></a><a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"><span class="post__tags">#分布式</span></a></div></div><div class="article__content"><h1 id="0-前言"><a href="#0-前言" class="headerlink" title="0.前言"></a>0.前言</h1><p>为什么要学习分布式缓存？因为单机仍旧存在下面四大问题</p>
+</head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">This is Pequod! Arriving shortly at LZ!</a></h1><p>Ishmael的博客</p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">高级RedisDay1 分布式缓存 数据持久化 主从集群搭建与数据同步</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">高级RedisDay1 分布式缓存 数据持久化 主从集群搭建与数据同步</a></h2><span class="post__date">2024-06-05</span><a href="/tags/Redis%E9%AB%98%E7%BA%A7/"><span class="post__tags">#Redis高级</span></a><a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"><span class="post__tags">#分布式</span></a></div></div><div class="article__content"><h1 id="0-前言"><a href="#0-前言" class="headerlink" title="0.前言"></a>0.前言</h1><p>为什么要学习分布式缓存？因为单机仍旧存在下面四大问题</p>
 <ul>
 <li>单机失效数据会丢失——需要实现数据持久化</li>
 <li>单机并发能力有限——需要搭建主从集群，实现读写分离</li>
@@ -47,18 +47,18 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 </ul>
 <p><strong>1）save命令</strong></p>
 <p>执行下面的命令，可以立即执行一次RDB：</p>
-<p><img src="/2025/02/01/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725144536958.png" alt="image-20210725144536958"></p>
+<p><img src="/2024/06/05/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725144536958.png" alt="image-20210725144536958"></p>
 <p>save命令会导致主进程执行RDB，这个过程中其它所有命令都会被阻塞。只有在数据迁移时可能用到。</p>
 <p><strong>2）bgsave命令</strong></p>
 <p>下面的命令可以异步执行RDB：</p>
-<p><img src="/2025/02/01/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725144725943.png" alt="image-20210725144725943"></p>
+<p><img src="/2024/06/05/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725144725943.png" alt="image-20210725144725943"></p>
 <p>这个命令执行后会开启独立进程完成RDB，主进程可以持续处理用户请求，不受影响。</p>
 <p><strong>3）停机时</strong></p>
 <p>Redis停机时会执行一次save命令，实现RDB持久化。</p>
 <p><strong>4）触发RDB条件</strong></p>
 <p>Redis内部有触发RDB的机制，可以在redis.conf文件中找到，格式如下：</p>
 <figure class="highlight properties"><table><tr><td class="code"><pre><code class="hljs properties"><span class="hljs-comment"># 900秒内，如果至少有1个key被修改，则执行bgsave ， 如果是save &quot;&quot; 则表示禁用RDB</span><br><span class="hljs-attr">save</span> <span class="hljs-string">900 1  </span><br><span class="hljs-attr">save</span> <span class="hljs-string">300 10  </span><br><span class="hljs-attr">save</span> <span class="hljs-string">60 10000 </span><br></code></pre></td></tr></table></figure>
-<p><img src="/2025/02/01/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-4.png" alt="alt text"></p>
+<p><img src="/2024/06/05/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-4.png" alt="alt text"></p>
 <p>RDB的其它配置也可以在redis.conf文件中设置：</p>
 <figure class="highlight properties"><table><tr><td class="code"><pre><code class="hljs properties"><span class="hljs-comment"># 是否压缩 ,建议不开启，压缩也会消耗cpu，磁盘的话不值钱</span><br><span class="hljs-attr">rdbcompression</span> <span class="hljs-string">yes</span><br><span class="hljs-comment"></span><br><span class="hljs-comment"># RDB文件名称</span><br><span class="hljs-attr">dbfilename</span> <span class="hljs-string">dump.rdb  </span><br><span class="hljs-comment"></span><br><span class="hljs-comment"># 文件保存的路径目录</span><br><span class="hljs-attr">dir</span> <span class="hljs-string">./ </span><br></code></pre></td></tr></table></figure>
 
@@ -106,7 +106,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 </li>
 </ul>
 <h2 id="1-2-AOF持久化"><a href="#1-2-AOF持久化" class="headerlink" title="1.2.AOF持久化"></a>1.2.AOF持久化</h2><h3 id="1-2-1-AOF原理"><a href="#1-2-1-AOF原理" class="headerlink" title="1.2.1.AOF原理"></a>1.2.1.AOF原理</h3><p>AOF全称为Append Only File（追加文件）。Redis处理的每一个写命令都会记录在AOF文件，可以看做是命令日志文件。</p>
-<p><img src="/2025/02/01/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725151543640.png" alt="image-20210725151543640"></p>
+<p><img src="/2024/06/05/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725151543640.png" alt="image-20210725151543640"></p>
 <h3 id="1-2-2-AOF配置"><a href="#1-2-2-AOF配置" class="headerlink" title="1.2.2.AOF配置"></a>1.2.2.AOF配置</h3><p>AOF默认是关闭的，需要修改redis.conf配置文件来开启AOF：</p>
 <figure class="highlight properties"><table><tr><td class="code"><pre><code class="hljs properties"><span class="hljs-comment"># 是否开启AOF功能，默认是no</span><br><span class="hljs-attr">appendonly</span> <span class="hljs-string">yes</span><br><span class="hljs-comment"># AOF文件的名称</span><br><span class="hljs-attr">appendfilename</span> <span class="hljs-string">&quot;appendonly.aof&quot;</span><br></code></pre></td></tr></table></figure>
 
@@ -118,9 +118,9 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 
 
 <p>三种策略对比：</p>
-<p><img src="/2025/02/01/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725151654046.png" alt="image-20210725151654046"></p>
+<p><img src="/2024/06/05/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725151654046.png" alt="image-20210725151654046"></p>
 <h3 id="1-2-3-AOF文件重写"><a href="#1-2-3-AOF文件重写" class="headerlink" title="1.2.3.AOF文件重写"></a>1.2.3.AOF文件重写</h3><p>因为是记录命令，AOF文件会比RDB文件大的多。而且AOF会记录对同一个key的多次写操作，但只有最后一次写操作才有意义。通过执行bgrewriteaof命令，可以让AOF文件执行重写功能，用最少的命令达到相同效果。</p>
-<p><img src="/2025/02/01/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725151729118.png" alt="image-20210725151729118"></p>
+<p><img src="/2024/06/05/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725151729118.png" alt="image-20210725151729118"></p>
 <p>如图，AOF原本有三个命令，但是<code>set num 123 和 set num 666</code>都是对num的操作，第二次会覆盖第一次的值，因此第一个命令记录下来没有意义。</p>
 <p>所以重写命令后，AOF文件内容就是：<code>mset name jack num 666</code></p>
 <p>Redis也会在触发阈值时自动去重写AOF文件。阈值也可以在redis.conf中配置：</p>
@@ -129,9 +129,9 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 
 
 <h2 id="1-3-RDB与AOF对比"><a href="#1-3-RDB与AOF对比" class="headerlink" title="1.3.RDB与AOF对比"></a>1.3.RDB与AOF对比</h2><p>RDB和AOF各有自己的优缺点，如果对数据安全性要求较高，在实际开发中往往会<strong>结合</strong>两者来使用。</p>
-<p><img src="/2025/02/01/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725151940515.png" alt="image-20210725151940515"></p>
+<p><img src="/2024/06/05/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725151940515.png" alt="image-20210725151940515"></p>
 <h1 id="2-Redis主从集群"><a href="#2-Redis主从集群" class="headerlink" title="2.Redis主从集群"></a>2.Redis主从集群</h1><h2 id="2-1-搭建主从架构"><a href="#2-1-搭建主从架构" class="headerlink" title="2.1.搭建主从架构"></a>2.1.搭建主从架构</h2><p>单节点Redis的并发能力是有上限的，要进一步提高Redis的并发能力，就需要搭建主从集群，实现读写分离。</p>
-<p><img src="/2025/02/01/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725152037611.png" alt="image-20210725152037611"></p>
+<p><img src="/2024/06/05/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725152037611.png" alt="image-20210725152037611"></p>
 <p>共包含三个节点，一个主节点，两个从节点。</p>
 <p>这里我们会在同一台虚拟机中开启3个redis实例，模拟主从集群，操作流程如下：</p>
 <table>
@@ -161,23 +161,23 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <ol>
 <li>新建三个文件夹用来装三个redis服务的配置文件和进程的持久化数据</li>
 </ol>
-<p><img src="/2025/02/01/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-5.png" alt="alt text"></p>
+<p><img src="/2024/06/05/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-5.png" alt="alt text"></p>
 <ol start="2">
 <li><p>分别设置配置文件 </p>
 <ol>
 <li>修改端口</li>
 </ol>
-<p> <img src="/2025/02/01/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-3.png" alt="alt text"></p>
+<p> <img src="/2024/06/05/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-3.png" alt="alt text"></p>
 <ol start="2">
 <li>修改持久化数据保存目录</li>
 </ol>
 <p> 修改每个文件夹内的配置文件，将端口分别修改为7001、7002、7003，将rdb文件保存位置都修改为自己所在文件夹：</p>
-<p> <img src="/2025/02/01/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-2.png" alt="alt text"></p>
+<p> <img src="/2024/06/05/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-2.png" alt="alt text"></p>
 <ol start="3">
 <li>修改实例的声明IP</li>
 </ol>
 <p> 虚拟机本身有多个IP，为了避免将来混乱，我们需要在redis.conf文件中指定每一个实例的绑定ip信息，格式如下：</p>
-<p> <img src="/2025/02/01/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-1.png" alt="alt text"></p>
+<p> <img src="/2024/06/05/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-1.png" alt="alt text"></p>
 </li>
 <li><p>在Cluster文件夹分别启动三个服务</p>
 </li>
@@ -205,10 +205,10 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <p>遇到问题：slaveof命令失败，信息如下</p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Connecting</span> to MASTER <span class="hljs-number">192.168.56.101:7001</span><br><span class="hljs-attribute">5187</span>:S <span class="hljs-number">22</span> Feb <span class="hljs-number">2025</span> <span class="hljs-number">15</span>:<span class="hljs-number">53</span>:<span class="hljs-number">09</span>.<span class="hljs-number">033</span> * MASTER &lt;-&gt; REPLICA sync started<br><span class="hljs-attribute">5187</span>:S <span class="hljs-number">22</span> Feb <span class="hljs-number">2025</span> <span class="hljs-number">15</span>:<span class="hljs-number">53</span>:<span class="hljs-number">09</span>.<span class="hljs-number">033</span> # Error condition <span class="hljs-literal">on</span> socket for SYNC: Connection refused<br></code></pre></td></tr></table></figure>
 <p>解决办法，修改7001的bind</p>
-<p><img src="/2025/02/01/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image.png" alt="alt text"></p>
+<p><img src="/2024/06/05/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image.png" alt="alt text"></p>
 <p>原因，如果redis主服务器绑定了127.0.0.1，那么跨服务器IP的访问就会失败，所以，在研发、测试环境虑bind 0.0.0.0，线上生产环境建议绑定IP地址。</p>
 <h2 id="2-2-主从数据同步原理"><a href="#2-2-主从数据同步原理" class="headerlink" title="2.2.主从数据同步原理"></a>2.2.主从数据同步原理</h2><h3 id="2-2-1-全量同步"><a href="#2-2-1-全量同步" class="headerlink" title="2.2.1.全量同步"></a>2.2.1.全量同步</h3><p>主从第一次建立连接时，会执行<strong>全量同步</strong>，将master节点的所有数据都拷贝给slave节点，流程：</p>
-<p><img src="/2025/02/01/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725152222497.png" alt="image-20210725152222497"></p>
+<p><img src="/2024/06/05/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725152222497.png" alt="image-20210725152222497"></p>
 <p>这里有一个问题，master如何得知salve是第一次来连接呢？？</p>
 <p>有几个概念，可以作为判断依据：</p>
 <ul>
@@ -221,7 +221,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <p>master会将自己的replid和offset都发送给这个slave，slave保存这些信息。以后slave的replid就与master一致了。</p>
 <p>因此，<strong>master判断一个节点是否是第一次同步的依据，就是看replid是否一致</strong>。</p>
 <p>如图：</p>
-<p><img src="/2025/02/01/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725152700914.png" alt="image-20210725152700914"></p>
+<p><img src="/2024/06/05/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725152700914.png" alt="image-20210725152700914"></p>
 <p>完整流程描述：</p>
 <ul>
 <li>slave节点请求增量同步</li>
@@ -233,25 +233,25 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 </ul>
 <h3 id="2-2-2-增量同步"><a href="#2-2-2-增量同步" class="headerlink" title="2.2.2.增量同步"></a>2.2.2.增量同步</h3><p>全量同步需要先做RDB，然后将RDB文件通过网络传输个slave，成本太高了。因此除了第一次做全量同步，其它大多数时候slave与master都是做<strong>增量同步</strong>。</p>
 <p>什么是增量同步？就是只更新slave与master存在差异的部分数据。如图：</p>
-<p><img src="/2025/02/01/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725153201086.png" alt="image-20210725153201086"></p>
+<p><img src="/2024/06/05/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725153201086.png" alt="image-20210725153201086"></p>
 <p>那么master怎么知道slave与自己的数据差异在哪里呢?</p>
 <h3 id="2-2-3-repl-backlog原理"><a href="#2-2-3-repl-backlog原理" class="headerlink" title="2.2.3.repl_backlog原理"></a>2.2.3.repl_backlog原理</h3><p>master怎么知道slave与自己的数据差异在哪里呢?</p>
 <p>这就要说到全量同步时的repl_baklog文件了。</p>
 <p>这个文件是一个固定大小的数组，只不过数组是环形，也就是说<strong>角标到达数组末尾后，会再次从0开始读写</strong>，这样数组头部的数据就会被覆盖。</p>
 <p>repl_baklog中会记录Redis处理过的命令日志及offset，包括master当前的offset，和slave已经拷贝到的offset：</p>
-<p><img src="/2025/02/01/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725153359022.png" alt="image-20210725153359022"> </p>
+<p><img src="/2024/06/05/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725153359022.png" alt="image-20210725153359022"> </p>
 <p>slave与master的offset之间的差异，就是salve需要增量拷贝的数据了。</p>
 <p>随着不断有数据写入，master的offset逐渐变大，slave也不断的拷贝，追赶master的offset：</p>
-<p><img src="/2025/02/01/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725153524190.png" alt="image-20210725153524190"> </p>
+<p><img src="/2024/06/05/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725153524190.png" alt="image-20210725153524190"> </p>
 <p>直到数组被填满：</p>
-<p><img src="/2025/02/01/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725153715910.png" alt="image-20210725153715910"> </p>
+<p><img src="/2024/06/05/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725153715910.png" alt="image-20210725153715910"> </p>
 <p>此时，如果有新的数据写入，就会覆盖数组中的旧数据。不过，旧的数据只要是绿色的，说明是已经被同步到slave的数据，即便被覆盖了也没什么影响。因为未同步的仅仅是红色部分。</p>
 <p>但是，如果slave出现持续的网络阻塞，导致master的offset远远超过了slave的offset： </p>
-<p><img src="/2025/02/01/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725153937031.png" alt="image-20210725153937031"> </p>
+<p><img src="/2024/06/05/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725153937031.png" alt="image-20210725153937031"> </p>
 <p>如果master继续写入新数据，其offset就会覆盖旧的数据，直到将slave现在的offset也覆盖：</p>
-<p><img src="/2025/02/01/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725154155984.png" alt="image-20210725154155984"> </p>
+<p><img src="/2024/06/05/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725154155984.png" alt="image-20210725154155984"> </p>
 <p>棕色框中的红色部分，就是尚未同步，但是却已经被覆盖的数据。此时如果slave恢复，需要同步，却发现自己的offset都没有了，无法完成增量同步了。只能做全量同步。</p>
-<p><img src="/2025/02/01/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725154216392.png" alt="image-20210725154216392"></p>
+<p><img src="/2024/06/05/%E9%AB%98%E7%BA%A7RedisDay1%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%20%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/image-20210725154216392.png" alt="image-20210725154216392"></p>
 <h2 id="2-3-主从同步优化"><a href="#2-3-主从同步优化" class="headerlink" title="2.3.主从同步优化"></a>2.3.主从同步优化</h2><p>主从同步可以保证主从数据的一致性，非常重要。</p>
 <p>可以从以下几个方面来优化Redis主从就集群：</p>
 <ul>
@@ -274,4 +274,4 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <ul>
 <li>slave节点断开又恢复，并且在repl_baklog中能找到offset时</li>
 </ul>
-</div></article><div class="post-view__sidebar"><div class="sidebar"><div class="tocbot"><h2>Toc</h2><div class="toc__content"></div></div><h2>Links</h2><div class="sidebar__link"><ul><li><a target="_blank" rel="noopener" href="https://github.com/15hmael">Github</a></li><li><a href="/3556897601@qq.com">Mail</a></li></ul></div><h2>Archives</h2><div class="sidebar__archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/">2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul></div><h2>Categories</h2><div class="sidebar__categories"></div><h2>Tags</h2><div class="sidebar__tags"><ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis%E9%AB%98%E7%BA%A7/" rel="tag">Redis高级</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%91%B8%E9%B1%BC/" rel="tag">摸鱼</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul></div></div></div></div><div class="horizontal-line" style="height: 1px"></div><div class="main__bottom"><div class="pre-next"><a class="pre-button">没有更多</a><a class="next-button" href="/2024/10/15/Kafka%20Day1%20%E5%88%9D%E6%AD%A5%E4%BA%86%E8%A7%A3%20%E5%AE%89%E8%A3%85Kafka/">Kafka Day1 初步了解 安装Kafka</a></div></div></div></div><div class="footer"><span>©️2019-2025 Designed By&nbsp;<strong><a target="_blank" rel="noopener" href="https://github.com/random-yang">RandomYang</a></strong> Powered By&nbsp;</span><strong><a target="_blank" rel="noopener" href="https://hexo.io">hexo</a></strong></div><div class="darkmode-mask" id="darkmode-mask"></div><div class="sidebar__button"></div></body></html>
+</div></article><div class="post-view__sidebar"><div class="sidebar"><div class="tocbot"><h2>Toc</h2><div class="toc__content"></div></div><h2>Links</h2><div class="sidebar__link"><ul><li><a target="_blank" rel="noopener" href="https://github.com/15hmael">Github</a></li><li><a href="/3556897601@qq.com">Mail</a></li></ul></div><h2>Archives</h2><div class="sidebar__archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul></div><h2>Categories</h2><div class="sidebar__categories"></div><h2>Tags</h2><div class="sidebar__tags"><ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Caffeine/" rel="tag">Caffeine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis%E9%AB%98%E7%BA%A7/" rel="tag">Redis高级</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" rel="tag">分布式缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="tag">多级缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%91%B8%E9%B1%BC/" rel="tag">摸鱼</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul></div></div></div></div><div class="horizontal-line" style="height: 1px"></div><div class="main__bottom"><div class="pre-next"><a class="pre-button" href="/2024/06/07/JVM%E8%BF%9B%E7%A8%8B%E7%BC%93%E5%AD%98Caffeine/">JVM进程缓存Caffeine</a><a class="next-button" href="/2024/05/02/%E5%8A%9B%E6%89%A3300%E9%A2%98%E7%BA%AA%E5%BF%B5/">力扣300题纪念</a></div></div></div></div><div class="footer"><span>©️2019-2025 Designed By&nbsp;<strong><a target="_blank" rel="noopener" href="https://github.com/random-yang">RandomYang</a></strong> Powered By&nbsp;</span><strong><a target="_blank" rel="noopener" href="https://hexo.io">hexo</a></strong></div><div class="darkmode-mask" id="darkmode-mask"></div><div class="sidebar__button"></div></body></html>
