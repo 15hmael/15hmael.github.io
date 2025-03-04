@@ -50,7 +50,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <h2 id="1-7-数据存储"><a href="#1-7-数据存储" class="headerlink" title="1.7 数据存储"></a>1.7 数据存储</h2><p>将数据通过LogSegment中FileChannel对象。将数据写入日志文件，写入完成后，更新当前日志文件的数据偏移量。</p>
 <h1 id="2-存储文件格式"><a href="#2-存储文件格式" class="headerlink" title="2 存储文件格式"></a>2 存储文件格式</h1><p>我们已经将数据存储到了日志文件和其他的一些文件中：</p>
 <h2 id="2-1-数据日志文件"><a href="#2-1-数据日志文件" class="headerlink" title="2.1 数据日志文件"></a>2.1 数据日志文件</h2><p>Kafka系统早期设计的目的就是日志数据的采集和传输，所以数据是使用.log文件进行保存的。<br>我们所说的数据文件就是以.log作为扩展名的日志文件。<br>文件名长度为20位长度的数字字符串，数字含义为当前日志文件的第一批数据的基础偏移量，<br>也就是文件中保存的第一条数据的偏移量。字符串数字位数不够的，前面补0。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image.png" alt="alt text"></p>
 <p>我们的常规数据主要分为两部分：批次头 + 数据体</p>
 <h3 id="2-1-1-批次头"><a href="#2-1-1-批次头" class="headerlink" title="2.1.1 批次头"></a>2.1.1 批次头</h3><table>
 <thead>
@@ -186,12 +186,12 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 
 <p>按照上面的计算公式可以计算出，如果我们发送的数据是一条为（key1，value1）的数据， 那么Kafka当前会向日志文件增加的数据大小为：</p>
 <figure class="highlight tap"><table><tr><td class="code"><pre><code class="hljs tap"><span class="hljs-comment"># 追加数据字节计算</span><br>批次头 = 61<br>数据体 =<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 4 </span>+<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 6 </span>+<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 1 </span>= 17<br>总的字节大小为61 +<span class="hljs-number"> 17 </span>= 78<br></code></pre></td></tr></table></figure>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-3.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-3.png" alt="alt text"></p>
 <p>如果我们发送的数据是两条为（key1，value1），（key2，value2）的数据， 那么Kafka当前会向日志文件增加的数据大小为：</p>
 <figure class="highlight tap"><table><tr><td class="code"><pre><code class="hljs tap"><span class="hljs-comment"># 追加数据字节计算</span><br>第一条数据：<br>批次头 = 61<br>数据体 =<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 4 </span>+<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 6 </span>+<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 1 </span>= 17<br>第二条数据：<br><span class="hljs-comment"># 因为字节少，没有满足批次要求，所以两条数据是在一批中的，那么批次头不会重新计算，直接增加数据体即可</span><br>数据体 =<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 4 </span>+<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 6 </span>+<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 1 </span>= 17<br>总的字节大小为61 +<span class="hljs-number"> 17 </span>+<span class="hljs-number"> 17 </span>= 95<br></code></pre></td></tr></table></figure>
 
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-4.png" alt="alt text"></p>
-<h3 id="2-1-3-数据含义"><a href="#2-1-3-数据含义" class="headerlink" title="2.1.3 数据含义"></a>2.1.3 数据含义</h3><p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-5.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-4.png" alt="alt text"></p>
+<h3 id="2-1-3-数据含义"><a href="#2-1-3-数据含义" class="headerlink" title="2.1.3 数据含义"></a>2.1.3 数据含义</h3><p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-5.png" alt="alt text"></p>
 <table>
 <thead>
 <tr>
@@ -286,15 +286,15 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 </tbody></table>
 <h2 id="2-2-数据索引文件"><a href="#2-2-数据索引文件" class="headerlink" title="2.2 数据索引文件"></a>2.2 数据索引文件</h2><p>Kafka的基础设置中，数据日志文件到达1G才会滚动生产新的文件。<br>那么从1G文件中想要快速获取我们想要的数据，效率还是比较低的。<br>通过前面的介绍，如果我们能知道数据在文件中的位置（position），<br>那么定位数据就会快很多，问题在于我们如何才能在知道这个位置呢。</p>
 <p>Kafka在存储数据时，都会保存数据的偏移量信息，而偏移量是从0开始计算的。<br>简单理解就是数据的保存顺序。比如第一条保存的数据，偏移量就是0，第二条保存的数据偏移量就是1，<br>但是这个偏移量只是告诉我们数据的保存顺序，却无法定位数据，不过需要注意的是，<br>每条数据的大小是可以确定的（参考上一个小节的内容）。<br>既然可以确定，那么数据存放在文件的位置起始也就是确定了，<br>所以Kafka在保存数据时，其实是可以同时保存位置的，那么我们在访问数据时，<br>只要通过偏移量其实就可以快速定位日志文件的数据了。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-7.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-7.png" alt="alt text"></p>
 <p>不过这依然有问题，就是数据量太多了，对应的偏移量也太多了，并且主题分区的数据文件会有很多，<br>那我们是如何知道数据在哪一个文件中呢？为了定位方便，Kafka在提供日志文件保存数据的同时，<br>还提供了用于数据定位的索引文件，索引文件中保存的就是逻辑偏移量和数据物理存储位置（偏移量）的对应关系。<br>并且还记得吗?每个数据日志文件的名称就是当前文件中数据起始偏移量，所以通过偏移量就可以快速选取文件<br>以及定位数据的位置从而快速找到数据。这种感觉就有点像Java的HashMap通过Key可以快速找到Value的感觉一样，<br>如果不知道Key，那么从HashMap中获取Value是不是就特别慢。道理是一样的。<br>Kafka的数据索引文件都保存了什么呢？咱们来看一下：</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-8.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-8.png" alt="alt text"></p>
 <p>通过图片可以看到，索引文件中保存的就是逻辑偏移量和物理偏移量位置的关系。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-9.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-9.png" alt="alt text"></p>
 <p>有了这个索引文件，那么我们根据数据的顺序获取数据就非常的方便和高效了。<br>不过，相信大家也注意到了，那就是索引文件中的offset并不连续。那如果我想获取offset等于3的数据怎么办？<br>其实也不难，因为offset等于3不就是offset等于2的一下条吗？<br>那我使用offset等于2的数据的position + size不就定位了offset等于3的位置了吗，当然了我举得例子有点过于简单了，不过本质确实差的不多，kafka在查询定位时其实采用的就是二分查找法。</p>
 <p>不过，为什么Kafka的索引文件是不连续的呢，那是因为如果每条数据如果都把偏移量的定位保存下来，数据量也不小，还有就是，如果索引数据丢了几条，其实并不会太影响查询效率，比如咱们之前举得offset等于3的定位过程。<br>因为Kafka底层实现时，采用的是虚拟内存映射技术mmap，将内存和文件进行双向映射，操作内存数据就等同于操作文件，所以效率是非常高的，但是因为是基于内存的操作，所以并不稳定，容易丢数据，因此Kafka的索引文件中的索引信息是不连续的，而且为了效率，kafka默认情况下，4kb的日志数据才会记录一次索引，但是这个是可以进行配置修改的，参数为log.index.interval.bytes，默认值为4096。我们将kafka的不连续索引数据称之为稀疏索引。</p>
 <h2 id="2-3-数据时间索引文件"><a href="#2-3-数据时间索引文件" class="headerlink" title="2.3 数据时间索引文件"></a>2.3 数据时间索引文件</h2><p>某些场景中，我们不想根据顺序（偏移量）获取Kafka的数据，而是想根据时间来获取的数据。这个时候，可没有对应的偏移量来定位数据，那么查找的效率就非常低了，因为kafka还提供了时间索引文件，咱们来看看它的内容是什么</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-10.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-10.png" alt="alt text"></p>
 <p>通过图片，大家可以看到，这个时间索引文件起始就是将时间戳和偏移量对应起来了，那么此时通过时间戳就可以找到偏移量，再通过偏移量找到定位信息，再通过定位信息找到数据不就非常方便了吗。</p>
 <h2 id="2-4-查看文件内容"><a href="#2-4-查看文件内容" class="headerlink" title="2.4 查看文件内容"></a>2.4 查看文件内容</h2><p>如果我们想要查看文件的内容，需要采用特殊的类</p>
 <figure class="highlight stan"><table><tr><td class="code"><pre><code class="hljs stan"><span class="hljs-comment"># 进入bin/windows目录</span><br>cd bin/windows<br><span class="hljs-comment"># 执行查看文件的指令</span><br>kafka-run-class.bat kafka.tools.DumpLogSegments --files ../../<span class="hljs-title">data</span>/kafka/test-<span class="hljs-number">0</span>/<span class="hljs-number">00000000000000000000</span>.<span class="hljs-built_in">log</span> --<span class="hljs-built_in">print</span>-<span class="hljs-title">data</span>-<span class="hljs-built_in">log</span><br></code></pre></td></tr></table></figure>
@@ -308,7 +308,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 </ul>
 <p>log.flush.interval.messages和log.flush.interval.ms无论哪个达到，都会flush。<br>官方不建议通过上述的三个参数来强制写盘，数据的可靠性应该通过replica来保证，而强制flush数据到磁盘会对整体性能产生影响。</p>
 <h1 id="4-副本同步"><a href="#4-副本同步" class="headerlink" title="4 副本同步"></a>4 副本同步</h1><p>Kafka中，分区的某个副本会被指定为 Leader，负责响应客户端的读写请求。分区中的其他副本自动成为 Follower，主动拉取（同步）Leader 副本中的数据，写入自己本地日志，确保所有副本上的数据是一致的。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-11.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-11.png" alt="alt text"></p>
 <h2 id="4-1-启动数据同步线程"><a href="#4-1-启动数据同步线程" class="headerlink" title="4.1 启动数据同步线程"></a>4.1 启动数据同步线程</h2><p>Kafka创建主题时，会根据副本分配策略向指定的Broker节点发出请求，将不同的副本节点设定为Leader或Follower。一旦某一个Broker节点设定为Follower节点，那么Follower节点会启动数据同步线程ReplicaFetcherThread，从Leader副本节点同步数据。</p>
 <p>线程运行后，会不断重复两个操作：截断（truncate）和抓取（fetch）。</p>
 <ul>
@@ -318,13 +318,13 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 </li>
 </ul>
 <h2 id="4-2-生成数据同步请求"><a href="#4-2-生成数据同步请求" class="headerlink" title="4.2 生成数据同步请求"></a>4.2 生成数据同步请求</h2><p>启动线程后，需要周期地向Leader节点发送FETCH请求，用于从Leader获取数据。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-12.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-12.png" alt="alt text"></p>
 <p>等待Leader节点的响应的过程中，会阻塞当前同步数据线程。</p>
 <h2 id="4-3-处理数据响应"><a href="#4-3-处理数据响应" class="headerlink" title="4.3 处理数据响应"></a>4.3 处理数据响应</h2><p>当Leader副本返回响应数据时，其中会包含多个分区数据，当前副本会遍历每一个分区，将分区数据写入数据文件中。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-13.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-13.png" alt="alt text"></p>
 <h2 id="4-4-更新数据偏移量"><a href="#4-4-更新数据偏移量" class="headerlink" title="4.4 更新数据偏移量"></a>4.4 更新数据偏移量</h2><p>当Leader副本返回响应数据时，除了包含多个分区数据外，还包含了和偏移量相关的数据HW和LSO，副本需要根据场景对Leader返回的不同偏移量进行更新。</p>
 <h3 id="4-4-1-Offset"><a href="#4-4-1-Offset" class="headerlink" title="4.4.1 Offset"></a>4.4.1 Offset</h3><p>Kafka的每个分区的数据都是有序的，所谓的数据偏移量，指的就是Kafka在保存数据时，用于快速定位数据的标识，类似于Java中数组的索引，从0开始。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-14.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-14.png" alt="alt text"></p>
 <p>Kafka的数据文件以及数据访问中包含了大量和偏移量的相关的操作。</p>
 <h3 id="4-4-2-LSO"><a href="#4-4-2-LSO" class="headerlink" title="4.4.2 LSO"></a>4.4.2 LSO</h3><p>起始偏移量（Log Start Offset），每个分区副本都有起始偏移量，用于表示副本数据的起始偏移位置，初始值为0。</p>
 <p>LSO一般情况下是无需更新的，但是如果数据过期，或用户手动删除数据时，Leader的Log Start Offset可能发生变化，</p>
@@ -332,50 +332,50 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <h3 id="4-4-3-LEO"><a href="#4-4-3-LEO" class="headerlink" title="4.4.3 LEO"></a>4.4.3 LEO</h3><p>日志末端位移（Log End Offset），表示下一条待写入消息的offset，每个分区副本都会记录自己的LEO。对于Follower副本而言，它能读取到Leader副本 LEO 值以下的所有消息。</p>
 <h3 id="4-4-4-HW"><a href="#4-4-4-HW" class="headerlink" title="4.4.4 HW"></a>4.4.4 HW</h3><p>高水位值（High Watermark），定义了消息可见性，标识了一个特定的消息偏移量（offset），消费者只能拉取到这个水位offset之前的消息，同时这个偏移量还可以帮助Kafka完成副本数据同步操作。</p>
 <h1 id="5-数据一致性"><a href="#5-数据一致性" class="headerlink" title="5 数据一致性"></a>5 数据一致性</h1><h2 id="5-1数据一致性"><a href="#5-1数据一致性" class="headerlink" title="5.1数据一致性"></a>5.1数据一致性</h2><p>Kafka的设计目标是：高吞吐、高并发、高性能。为了做到以上三点，它必须设计成分布式的，多台机器可以同时提供读写，并且需要为数据的存储做冗余备份。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-15.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-15.png" alt="alt text"></p>
 <p>图中的主题有3个分区，每个分区有3个副本，这样数据可以冗余存储，提高了数据的可用性。并且3个副本有两种角色，Leader和Follower，Follower副本会同步Leader副本的数据。</p>
 <p>一旦Leader副本挂了，Follower副本可以选举成为新的Leader副本， 这样就提升了分区可用性，但是相对的，在提升了分区可用性的同时，也就牺牲了数据的一致性。</p>
 <p>我们来看这样的一个场景：一个分区有3个副本，一个Leader和两个Follower。Leader副本作为数据的读写副本，所以生产者的数据都会发送给leader副本，而两个follower副本会周期性地同步leader副本的数据，但是因为网络，资源等因素的制约，同步数据的过程是有一定延迟的，所以3个副本之间的数据可能是不同的。具体如下图所示：</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-16.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-16.png" alt="alt text"></p>
 <p>此时，假设leader副本因为意外原因宕掉了，那么Kafka为了提高分区可用性，此时会选择2个follower副本中的一个作为Leader对外提供数据服务。此时我们就会发现，对于消费者而言，之前leader副本能访问的数据是d，但是重新选择leader副本后，能访问的数据就变成了c，这样消费者就会认为数据丢失了，也就是所谓的数据不一致了。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-17.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-17.png" alt="alt text"></p>
 <p>为了提升数据的一致性，Kafka引入了高水位（HW ：High Watermark）机制，Kafka在不同的副本之间维护了一个水位线的机制（其实也是一个偏移量的概念），消费者只能读取到水位线以下的的数据。这就是所谓的木桶理论：木桶中容纳水的高度，只能是水桶中最短的那块木板的高度。这里将整个分区看成一个木桶，其中的数据看成水，而每一个副本就是木桶上的一块木板，那么这个分区（木桶）可以被消费者消费的数据（容纳的水）其实就是数据最少的那个副本的最后数据位置（木板高度）。</p>
 <p>也就是说，消费者一开始在消费Leader的时候，虽然Leader副本中已经有a、b、c、d 4条数据，但是由于高水位线的限制，所以也只能消费到a、b这两条数据。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-18.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-18.png" alt="alt text"></p>
 <p>这样即使leader挂掉了，但是对于消费者来讲，消费到的数据其实还是一样的，因为它能看到的数据是一样的，也就是说，消费者不会认为数据不一致。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-19.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-19.png" alt="alt text"></p>
 <p>不过也要注意，因为follower要求和leader的日志数据严格保持一致，所以就需要根据现在Leader的数据偏移量值对其他的副本进行数据截断（truncate）操作。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-20.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-20.png" alt="alt text"></p>
 <h1 id="6-2-HW在副本之间的传递"><a href="#6-2-HW在副本之间的传递" class="headerlink" title="6.2 HW在副本之间的传递"></a>6.2 HW在副本之间的传递</h1><p>HW高水位线会随着follower的数据同步操作，而不断上涨，也就是说，follower同步的数据越多，那么水位线也就越高，那么消费者能访问的数据也就越多。接下来，我们就看一看，follower在同步数据时HW的变化。</p>
 <p>首先，初始状态下，Leader和Follower都没有数据，所以和偏移量相关的值都是初始值0，而由于Leader需要管理follower，所以也包含着follower的相关偏移量（LEO）数据。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-21.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-21.png" alt="alt text"></p>
 <p>生产者向Leader发送两条数据，Leader收到数据后，会更新自身的偏移量信息。</p>
 <p>Leader副本偏移量更新：<br>LEO&#x3D;LEO+2&#x3D;2</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-22.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-22.png" alt="alt text"></p>
 <p>接下来，Follower开始同步Leader的数据，同步数据时，会将自身的LEO值作为参数传递给Leader。此时，Leader会将数据传递给Follower，且同时Leader会根据所有副本的LEO值更新HW。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-23.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-23.png" alt="alt text"></p>
 <p>Leader副本偏移量更新：<br>HW &#x3D; Math.max[HW, min(LeaderLEO，F1-LEO，F2-LEO)]&#x3D;0</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-24.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-24.png" alt="alt text"></p>
 <p>由于两个Follower的数据拉取速率不一致，所以Follower-1抓取了2条数据，而Follower-2抓取了1条数据。Follower再收到数据后，会将数据写入文件，并更新自身的偏移量信息。</p>
 <p>Follower-1副本偏移量更新：<br>LEO&#x3D;LEO+2&#x3D;2<br>HW &#x3D; Math.min[LeaderHW, LEO]&#x3D;0</p>
 <p>Follower-2副本偏移量更新：<br>LEO&#x3D;LEO+1&#x3D;1<br>HW &#x3D; Math.min[LeaderHW, LEO]&#x3D;0</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-25.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-25.png" alt="alt text"></p>
 <p>接下来Leader收到了生产者的数据C，那么此时会根据相同的方式更新自身的偏移量信息</p>
 <p>Leader副本偏移量更新：<br>LEO&#x3D;LEO+1&#x3D;3</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-26.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-26.png" alt="alt text"></p>
 <p>follower接着向Leader发送Fetch请求，同样会将最新的LEO作为参数传递给Leader。Leader收到请求后，会更新自身的偏移量信息。</p>
 <p>Leader副本偏移量更新：<br>HW &#x3D; Math.max[HW, min(LeaderLEO，F1-LEO，F2-LEO)]&#x3D;1</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-27.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-27.png" alt="alt text"></p>
 <p>此时，Leader会将数据发送给Follower，同时也会将HW一起发送。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-28.png" alt="alt text"></p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-29.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-28.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-29.png" alt="alt text"></p>
 <p>Follower收到数据后，会将数据写入文件，并更新自身偏移量信息</p>
 <p>Follower-1副本偏移量更新：<br>LEO&#x3D;LEO+1&#x3D;3<br>HW &#x3D; Math.min[LeaderHW, LEO]&#x3D;1</p>
 <p>Follower-2副本偏移量更新：<br>LEO&#x3D;LEO+1&#x3D;2<br>HW &#x3D; Math.min[LeaderHW, LEO]&#x3D;1</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-30.png" alt="alt text"></p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-31.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-30.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-31.png" alt="alt text"></p>
 <p>因为Follower会不断重复Fetch数据的过程，所以前面的操作会不断地重复。最终，follower副本和Leader副本的数据和偏移量是保持一致的。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-32.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-32.png" alt="alt text"></p>
 <p>上面演示了副本列表ISR中Follower副本和Leader副本之间HW偏移量的变化过程，但特殊情况是例外的。比如当前副本列表ISR中，只剩下了Leader一个副本的场合下，是不需要等待其他副本的，直接推高HW即可。</p>
 <h1 id="6-3-ISR（In-Sync-Replicas）伸缩"><a href="#6-3-ISR（In-Sync-Replicas）伸缩" class="headerlink" title="6.3 ISR（In-Sync Replicas）伸缩"></a>6.3 ISR（In-Sync Replicas）伸缩</h1><p>在Kafka中，一个Topic（主题）包含多个Partition（分区），Topic是逻辑概念，而Partition是物理分组。一个Partition包含多个Replica（副本），副本有两种类型Leader Replica&#x2F;Follower Replica，Replica之间是一个Leader副本对应多个Follower副本。注意：分区数可以大于节点数，但副本数不能大于节点数。因为副本需要分布在不同的节点上，才能达到备份的目的。</p>
 <p>Kafka的分区副本中只有Leader副本具有数据写入的功能，而Follower副本需要不断向Leader发出申请，进行数据的同步。这里所有同步的副本会形成一个列表，我们称之为同步副本列表（In-Sync Replicas），也可以简称ISR，除了ISR以外，还有已分配的副本列表（Assigned Replicas），简称AR。这里的AR其实不仅仅包含ISR，还包含了没有同步的副本列表（Out-of-Sync Replicas），简称OSR</p>
@@ -385,10 +385,10 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <ul>
 <li>周期性地查看 ISR 中的副本集合是否需要收缩。这里的收缩是指，把ISR副本集合中那些与Leader差距过大的副本移除的过程。</li>
 </ul>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-33.png" alt="alt text"></p>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-33.png" alt="alt text"></p>
 <p>相对的，有收缩，就会有扩大，在Follower抓取数据时，判断副本状态，满足扩大ISR条件后，就可以提交分区变更请求。完成ISR列表的变更。</p>
 <ul>
 <li>向集群Broker传播ISR的变更。ISR发生变化（包含Shrink和Expand）都会执行传播逻辑。ReplicaManager每间隔2500毫秒就会根据条件，将ISR变化的结果传递给集群的其他Broker。</li>
 </ul>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-34.png" alt="alt text"></p>
-</div></article><div class="post-view__sidebar"><div class="sidebar"><div class="tocbot"><h2>Toc</h2><div class="toc__content"></div></div><h2>Links</h2><div class="sidebar__link"><ul><li><a target="_blank" rel="noopener" href="https://github.com/15hmael">Github</a></li><li><a href="/3556897601@qq.com">Mail</a></li></ul></div><h2>Archives</h2><div class="sidebar__archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/">2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul></div><h2>Categories</h2><div class="sidebar__categories"></div><h2>Tags</h2><div class="sidebar__tags"><ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Caffeine/" rel="tag">Caffeine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenResty/" rel="tag">OpenResty</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="tag">Redis.多级缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis%E9%AB%98%E7%BA%A7/" rel="tag">Redis高级</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reids/" rel="tag">Reids</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dpdk/" rel="tag">dpdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hiredis/" rel="tag">hiredis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" rel="tag">分布式缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="tag">多级缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%91%B8%E9%B1%BC/" rel="tag">摸鱼</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul></div></div></div></div><div class="horizontal-line" style="height: 1px"></div><div class="main__bottom"><div class="pre-next"><a class="pre-button" href="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/">Kafka 消费数据</a><a class="next-button" href="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/">Kafka 生产数据</a></div></div></div></div><div class="footer"><span>©️2019-2025 Designed By&nbsp;<strong><a target="_blank" rel="noopener" href="https://github.com/random-yang">RandomYang</a></strong> Powered By&nbsp;</span><strong><a target="_blank" rel="noopener" href="https://hexo.io">hexo</a></strong></div><div class="darkmode-mask" id="darkmode-mask"></div><div class="sidebar__button"></div></body></html>
+<p><img src="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/image-34.png" alt="alt text"></p>
+</div></article><div class="post-view__sidebar"><div class="sidebar"><div class="tocbot"><h2>Toc</h2><div class="toc__content"></div></div><h2>Links</h2><div class="sidebar__link"><ul><li><a target="_blank" rel="noopener" href="https://github.com/15hmael">Github</a></li><li><a href="/3556897601@qq.com">Mail</a></li></ul></div><h2>Archives</h2><div class="sidebar__archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/">2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul></div><h2>Categories</h2><div class="sidebar__categories"></div><h2>Tags</h2><div class="sidebar__tags"><ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Caffeine/" rel="tag">Caffeine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenResty/" rel="tag">OpenResty</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="tag">Redis.多级缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis%E6%BA%90%E7%A0%81/" rel="tag">Redis源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis%E9%AB%98%E7%BA%A7/" rel="tag">Redis高级</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reids/" rel="tag">Reids</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dpdk/" rel="tag">dpdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hiredis/" rel="tag">hiredis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" rel="tag">分布式缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="tag">多级缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%91%B8%E9%B1%BC/" rel="tag">摸鱼</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul></div></div></div></div><div class="horizontal-line" style="height: 1px"></div><div class="main__bottom"><div class="pre-next"><a class="pre-button" href="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/">Kafka 消费数据</a><a class="next-button" href="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/">Kafka 生产数据</a></div></div></div></div><div class="footer"><span>©️2019-2025 Designed By&nbsp;<strong><a target="_blank" rel="noopener" href="https://github.com/random-yang">RandomYang</a></strong> Powered By&nbsp;</span><strong><a target="_blank" rel="noopener" href="https://hexo.io">hexo</a></strong></div><div class="darkmode-mask" id="darkmode-mask"></div><div class="sidebar__button"></div></body></html>

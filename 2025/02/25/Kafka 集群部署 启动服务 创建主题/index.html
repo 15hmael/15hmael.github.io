@@ -30,7 +30,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
   });
 })</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="This is Pequod! Arriving shortly at LZ!" type="application/atom+xml">
 </head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">This is Pequod! Arriving shortly at LZ!</a></h1><p>Ishmael的博客</p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">Kafka 集群部署 启动服务 创建主题</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">Kafka 集群部署 启动服务 创建主题</a></h2><span class="post__date">2025-02-25</span><a href="/tags/Kafka/"><span class="post__tags">#Kafka</span></a></div></div><div class="article__content"><h1 id="太变态了这个kafka"><a href="#太变态了这个kafka" class="headerlink" title="太变态了这个kafka"></a>太变态了这个kafka</h1><h2 id="1-集群部署"><a href="#1-集群部署" class="headerlink" title="1.集群部署"></a>1.集群部署</h2><ul>
-<li><p>将之前安装的kafka文件夹直接复制3份，文件夹名取集群三个kafka节点和一个zookeeper，注意文件路径不要太深，文件名不要太长，不然待会写的cmd脚本会因为指令太长无法执行<br><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image.png" alt="alt text"></p>
+<li><p>将之前安装的kafka文件夹直接复制3份，文件夹名取集群三个kafka节点和一个zookeeper，注意文件路径不要太深，文件名不要太长，不然待会写的cmd脚本会因为指令太长无法执行<br><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image.png" alt="alt text"></p>
 </li>
 <li><p>修改一下配置文件，设置好每个节点数据的保存目录、端口、节点名，避免发生冲突<br>kafka节点的config目录下的server.properties</p>
 </li>
@@ -40,22 +40,22 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <p>zookeeper的设置是config目录下的zookeeper.properties</p>
 <figure class="highlight haskell"><table><tr><td class="code"><pre><code class="hljs haskell"><span class="hljs-title">dataDir</span>=<span class="hljs-type">D</span>:/kafkac/kz/<span class="hljs-class"><span class="hljs-keyword">data</span></span><br></code></pre></td></tr></table></figure>
 
-<p>启动命令cmd文件放在kafka节点文件夹下<br>call bin&#x2F;windows&#x2F;kafka-server-start.bat config&#x2F;server.properties<br><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-1.png" alt="alt text"><br><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-2.png" alt="alt text"></p>
-<p>同样的，启动cmd文件放在zookeeper文件夹下<br>call bin&#x2F;windows&#x2F;zookeeper-server-start.bat config&#x2F;zookeeper.properties<br><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-3.png" alt="alt text"><br><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-4.png" alt="alt text"></p>
-<p>到集群文件夹下，创建集群启动命令cmd和数据删除cmd<br><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-5.png" alt="alt text"></p>
+<p>启动命令cmd文件放在kafka节点文件夹下<br>call bin&#x2F;windows&#x2F;kafka-server-start.bat config&#x2F;server.properties<br><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-1.png" alt="alt text"><br><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-2.png" alt="alt text"></p>
+<p>同样的，启动cmd文件放在zookeeper文件夹下<br>call bin&#x2F;windows&#x2F;zookeeper-server-start.bat config&#x2F;zookeeper.properties<br><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-3.png" alt="alt text"><br><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-4.png" alt="alt text"></p>
+<p>到集群文件夹下，创建集群启动命令cmd和数据删除cmd<br><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-5.png" alt="alt text"></p>
 <figure class="highlight dos"><table><tr><td class="code"><pre><code class="hljs dos"><span class="hljs-built_in">cd</span> kz<br><span class="hljs-built_in">start</span> zk.<span class="hljs-built_in">cmd</span><br><span class="hljs-built_in">ping</span> <span class="hljs-number">127</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">1</span> -n <span class="hljs-number">10</span> &gt;<span class="hljs-built_in">nul</span><br><span class="hljs-built_in">cd</span> ../k1<br><span class="hljs-built_in">start</span> kfk.<span class="hljs-built_in">cmd</span><br><span class="hljs-built_in">cd</span> ../k2<br><span class="hljs-built_in">start</span> kfk.<span class="hljs-built_in">cmd</span><br><span class="hljs-built_in">cd</span> ../k3<br><span class="hljs-built_in">start</span> kfk.<span class="hljs-built_in">cmd</span><br></code></pre></td></tr></table></figure>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-6.png" alt="alt text"></p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-6.png" alt="alt text"></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> kz<br>rd /s /q data<br><span class="hljs-built_in">cd</span> ../k1<br>rd /s /q data<br><span class="hljs-built_in">cd</span> ../k2<br>rd /s /q data<br><span class="hljs-built_in">cd</span> ../k3<br>rd /s /q data<br></code></pre></td></tr></table></figure>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-7.png" alt="alt text"></p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-7.png" alt="alt text"></p>
 <p>集群文件夹下双击cluster.cmd启动集群</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-9.png" alt="alt text"></p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-9.png" alt="alt text"></p>
 <p>启动成功</p>
 <p>安装一个 prettyZoo</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-8.png" alt="alt text"></p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-8.png" alt="alt text"></p>
 <p>选择NEW查看我们刚启动的集群</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-10.png" alt="alt text"></p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-10.png" alt="alt text"></p>
 <p>链接成功</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-11.png" alt="alt text"></p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-11.png" alt="alt text"></p>
 <h2 id="2-启动服务"><a href="#2-启动服务" class="headerlink" title="2.启动服务"></a>2.启动服务</h2><h3 id="2-1-相关概念"><a href="#2-1-相关概念" class="headerlink" title="2.1 相关概念"></a>2.1 相关概念</h3><h4 id="2-1-1-代理：Broker"><a href="#2-1-1-代理：Broker" class="headerlink" title="2.1.1 代理：Broker"></a>2.1.1 代理：Broker</h4><p>使用Kafka前，我们都会启动Kafka服务进程，这里的Kafka服务进程我们一般会称之为Kafka Broker或Kafka Server。因为Kafka是分布式消息系统，所以在实际的生产环境中，是需要多个服务进程形成集群提供消息服务的。所以每一个服务节点都是一个broker，而且在Kafka集群中，为了区分不同的服务节点，每一个broker都应该有一个不重复的全局ID，称之为broker.id，这个ID可以在kafka软件的配置文件server.properties中进行配置</p>
 <p>broker.id&#x3D;0</p>
 <p>刚刚启动的Kafka集群中每一个节点都有自己的ID，整数且唯一。</p>
@@ -76,9 +76,9 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 </tr>
 </tbody></table>
 <h4 id="2-1-2-控制器：Controller"><a href="#2-1-2-控制器：Controller" class="headerlink" title="2.1.2 控制器：Controller"></a>2.1.2 控制器：Controller</h4><p>Kafka是分布式消息传输系统，所以存在多个Broker服务节点，但是它的软件架构采用的是分布式系统中比较常见的主从（Master - Slave）架构，也就是说需要从多个Broker中找到一个用于管理整个Kafka集群的Master节点，这个节点，我们就称之为Controller。它是Apache Kafka的核心组件，主要作用是在Apache Zookeeper的帮助下管理和协调控制整个Kafka集群。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-12.png" alt="alt text"></p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-12.png" alt="alt text"></p>
 <p>如果在运行过程中，Controller节点出现了故障，那么Kafka会依托于ZooKeeper软件选举其他的节点作为新的Controller，让Kafka集群实现高可用。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-13.png" alt="alt text"></p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-13.png" alt="alt text"></p>
 <p>Kafka集群中Controller的基本功能：</p>
 <ul>
 <li>Broker管理 监听 &#x2F;brokers&#x2F;ids节点相关的变化：<ul>
@@ -105,9 +105,9 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 </ul>
 <h3 id="2-2-启动ZooKeeper"><a href="#2-2-启动ZooKeeper" class="headerlink" title="2.2 启动ZooKeeper"></a>2.2 启动ZooKeeper</h3><p>Kafka集群中含有多个服务节点，而分布式系统中经典的主从（Master - Slave）架构就要求从多个服务节点中找一个节点作为集群管理Master，Kafka集群中的这个Master，我们称之为集群控制器Controller</p>
 <p>如果此时Controller节点出现故障，它就不能再管理集群功能，那么其他的Slave节点该如何是好呢？</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-14.png" alt="alt text"></p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-14.png" alt="alt text"></p>
 <p>如果从剩余的2个Slave节点中选一个节点出来作为新的集群控制器是不是一个不错的方案，我们将这个选择的过程称之为：选举（elect）。方案是不错，但是问题就在于选哪一个Slave节点呢？不同的软件实现类似的选举功能都会有一些选举算法，而Kafka是依赖于ZooKeeper软件实现Broker节点选举功能。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-15.png" alt="alt text"></p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-15.png" alt="alt text"></p>
 <p>ZooKeeper如何实现Kafka的节点选举呢？这就要说到我们用到ZooKeeper的3个功能：</p>
 <ul>
 <li>一个是在ZooKeeper软件中创建节点Node，创建一个Node时，我们会设定这个节点是持久化创建，还是临时创建。所谓的持久化创建，就是Node一旦创建后会一直存在，而临时创建，是根据当前的客户端连接创建的临时节点Node，一旦客户端连接断开，那么这个临时节点Node也会被自动删除，所以这样的节点称之为临时节点。</li>
@@ -123,7 +123,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 </ul>
 <h3 id="2-3-启动Kafka"><a href="#2-3-启动Kafka" class="headerlink" title="2.3 启动Kafka"></a>2.3 启动Kafka</h3><p>ZooKeeper已经启动好了，那我们现在可以启动多个Kafka Broker节点构建Kafka集群了。构建的过程中，每一个Broker节点就是一个Java进程，而在这个进程中，有很多需要提前准备好，并进行初始化的内部组件对象。</p>
 <h4 id="2-3-1初始化ZooKeeper"><a href="#2-3-1初始化ZooKeeper" class="headerlink" title="2.3.1初始化ZooKeeper"></a>2.3.1初始化ZooKeeper</h4><p>Kafka Broker启动时，首先会先创建ZooKeeper客户端（KafkaZkClient），用于和ZooKeeper进行交互。客户端对象创建完成后，会通过该客户端对象向ZooKeeper发送创建Node的请求，注意，这里创建的Node都是持久化Node。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-17.png" alt="alt text"></p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-17.png" alt="alt text"></p>
 <table>
 <thead>
 <tr>
@@ -209,7 +209,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 </tr>
 </tbody></table>
 <h4 id="2-3-2初始化服务"><a href="#2-3-2初始化服务" class="headerlink" title="2.3.2初始化服务"></a>2.3.2初始化服务</h4><p>Kafka Broker中有很多的服务对象，用于实现内部管理和外部通信操作。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-18.png" alt="alt text"></p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-18.png" alt="alt text"></p>
 <ul>
 <li>启动任务调度器<br>每一个Broker在启动时都会创建内部调度器（KafkaScheduler）并启动，用于完成节点内部的工作任务。底层就是Java中的定时任务线程池ScheduledThreadPoolExecutor</li>
 <li>创建数据管理器<br>每一个Broker在启动时都会创建数据管理器（LogManager），用于接收到消息后，完成后续的数据创建，查询，清理等处理。</li>
@@ -221,7 +221,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <li>注册Broker节点<br>Broker启动时，会通过ZK客户端对象向ZK注册当前的Broker 节点ID，注册后创捷的ZK节点为临时节点。如果当前Broker的ZK客户端断开和ZK的连接，注册的节点会被删除。</li>
 </ul>
 <h4 id="2-3-3启动控制器"><a href="#2-3-3启动控制器" class="headerlink" title="2.3.3启动控制器"></a>2.3.3启动控制器</h4><p>控制器（KafkaController）是每一个Broker启动时都会创建的核心对象，用于和ZK之间建立连接并申请自己为整个Kafka集群的Master管理者。如果申请成功，那么会完成管理者的初始化操作，并建立和其他Broker之间的数据通道接收各种事件，进行封装后交给事件管理器，并定义了process方法，用于真正处理各类事件。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-19.png" alt="alt text"></p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-19.png" alt="alt text"></p>
 <ul>
 <li>初始化通道管理器<br>创建通道管理器（ControllerChannelManager），该管理器维护了Controller和集群所有Broker节点之间的网络连接，并向Broker发送控制类请求及接收响应。</li>
 <li>初始化事件管理器<br>创建事件管理器（ControllerEventManager）维护了Controller和集群所有Broker节点之间的网络连接，并向Broker发送控制类请求及接收响应。</li>
@@ -234,13 +234,13 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <p>一个好的方案就是将一个主题从物理上分成几块，然后将不同的数据块均匀地分配到不同的broker节点上，这样就可以缓解单节点的负载问题。这个主题的分块我们称之为：分区partition。</p>
 <p>默认情况下，topic主题创建时分区数量为1，也就是一块分区，可以指定参数–partitions改变。Kafka的分区解决了单一主题topic线性扩展的问题，也解决了负载均衡的问题。</p>
 <p>topic主题的每个分区都会用一个编号进行标记，一般是从0开始的连续整数数字。Partition分区是物理上的概念，也就意味着会以数据文件的方式真实存在。每个topic包含一个或多个partition，每个partition都是一个有序的队列。partition中每条消息都会分配一个有序的ID，称之为偏移量：Offset</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-20.png" alt="alt text"></p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-20.png" alt="alt text"></p>
 <h4 id="3-1-3-副本：Replication"><a href="#3-1-3-副本：Replication" class="headerlink" title="3.1.3 副本：Replication"></a>3.1.3 副本：Replication</h4><p>分布式系统出现错误是比较常见的，只要保证集群内部依然存在可用的服务节点即可，当然效率会有所降低，不过只要能保证系统可用就可以了。咱们Kafka的topic也存在类似的问题，也就是说，如果一个topic划分了多个分区partition，那么这些分区就会均匀地分布在不同的broker节点上，一旦某一个broker节点出现了问题，那么在这个节点上的分区就会出现问题，那么Topic的数据就不完整了。所以一般情况下，为了防止出现数据丢失的情况，我们会给分区数据设定多个备份，这里的备份，我们称之为：副本Replication。</p>
 <p>Kafka支持多副本，使得主题topic可以做到更多容错性，牺牲性能与空间去换取更高的可靠性。</p>
 <p>注意：这里不能将备份和原件放置在同一个broker中，因为一旦某个broker出现故障，它保有的副本也都不能用了，那么副本的意义就没有了。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-21.png" alt="alt text"></p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-21.png" alt="alt text"></p>
 <h4 id="3-1-4-副本类型：Leader-Follower"><a href="#3-1-4-副本类型：Leader-Follower" class="headerlink" title="3.1.4 副本类型：Leader &amp; Follower"></a>3.1.4 副本类型：Leader &amp; Follower</h4><p>假设我们有一份文件，一般情况下，我们对副本的理解应该是有一个正式的完整文件，然后这个文件的备份，我们称之为副本。但是在Kafka中，不是这样的，所有的文件都称之为副本，只不过会选择其中的一个文件作为主文件，称之为：Leader(主导)副本，其他的文件作为备份文件，称之为：Follower（追随）副本。在Kafka中，一个文件对应一个主题下的一个分区，每一个分区都可以存在1个或多个副本，但只有Leader副本才能进行数据的读写，Follower副本只做备份使用。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-22.png" alt="alt text"></p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-22.png" alt="alt text"></p>
 <h4 id="3-1-5-日志：Log"><a href="#3-1-5-日志：Log" class="headerlink" title="3.1.5 日志：Log"></a>3.1.5 日志：Log</h4><p>Kafka最开始的应用场景就是日志场景或MQ场景，更多的扮演着一个日志传输和存储系统，这是Kafka立家之本。所以Kafka接收到的消息数据最终都是存储在log日志文件中的，底层存储数据的文件的扩展名就是log。<br>主题创建后，会创建对应的分区数据Log日志。并打开文件连接通道，随时准备写入数据。</p>
 <h3 id="3-2-创建第一个主题"><a href="#3-2-创建第一个主题" class="headerlink" title="3.2 创建第一个主题"></a>3.2 创建第一个主题</h3><p>创建主题Topic的方式有很多种：命令行，工具，客户端API，自动创建。在server.properties文件中配置参数auto.create.topics.enable&#x3D;true时，如果访问的主题不存在，那么Kafka就会自动创建主题，这个操作不在我们的讨论范围内。由于我们学习的重点在于学习原理和基础概念，所以这里我们选择比较基础的命令行方式即可。<br>我们首先创建的主题，仅仅指明主题的名称即可，其他参数暂时无需设定。</p>
 <ul>
@@ -251,8 +251,8 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <li>ZooKeeper节点变化</li>
 </ul>
 <p>指令执行后，当前Kafka会增加一个主题，因为指令中没有配置分区和副本参数，所以当前主题分区数量为默认值1，编号为0，副本为1，编号为所在broker的ID值。为了方便集群的管理，创建topic时，会同时在ZK中增加子节点，记录主题相关配置信息：</p>
-<p>&#x2F;config&#x2F;topics节点中会增加first-topic节点。<br><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-24.png" alt="alt text"></p>
-<p>&#x2F;brokers&#x2F;topics节点中会增加first-topic节点以及相应的子节点。<br><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-25.png" alt="alt text"></p>
+<p>&#x2F;config&#x2F;topics节点中会增加first-topic节点。<br><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-24.png" alt="alt text"></p>
+<p>&#x2F;brokers&#x2F;topics节点中会增加first-topic节点以及相应的子节点。<br><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-25.png" alt="alt text"></p>
 <table>
 <thead>
 <tr>
@@ -362,9 +362,9 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 </ul>
 <p>指令执行后，当前Kafka会增加一个主题，因为指令中指定了分区数量（–partitions 3），所以当前主题分区数量为3，编号为[0、1、2]，副本为1，编号为所在broker的ID值。为了方便集群的管理，创建Topic时，会同时在ZK中增加子节点，记录主题相关配置信息：</p>
 <p>&#x2F;config&#x2F;topics节点中会增加second-topic节点。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-28.png" alt="alt text"></p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-28.png" alt="alt text"></p>
 <p>&#x2F;brokers&#x2F;topics节点中会增加second-topic节点以及相应的子节点。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-29.png" alt="alt text"></p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-29.png" alt="alt text"></p>
 <table>
 <thead>
 <tr>
@@ -558,9 +558,9 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 </ul>
 <p>指令执行后，当前Kafka会增加一个主题，因为指令中指定了分区数量和副本数量（–replication-factor 3），所以当前主题分区数量为3，编号为[0、1、2]，副本为3，编号为[1、2、3]。为了方便集群的管理，创建Topic时，会同时在ZK中增加子节点，记录主题相关配置信息：</p>
 <p>&#x2F;config&#x2F;topics节点中会增加third-topic节点。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-30.png" alt="alt text"></p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-30.png" alt="alt text"></p>
 <p>&#x2F;brokers&#x2F;topics节点中会增加third-topic节点以及相应的子节点。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-31.png" alt="alt text"></p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-31.png" alt="alt text"></p>
 <table>
 <thead>
 <tr>
@@ -745,7 +745,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 </ul>
 <p>当前主题的分区数量为3，副本数量为3，3个broker节点各自保存某一个分区的leader副本和另外两个分区的一个follower副本。</p>
 <h3 id="3-5-创建主题流程"><a href="#3-5-创建主题流程" class="headerlink" title="3.5 创建主题流程"></a>3.5 创建主题流程</h3><p>Kafka中主题、分区以及副本的概念都和数据存储相关，所以是非常重要的。前面咱们演示了一下创建主题的具体操作和现象，那么接下来，我们就通过图解来了解一下Kafka是如何创建主题，并进行分区副本分配的。</p>
-<h4 id="3-5-1-命令行提交创建指令"><a href="#3-5-1-命令行提交创建指令" class="headerlink" title="3.5.1 命令行提交创建指令"></a>3.5.1 命令行提交创建指令</h4><p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-34.png" alt="alt text"></p>
+<h4 id="3-5-1-命令行提交创建指令"><a href="#3-5-1-命令行提交创建指令" class="headerlink" title="3.5.1 命令行提交创建指令"></a>3.5.1 命令行提交创建指令</h4><p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-34.png" alt="alt text"></p>
 <ol>
 <li>通过命令行提交指令，指令中会包含操作类型（–create）、topic的名称（–topic）、主题分区数量（–partitions）、主题分区副本数量（–replication-facotr）、副本分配策略（–replica-assignment）等参数。</li>
 <li>指令会提交到客户端进行处理，客户端获取指令后，会首先对指令参数进行校验。<ul>
@@ -758,7 +758,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <li>将参数封装主题对象（NewTopic）。</li>
 <li>创建通信对象，设定请求标记（CREATE_TOPICS），查找Controller，通过通信对象向Controller发起创建主题的网络请求。</li>
 </ol>
-<h4 id="3-5-2-Controller接收创建主题请求"><a href="#3-5-2-Controller接收创建主题请求" class="headerlink" title="3.5.2 Controller接收创建主题请求"></a>3.5.2 Controller接收创建主题请求</h4><p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-35.png" alt="alt text"></p>
+<h4 id="3-5-2-Controller接收创建主题请求"><a href="#3-5-2-Controller接收创建主题请求" class="headerlink" title="3.5.2 Controller接收创建主题请求"></a>3.5.2 Controller接收创建主题请求</h4><p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-35.png" alt="alt text"></p>
 <ol>
 <li>Controller节点接收到网络请求（Acceptor），并将请求数据封装成请求对象放置在队列（requestQueue）中。</li>
 <li>请求控制器（KafkaRequestHandler）周期性从队列中获取请求对象（BaseRequest）。</li>
@@ -834,4 +834,4 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <td>时间索引文件，用于定位数据</td>
 </tr>
 </tbody></table>
-</div></article><div class="post-view__sidebar"><div class="sidebar"><div class="tocbot"><h2>Toc</h2><div class="toc__content"></div></div><h2>Links</h2><div class="sidebar__link"><ul><li><a target="_blank" rel="noopener" href="https://github.com/15hmael">Github</a></li><li><a href="/3556897601@qq.com">Mail</a></li></ul></div><h2>Archives</h2><div class="sidebar__archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/">2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul></div><h2>Categories</h2><div class="sidebar__categories"></div><h2>Tags</h2><div class="sidebar__tags"><ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Caffeine/" rel="tag">Caffeine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenResty/" rel="tag">OpenResty</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="tag">Redis.多级缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis%E9%AB%98%E7%BA%A7/" rel="tag">Redis高级</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reids/" rel="tag">Reids</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dpdk/" rel="tag">dpdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hiredis/" rel="tag">hiredis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" rel="tag">分布式缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="tag">多级缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%91%B8%E9%B1%BC/" rel="tag">摸鱼</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul></div></div></div></div><div class="horizontal-line" style="height: 1px"></div><div class="main__bottom"><div class="pre-next"><a class="pre-button" href="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/">Kafka 生产数据</a><a class="next-button" href="/2025/02/23/Kafka%20%E4%BD%BF%E7%94%A8Java%E7%BC%96%E5%86%99%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E7%A4%BA%E4%BE%8B/">Kafka 使用Java编写生产者消费者示例</a></div></div></div></div><div class="footer"><span>©️2019-2025 Designed By&nbsp;<strong><a target="_blank" rel="noopener" href="https://github.com/random-yang">RandomYang</a></strong> Powered By&nbsp;</span><strong><a target="_blank" rel="noopener" href="https://hexo.io">hexo</a></strong></div><div class="darkmode-mask" id="darkmode-mask"></div><div class="sidebar__button"></div></body></html>
+</div></article><div class="post-view__sidebar"><div class="sidebar"><div class="tocbot"><h2>Toc</h2><div class="toc__content"></div></div><h2>Links</h2><div class="sidebar__link"><ul><li><a target="_blank" rel="noopener" href="https://github.com/15hmael">Github</a></li><li><a href="/3556897601@qq.com">Mail</a></li></ul></div><h2>Archives</h2><div class="sidebar__archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/">2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul></div><h2>Categories</h2><div class="sidebar__categories"></div><h2>Tags</h2><div class="sidebar__tags"><ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Caffeine/" rel="tag">Caffeine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenResty/" rel="tag">OpenResty</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="tag">Redis.多级缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis%E6%BA%90%E7%A0%81/" rel="tag">Redis源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis%E9%AB%98%E7%BA%A7/" rel="tag">Redis高级</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reids/" rel="tag">Reids</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dpdk/" rel="tag">dpdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hiredis/" rel="tag">hiredis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" rel="tag">分布式缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="tag">多级缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%91%B8%E9%B1%BC/" rel="tag">摸鱼</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul></div></div></div></div><div class="horizontal-line" style="height: 1px"></div><div class="main__bottom"><div class="pre-next"><a class="pre-button" href="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/">Kafka 生产数据</a><a class="next-button" href="/2025/02/23/Kafka%20%E4%BD%BF%E7%94%A8Java%E7%BC%96%E5%86%99%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E7%A4%BA%E4%BE%8B/">Kafka 使用Java编写生产者消费者示例</a></div></div></div></div><div class="footer"><span>©️2019-2025 Designed By&nbsp;<strong><a target="_blank" rel="noopener" href="https://github.com/random-yang">RandomYang</a></strong> Powered By&nbsp;</span><strong><a target="_blank" rel="noopener" href="https://hexo.io">hexo</a></strong></div><div class="darkmode-mask" id="darkmode-mask"></div><div class="sidebar__button"></div></body></html>

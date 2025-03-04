@@ -160,41 +160,41 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <td>数据value</td>
 </tr>
 </tbody></table>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-1.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-1.png" alt="alt text"></p>
 <ol start="4">
 <li>关闭消费者<br>消费者消费完数据后，需要将对象关闭用以释放资源。一般情况下，消费者无需关闭。</li>
 </ol>
 <h1 id="2-消费消息的基本代码"><a href="#2-消费消息的基本代码" class="headerlink" title="2 消费消息的基本代码"></a>2 消费消息的基本代码</h1><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.atguigu.test;<br><span class="hljs-keyword">import</span> org.apache.kafka.clients.consumer.ConsumerConfig;<br><span class="hljs-keyword">import</span> org.apache.kafka.clients.consumer.ConsumerRecord;<br><span class="hljs-keyword">import</span> org.apache.kafka.clients.consumer.ConsumerRecords;<br><span class="hljs-keyword">import</span> org.apache.kafka.clients.consumer.KafkaConsumer;<br><span class="hljs-keyword">import</span> org.apache.kafka.common.TopicPartition;<br><span class="hljs-keyword">import</span> org.apache.kafka.common.serialization.StringDeserializer;<br><span class="hljs-keyword">import</span> java.time.Duration;<br><span class="hljs-keyword">import</span> java.util.Collections;<br><span class="hljs-keyword">import</span> java.util.HashMap;<br><span class="hljs-keyword">import</span> java.util.Map;<br><span class="hljs-keyword">import</span> java.util.Set;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KafkaConsumerTest</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-comment">// TODO 创建消费者配置参数集合</span><br>        Map&lt;String, Object&gt; paramMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        paramMap.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, <span class="hljs-string">&quot;localhost:9092&quot;</span>);<br>        paramMap.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());<br>        paramMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());<br>        paramMap.put(ConsumerConfig.GROUP_ID_CONFIG, <span class="hljs-string">&quot;test&quot;</span>);<br><br>        <span class="hljs-comment">// TODO 通过配置，创建消费者对象</span><br>        KafkaConsumer&lt;String, String&gt; consumer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">KafkaConsumer</span>&lt;String, String&gt;(paramMap);<br>        <span class="hljs-comment">// TODO 订阅主题</span><br>        consumer.subscribe(Collections.singletonList(<span class="hljs-string">&quot;test&quot;</span>));<br>        <span class="hljs-comment">// TODO 消费数据</span><br>        <span class="hljs-keyword">final</span> ConsumerRecords&lt;String, String&gt; poll = consumer.poll(Duration.ofMillis(<span class="hljs-number">100</span>));<br>        <span class="hljs-comment">// TODO 遍历数据</span><br>        <span class="hljs-keyword">for</span> (ConsumerRecord&lt;String, String&gt; record : poll) &#123;<br>            System.out.println( record.value() );<br>        &#125;<br>        <span class="hljs-comment">// TODO 关闭消费者</span><br>        consumer.close();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h1 id="3-消费消息的基本原理"><a href="#3-消费消息的基本原理" class="headerlink" title="3 消费消息的基本原理"></a>3 消费消息的基本原理</h1><p>从数据处理的角度来讲，消费者和生产者的处理逻辑都相对比较简单。</p>
 <p>生产者的基本数据处理逻辑就是向Kafka发送数据，并获取Kafka的数据接收确认响应。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-2.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-2.png" alt="alt text"></p>
 <p>而消费者的基本数据处理逻辑就是向Kafka请求数据，并获取Kafka返回的数据。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-3.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-3.png" alt="alt text"></p>
 <p>逻辑确实很简单，但是Kafka为了能够构建高吞吐，高可靠性，高并发的分布式消息传输系统，所以在很多细节上进行了扩展和改善：比如生产者可以指定分区，可以异步和同步发送数据，可以进行幂等性操作和事务处理。对应的，消费者功能和处理细节也进行了扩展和改善。</p>
 <h2 id="3-1消费者组"><a href="#3-1消费者组" class="headerlink" title="3.1消费者组"></a>3.1消费者组</h2><h3 id="3-1-1-消费数据的方式：push-还是-pull-？"><a href="#3-1-1-消费数据的方式：push-还是-pull-？" class="headerlink" title="3.1.1 消费数据的方式：push 还是 pull ？"></a>3.1.1 消费数据的方式：push 还是 pull ？</h3><p>Kafka的主题如果就一个分区的话，那么在硬件配置相同的情况下，消费者Consumer消费主题数据的方式没有什么太大的差别。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-4.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-4.png" alt="alt text"></p>
 <p>不过，Kafka为了能够构建高吞吐，高可靠性，高并发的分布式消息传输系统，它的主题是允许多个分区的，那么就会发现不同的消费数据的方式区别还是很大的。</p>
 <ul>
 <li>如果数据由Kafka进行推送（push），那么多个分区的数据同时推送给消费者进行处理，明显一个消费者的消费能力是有限的，那么消费者无法快速处理数据，就会导致数据的积压，从而导致网络，存储等资源造成极大的压力，影响吞吐量和数据传输效率。</li>
 <li></li>
 </ul>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-5.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-5.png" alt="alt text"></p>
 <ul>
 <li>如果kafka的分区数据在内部可以存储的时间更长一些，再由消费者根据自己的消费能力向kafka申请（拉取）数据，那么整个数据处理的通道就会更顺畅一些。Kafka的Consumer就采用的这种拉取数据的方式。</li>
 <li></li>
 </ul>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-6.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-6.png" alt="alt text"></p>
 <h3 id="3-1-2-消费者组Consumer-Group"><a href="#3-1-2-消费者组Consumer-Group" class="headerlink" title="3.1.2 消费者组Consumer Group"></a>3.1.2 消费者组Consumer Group</h3><p>消费者可以根据自身的消费能力主动拉取Kafka的数据，但是毕竟自身的消费能力有限，如果主题分区的数据过多，那么消费的时间就会很长。对于kafka来讲，数据就需要长时间的进行存储，那么对Kafka集群资源的压力就非常大。</p>
 <p>如果希望提高消费者的消费能力，并且减少kafka集群的存储资源压力。所以有必要对消费者进行横向伸缩，从而提高消息消费速率。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-7.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-7.png" alt="alt text"></p>
 <p>多个消费者之间相互独立，任何一个消费者只能消费主题中的部分数据，对于某一个消费者个体来讲，主题中的其他部分数据是没有消费到的，它就会认为数据丢了，这个该如何解决呢？</p>
 <p>将这多个消费者当成一个整体，就是所谓的消费者组 Consumer Group。在kafka中，每个消费者都对应一个消费组，消费者可以是一个线程，一个进程，一个服务实例，如果kafka想要消费消息，那么需要指定消费那个topic的消息以及自己的消费组id(groupId)。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-8.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-8.png" alt="alt text"></p>
 <h2 id="3-2调度（协调）器Coordinator"><a href="#3-2调度（协调）器Coordinator" class="headerlink" title="3.2调度（协调）器Coordinator"></a>3.2调度（协调）器Coordinator</h2><p>消费者想要拉取数据，首先必须要加入到一个组中，成为消费组中的一员，同样道理，如果消费者出现了问题，也应该从消费者组中剥离。而这种加入组和退出组的处理，都应该由专门的管理组件进行处理，这个组件在kafka中，我们称之为消费者组调度器（协调）（Group Coordinator）</p>
 <p>Group Coordinator是Broker上的一个组件，用于管理和调度消费者组的成员、状态、分区分配、偏移量等信息。每个Broker都有一个Group Coordinator对象，负责管理多个消费者组，但每个消费者组只有一个Group Coordinator</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-9.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-9.png" alt="alt text"></p>
 <h2 id="3-3消费者分配策略Assignor"><a href="#3-3消费者分配策略Assignor" class="headerlink" title="3.3消费者分配策略Assignor"></a>3.3消费者分配策略Assignor</h2><p>消费者想要拉取主题分区的数据，首先必须要加入到一个组中。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-10.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-10.png" alt="alt text"></p>
 <p>但是一个组中有多个消费者的话，那么每一个消费者该如何消费呢，是不是像图中一样的消费策略呢？如果是的话，那假设消费者组中只有2个消费者或有4个消费者，和分区的数量不匹配，怎么办？所以这里，我们需要给大家介绍一下，Kafka中基本的消费者组中的消费者和分区之间的分配规则：</p>
 <ul>
 <li><p>同一个消费者组的消费者都订阅同一个主题，所以消费者组中的多个消费者可以共同消费一个主题中的所有数据。</p>
@@ -202,51 +202,51 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <li><p>为了避免数据被重复消费，所以主题一个分区的数据只能被组中的一个消费者消费，也就是说不能两个消费者同时消费一个分区的数据。但是反过来，一个消费者是可以消费多个分区数据的。</p>
 </li>
 </ul>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-11.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-11.png" alt="alt text"></p>
 <ul>
 <li>消费者组中的消费者数量最好不要超出主题分区的数据，就会导致多出的消费者是无法消费数据的，造成了资源的浪费。</li>
 </ul>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-12.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-12.png" alt="alt text"></p>
 <p>消费者中的每个消费者到底消费哪一个主题分区，这个分配策略其实是由消费者的Leader决定的，这个Leader我们称之为群主。群主是多个消费者中，第一个加入组中的消费者，其他消费者我们称之为Follower，称呼上有点类似与分区的Leader和Follower。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-13.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-13.png" alt="alt text"></p>
 <p>当消费者加入群组的时候，会发送一个JoinGroup请求。群主负责给每一个消费者分配分区。</p>
 <p>每个消费者只知道自己的分配信息，只有群主知道群组内所有消费者的分配信息。</p>
 <p>指定分配策略的基本流程：</p>
 <ol>
 <li>第一个消费者设定group.id为test，向当前负载最小的节点发送请求查找消费调度器。（Group Coordinator 作为 Kafka Broker 的内置模块存在，每个 Broker 都可能承担协调器的角色。当消费者组启动时，Kafka 集群会根据算法（如哈希消费者组ID取模）选择一个 Broker 作为该组的协调器。）</li>
 </ol>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-14.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-14.png" alt="alt text"></p>
 <ol start="2">
 <li>找到消费调度器后，消费者向调度器节点发出JOIN_GROUP请求，加入消费者组。</li>
 </ol>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-15.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-15.png" alt="alt text"></p>
 <ol start="3">
 <li>当前消费者当选为群主后，根据消费者配置中分配策略设计分区分配方案，并将分配好的方案告知调度器</li>
 </ol>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-16.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-16.png" alt="alt text"></p>
 <ol start="4">
 <li>此时第二个消费者设定group.id为test，申请加入消费者组</li>
 </ol>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-17.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-17.png" alt="alt text"></p>
 <ol start="5">
 <li>加入成功后，kafka将消费者组状态切换到准备rebalance，关闭和消费者的所有链接，等待它们重新加入。客户端重新申请加入，kafka从消费者组中挑选一个作为leader，其它的作为follower。（步骤和之前相同，我们假设还是之前的消费者为Leader）</li>
 </ol>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-18.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-18.png" alt="alt text"></p>
 <ol start="6">
 <li>Leader会按照分配策略对分区进行重分配，并将方案发送给调度器，由调度器通知所有的成员新的分配方案。组成员会按照新的方案重新消费数据</li>
 </ol>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-19.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-19.png" alt="alt text"></p>
 <p>Kafka提供的分区分配策略常用的有4个：</p>
 <ul>
 <li>RoundRobinAssignor（轮询分配策略）</li>
 </ul>
 <p>每个消费者组中的消费者都会含有一个自动生产的UUID作为memberid。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-20.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-20.png" alt="alt text"></p>
 <p>轮询策略中会将每个消费者按照memberid进行排序，所有member消费的主题分区根据主题名称进行排序。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-21.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-21.png" alt="alt text"></p>
 <p>将主题分区轮询分配给对应的订阅用户，注意未订阅当前轮询主题的消费者会跳过。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-22.png" alt="alt text"></p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-23.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-22.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-23.png" alt="alt text"></p>
 <p>从图中可以看出，轮询分配策略是存在缺点的，并不是那么的均衡，如果test1-2分区能够分配给消费者ccc是不是就完美了。</p>
 <ul>
 <li>RangeAssignor（范围分配策略）</li>
@@ -254,19 +254,19 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <p>按照每个topic的partition数计算出每个消费者应该分配的分区数量，然后分配，分配的原则就是一个主题的分区尽可能的平均分，如果不能平均分，那就按顺序向前补齐即可。</p>
 <figure class="highlight inform7"><table><tr><td class="code"><pre><code class="hljs inform7">#所谓按顺序向前补齐就是：<br>假设【1,2,3,4,5】5个分区分给2个消费者：<br>5 / 2 = 2, 5 % 2 = 1 =&gt; 剩余的一个补在第一个中<span class="hljs-comment">[2+1]</span><span class="hljs-comment">[2]</span> =&gt; 结果为<span class="hljs-comment">[1,2,3]</span><span class="hljs-comment">[4,5]</span><br><br>假设【1,2,3,4,5】5个分区分到3个消费者:<br>5 / 3 = 1, 5 % 3 = 2 =&gt; 剩余的两个补在第一个和第二个中<span class="hljs-comment">[1+1]</span><span class="hljs-comment">[1+1]</span><span class="hljs-comment">[1]</span> =&gt; 结果为<span class="hljs-comment">[1,2]</span><span class="hljs-comment">[3,4]</span><span class="hljs-comment">[5]</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-25.png" alt="alt text"></p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-24.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-25.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-24.png" alt="alt text"></p>
 <p>缺点：Range分配策略针对单个Topic的情况下显得比较均衡，但是假如Topic多的话, member排序靠前的可能会比member排序靠后的负载多很多。是不是也不够理想。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-26.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-26.png" alt="alt text"></p>
 <p>还有就是如果新增或移除消费者成员，那么会导致每个消费者都需要去建立新的分区节点的连接，更新本地的分区缓存，效率比较低。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-27.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-27.png" alt="alt text"></p>
 <ul>
 <li>StickyAssignor（粘性分区）</li>
 <li></li>
 </ul>
 <p>在第一次分配后，每个组成员都保留分配给自己的分区信息。如果有消费者加入或退出，那么在进行分区再分配时（一般情况下，消费者退出45s后，才会进行再分配，因为需要考虑可能又恢复的情况），尽可能保证消费者原有的分区不变，重新对加入或退出消费者的分区进行分配。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-28.png" alt="alt text"></p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-29.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-28.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-29.png" alt="alt text"></p>
 <p>从图中可以看出，粘性分区分配策略分配的会更加均匀和高效一些。</p>
 <ul>
 <li>CooperativeStickyAssignor</li>
@@ -277,14 +277,14 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <h3 id="3-4-1-起始偏移量"><a href="#3-4-1-起始偏移量" class="headerlink" title="3.4.1 起始偏移量"></a>3.4.1 起始偏移量</h3><p>在消费者的配置中，我们可以增加偏移量相关参数auto.offset.reset，用于从最开始获取主题数据</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.atguigu.test;<br><br><span class="hljs-keyword">import</span> org.apache.kafka.clients.consumer.*;<br><span class="hljs-keyword">import</span> org.apache.kafka.common.serialization.StringDeserializer;<br><br><span class="hljs-keyword">import</span> java.time.Duration;<br><span class="hljs-keyword">import</span> java.util.Arrays;<br><span class="hljs-keyword">import</span> java.util.HashMap;<br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KafkaConsumerTest</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br><br>        <span class="hljs-comment">// TODO 创建消费者配置参数集合</span><br>        Map&lt;String, Object&gt; paramMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        paramMap.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, <span class="hljs-string">&quot;localhost:9092&quot;</span>);<br>        paramMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, <span class="hljs-string">&quot;earliest&quot;</span>);<br>        paramMap.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());<br>        paramMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());<br>        paramMap.put(ConsumerConfig.GROUP_ID_CONFIG, <span class="hljs-string">&quot;test&quot;</span>);<br><br>        <span class="hljs-comment">// TODO 通过配置，创建消费者对象</span><br>        KafkaConsumer&lt;String, String&gt; consumer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">KafkaConsumer</span>&lt;String, String&gt;(paramMap);<br>        <span class="hljs-comment">// TODO 订阅主题</span><br>        consumer.subscribe(Arrays.asList(<span class="hljs-string">&quot;test&quot;</span>));<br><br>        <span class="hljs-keyword">while</span> ( <span class="hljs-literal">true</span> ) &#123;<br>            <span class="hljs-comment">// TODO 消费数据</span><br>            <span class="hljs-keyword">final</span> ConsumerRecords&lt;String, String&gt; poll = consumer.poll(Duration.ofMillis(<span class="hljs-number">100</span>));<br><br>            <span class="hljs-comment">// TODO 遍历数据</span><br>            <span class="hljs-keyword">for</span> (ConsumerRecord&lt;String, String&gt; record : poll) &#123;<br>                System.out.println( record );<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>参数取值有3个：</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-30.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-30.png" alt="alt text"></p>
 <ul>
-<li><p>earliest：对于同一个消费者组，从头开始消费。就是说如果这个topic有历史消息存在，现在新启动了一个消费者组，且auto.offset.reset&#x3D;earliest，那将会从头开始消费（未提交偏移量的场合）。<br><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-31.png" alt="alt text"></p>
+<li><p>earliest：对于同一个消费者组，从头开始消费。就是说如果这个topic有历史消息存在，现在新启动了一个消费者组，且auto.offset.reset&#x3D;earliest，那将会从头开始消费（未提交偏移量的场合）。<br><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-31.png" alt="alt text"></p>
 </li>
 <li><p>latest：对于同一个消费者组，消费者只能消费到连接topic后，新产生的数据（未提交偏移量的场合）。</p>
 </li>
 </ul>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-32.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-32.png" alt="alt text"></p>
 <ul>
 <li>none：生产环境不使用</li>
 </ul>
@@ -311,21 +311,21 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.atguigu.test;<br><br><span class="hljs-keyword">import</span> org.apache.kafka.clients.consumer.ConsumerConfig;<br><span class="hljs-keyword">import</span> org.apache.kafka.clients.consumer.ConsumerRecord;<br><span class="hljs-keyword">import</span> org.apache.kafka.clients.consumer.ConsumerRecords;<br><span class="hljs-keyword">import</span> org.apache.kafka.clients.consumer.KafkaConsumer;<br><span class="hljs-keyword">import</span> org.apache.kafka.common.serialization.StringDeserializer;<br><br><span class="hljs-keyword">import</span> java.time.Duration;<br><span class="hljs-keyword">import</span> java.util.Arrays;<br><span class="hljs-keyword">import</span> java.util.HashMap;<br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KafkaConsumerCommitSyncTest</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br><br>        <span class="hljs-comment">// TODO 创建消费者配置参数集合</span><br>        Map&lt;String, Object&gt; paramMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        paramMap.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, <span class="hljs-string">&quot;localhost:9092&quot;</span>);<br>        <span class="hljs-comment">// TODO 禁用自动提交消费偏移量，默认取值为true</span><br>        paramMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, <span class="hljs-literal">false</span>);<br>        paramMap.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());<br>        paramMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());<br>        paramMap.put(ConsumerConfig.GROUP_ID_CONFIG, <span class="hljs-string">&quot;test&quot;</span>);<br>        <span class="hljs-comment">// TODO 通过配置，创建消费者对象</span><br>        KafkaConsumer&lt;String, String&gt; consumer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">KafkaConsumer</span>&lt;String, String&gt;(paramMap);<br>        <span class="hljs-comment">// TODO 订阅主题</span><br>        consumer.subscribe(Arrays.asList(<span class="hljs-string">&quot;test&quot;</span>));<br>        <span class="hljs-keyword">while</span> ( <span class="hljs-literal">true</span> ) &#123;<br>            <span class="hljs-comment">// TODO 消费数据</span><br>            <span class="hljs-keyword">final</span> ConsumerRecords&lt;String, String&gt; poll = consumer.poll(Duration.ofMillis(<span class="hljs-number">100</span>));<br>            <span class="hljs-comment">// TODO 遍历处理数据</span><br>            <span class="hljs-keyword">for</span> (ConsumerRecord&lt;String, String&gt; record : poll) &#123;<br>                System.out.println( record );<br>            &#125;<br>            <span class="hljs-comment">// TODO 同步提交偏移量</span><br>            <span class="hljs-comment">//     此处需要注意，需要在拉取数据完成处理后再提交</span><br>            <span class="hljs-comment">//     否则提前提交了，但数据处理失败，下一次消费数据就拉取不到了</span><br>            consumer.commitSync();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h2 id="3-5消费者事务"><a href="#3-5消费者事务" class="headerlink" title="3.5消费者事务"></a>3.5消费者事务</h2><p>无论偏移量使用自动提交还是，手动提交，特殊场景中数据都有可能会出现重复消费。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-33.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-33.png" alt="alt text"></p>
 <p>如果提前提交偏移量，再处理业务，又可能出现数据丢失的情况。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-34.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-34.png" alt="alt text"></p>
 <p>对于单独的Consumer来讲，事务保证会比较弱，尤其是无法保证提交的信息被精确消费，主要原因就是消费者可以通过偏移量访问信息，而不同的数据文件生命周期不同，同一事务的信息可能会因为重启导致被删除的情况。所以一般情况下，想要完成kafka消费者端的事务处理，需要将数据消费过程和偏移量提交过程进行原子性绑定，也就是说数据处理完了，必须要保证偏移量正确提交，才可以做下一步的操作，如果偏移量提交失败，那么数据就恢复成处理之前的效果。</p>
 <p>对于生产者事务而言，消费者消费的数据也会受到限制。默认情况下，消费者只能消费到生产者提交的数据，生产者未提交的数据，消费者是看不到的。如果想要消费到生产者未提交的数据，需要更高消费事务隔离级别</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.atguigu.test;<br><br><span class="hljs-keyword">import</span> org.apache.kafka.clients.consumer.ConsumerConfig;<br><span class="hljs-keyword">import</span> org.apache.kafka.clients.consumer.ConsumerRecord;<br><span class="hljs-keyword">import</span> org.apache.kafka.clients.consumer.ConsumerRecords;<br><span class="hljs-keyword">import</span> org.apache.kafka.clients.consumer.KafkaConsumer;<br><span class="hljs-keyword">import</span> org.apache.kafka.common.TopicPartition;<br><span class="hljs-keyword">import</span> org.apache.kafka.common.serialization.StringDeserializer;<br><br><span class="hljs-keyword">import</span> java.time.Duration;<br><span class="hljs-keyword">import</span> java.util.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KafkaConsumerTransactionTest</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        Map&lt;String, Object&gt; paramMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        paramMap.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, <span class="hljs-string">&quot;localhost:9092&quot;</span>);<br>        paramMap.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());<br>        paramMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());<br>        <span class="hljs-comment">// TODO 隔离级别：已提交读，读取已经提交事务成功的数据（默认）</span><br>        <span class="hljs-comment">//paramMap.put(ConsumerConfig.ISOLATION_LEVEL_CONFIG, &quot;read_committed&quot;);</span><br>        <span class="hljs-comment">// TODO 隔离级别：未提交读，读取已经提交事务成功和未提交事务成功的数据</span><br>        paramMap.put(ConsumerConfig.ISOLATION_LEVEL_CONFIG, <span class="hljs-string">&quot;read_uncommitted&quot;</span>);<br>        paramMap.put(ConsumerConfig.GROUP_ID_CONFIG, <span class="hljs-string">&quot;test&quot;</span>);<br>        KafkaConsumer&lt;String, String&gt; c = <span class="hljs-keyword">new</span> <span class="hljs-title class_">KafkaConsumer</span>&lt;String, String&gt;(paramMap);<br>        c.subscribe(Collections.singletonList(<span class="hljs-string">&quot;test&quot;</span>));<br>        <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>            <span class="hljs-keyword">final</span> ConsumerRecords&lt;String, String&gt; poll = c.poll(Duration.ofMillis(<span class="hljs-number">100</span>));<br>            <span class="hljs-keyword">for</span> (ConsumerRecord&lt;String, String&gt; record : poll) &#123;<br>                System.out.println( record.value() );<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h2 id="3-6偏移量的保存"><a href="#3-6偏移量的保存" class="headerlink" title="3.6偏移量的保存"></a>3.6偏移量的保存</h2><p>由于消费者在消费消息的时候可能会由于各种原因而断开消费，当重新启动消费者时我们需要让它接着上次消费的位置offset继续消费，因此消费者需要实时的记录自己以及消费的位置。</p>
 <p>0.90版本之前，这个信息是记录在zookeeper内的，在0.90之后的版本，offset保存在__consumer_offsets这个topic内。<br>每个consumer会定期将自己消费分区的offset提交给kafka内部topic：__consumer_offsets，提交过去的时候，key是consumerGroupId+topic+分区号</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-35.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-35.png" alt="alt text"></p>
 <p>value就是当前offset的值，kafka会定期清理topic里的消息，最后就保留最新的那条数据。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-36.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-36.png" alt="alt text"></p>
 <p>因为__consumer_offsets可能会接收高并发的请求，kafka默认给其分配50个分区(可以通过offsets.topic.num.partitions设置)，均匀分配到Kafka集群的多个Broker中。Kafka采用hash(consumerGroupId) % __consumer_offsets主题的分区数来计算我们的偏移量提交到哪一个分区。因为偏移量也是保存到主题中的，所以保存的过程和生产者生产数据的过程基本相同。</p>
 <h2 id="3-7消费数据"><a href="#3-7消费数据" class="headerlink" title="3.7消费数据"></a>3.7消费数据</h2><p>消费者消费数据时，一般情况下，只是设定了订阅的主题名称，那是如何消费到数据的呢。我们这里说一下服务端拉取数据的基本流程。</p>
-<p><img src="/2024/06/12/C%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9Credis/image-37.png" alt="alt text"></p>
+<p><img src="/2025/02/28/Kafka%20%E6%B6%88%E8%B4%B9%E6%95%B0%E6%8D%AE/image-37.png" alt="alt text"></p>
 <ol>
 <li><p>服务端获取到用户拉取数据的请求<br>Kafka消费客户端会向Broker发送拉取数据的请求FetchRequest，服务端Broker获取到请求后根据请求标记FETCH交给应用处理接口KafkaApis进行处理。</p>
 </li>
@@ -341,4 +341,4 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <li><p>零拷贝<br>为了提高数据读取效率，Kafka的底层采用nio提供的FileChannel零拷贝技术，直接从操作系统内核中进行数据传输，提高数据拉取的效率。</p>
 </li>
 </ol>
-</div></article><div class="post-view__sidebar"><div class="sidebar"><div class="tocbot"><h2>Toc</h2><div class="toc__content"></div></div><h2>Links</h2><div class="sidebar__link"><ul><li><a target="_blank" rel="noopener" href="https://github.com/15hmael">Github</a></li><li><a href="/3556897601@qq.com">Mail</a></li></ul></div><h2>Archives</h2><div class="sidebar__archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/">2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul></div><h2>Categories</h2><div class="sidebar__categories"></div><h2>Tags</h2><div class="sidebar__tags"><ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Caffeine/" rel="tag">Caffeine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenResty/" rel="tag">OpenResty</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="tag">Redis.多级缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis%E9%AB%98%E7%BA%A7/" rel="tag">Redis高级</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reids/" rel="tag">Reids</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dpdk/" rel="tag">dpdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hiredis/" rel="tag">hiredis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" rel="tag">分布式缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="tag">多级缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%91%B8%E9%B1%BC/" rel="tag">摸鱼</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul></div></div></div></div><div class="horizontal-line" style="height: 1px"></div><div class="main__bottom"><div class="pre-next"><a class="pre-button" href="/2025/03/02/Kafka%20%E5%AE%9E%E6%88%98/">Kafka 实战</a><a class="next-button" href="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/">Kafka 存储数据</a></div></div></div></div><div class="footer"><span>©️2019-2025 Designed By&nbsp;<strong><a target="_blank" rel="noopener" href="https://github.com/random-yang">RandomYang</a></strong> Powered By&nbsp;</span><strong><a target="_blank" rel="noopener" href="https://hexo.io">hexo</a></strong></div><div class="darkmode-mask" id="darkmode-mask"></div><div class="sidebar__button"></div></body></html>
+</div></article><div class="post-view__sidebar"><div class="sidebar"><div class="tocbot"><h2>Toc</h2><div class="toc__content"></div></div><h2>Links</h2><div class="sidebar__link"><ul><li><a target="_blank" rel="noopener" href="https://github.com/15hmael">Github</a></li><li><a href="/3556897601@qq.com">Mail</a></li></ul></div><h2>Archives</h2><div class="sidebar__archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/">2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul></div><h2>Categories</h2><div class="sidebar__categories"></div><h2>Tags</h2><div class="sidebar__tags"><ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Caffeine/" rel="tag">Caffeine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenResty/" rel="tag">OpenResty</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="tag">Redis.多级缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis%E6%BA%90%E7%A0%81/" rel="tag">Redis源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis%E9%AB%98%E7%BA%A7/" rel="tag">Redis高级</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reids/" rel="tag">Reids</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dpdk/" rel="tag">dpdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hiredis/" rel="tag">hiredis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" rel="tag">分布式缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="tag">多级缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%91%B8%E9%B1%BC/" rel="tag">摸鱼</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul></div></div></div></div><div class="horizontal-line" style="height: 1px"></div><div class="main__bottom"><div class="pre-next"><a class="pre-button" href="/2025/03/02/Kafka%20%E5%AE%9E%E6%88%98/">Kafka 实战</a><a class="next-button" href="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/">Kafka 存储数据</a></div></div></div></div><div class="footer"><span>©️2019-2025 Designed By&nbsp;<strong><a target="_blank" rel="noopener" href="https://github.com/random-yang">RandomYang</a></strong> Powered By&nbsp;</span><strong><a target="_blank" rel="noopener" href="https://hexo.io">hexo</a></strong></div><div class="darkmode-mask" id="darkmode-mask"></div><div class="sidebar__button"></div></body></html>
