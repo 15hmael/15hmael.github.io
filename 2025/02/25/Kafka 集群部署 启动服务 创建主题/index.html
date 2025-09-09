@@ -1,0 +1,836 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0"><meta name="description" content="Kafka 集群部署 启动服务 创建主题 - Hexo"><meta name="theme-color" content="#6ba8a9"><title>Kafka 集群部署 启动服务 创建主题 - Hexo</title><style>@font-face {
+  font-family: 'Abril Fatface';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Abril Fatface'), local('AbrilFatface-Regular'), url(data:font/woff2;base64,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) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Abril Fatface';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Abril Fatface'), local('AbrilFatface-Regular'), url(data:font/woff2;base64,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BL3+M1K+NfPvjlJEHZTOrkYvtdprqx0Hka+W/IhsQoUJE0jsPVOhV2itgp3Wame8dsB73DeCOfp+FMSxp2At3aozP1zVQ/tmEpXdveum7kat3CaLXRcmTZHmOveMiqxSteCZOrGKmscOa9WycTUXtRFabrtts1Nb3e5qHtqWPMWtuEkMSdydcarhKoTcVXtBgujKwULbPFJvqywIzBjboUacECG6ajlIews5dBUMkJ/LYHa12gpRLEsBDAAA6raxOaTnbx4GG5J6hdn4twxT1DRvEQZvD6banOa3BbstVh48efHmw5cffwECBQkWIvK/LTbhIkSKEi1GrDjxEiRKkixFqjTpMmTKki1Hrjz5ChQqUqxEqTLlKlSqUq2e+hpoqJHGmmiqmeZhWGKoYfaZ7qXhxhtjnlWWxsBotw0xxWdfjDPDSEfc98l8q33z1XeLrXPKCeu10NJErZzR2kmnXXDWOee90sYVF12yQVsfTXLdVde088Y7o3TQXkedddLFQnb/qVGrq24cuuvhtZ5666WPfvraaZEB+htokLfe2+1GBDbalARuuueWzbbYboejttrmmBHW2O+AvUmRDMb6EEUsHHQoDskRjxRIiVRILev2qn1oaGpomZOB2z/jmn/eUk6tvaZda/5znbhPCguQ7wsEvd1strBI3OYR8ye01+ZO0jbH36oqKm37w90hl2v/wO5o3vIjtpoZx20H) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style><link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/index.css"><script src="https://cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js" defer></script><script src="/js/paper.js" defer></script><script src="https://www.googletagmanager.com/gtag/js?id=xx-xxxxxxx-xx" async></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbot.css"><script src="/js/tocbot.js" defer></script><script>window.addEventListener('DOMContentLoaded', () => {
+  tocbot.init({
+    // Where to render the table of contents.
+    tocSelector: '.toc__content',
+    // Where to grab the headings to build the table of contents.
+    contentSelector: '.article__content',
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    // For headings inside relative or absolute positioned containers within content.
+    hasInnerContainers: true,
+    orderedList: false,
+    collapseDepth: 2,
+  });
+})</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 7.3.0"></head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">Hexo</a></h1><p></p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">Kafka 集群部署 启动服务 创建主题</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">Kafka 集群部署 启动服务 创建主题</a></h2><span class="post__date">2025-02-25</span><a href="/tags/Kafka/"><span class="post__tags">#Kafka</span></a></div></div><div class="article__content"><h1 id="太变态了这个kafka"><a href="#太变态了这个kafka" class="headerlink" title="太变态了这个kafka"></a>太变态了这个kafka</h1><h2 id="1-集群部署"><a href="#1-集群部署" class="headerlink" title="1.集群部署"></a>1.集群部署</h2><ul>
+<li><p>将之前安装的kafka文件夹直接复制3份，文件夹名取集群三个kafka节点和一个zookeeper，注意文件路径不要太深，文件名不要太长，不然待会写的cmd脚本会因为指令太长无法执行<br><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image.png" alt="alt text"></p>
+</li>
+<li><p>修改一下配置文件，设置好每个节点数据的保存目录、端口、节点名，避免发生冲突<br>kafka节点的config目录下的server.properties</p>
+</li>
+</ul>
+<figure class="highlight ini"><table><tr><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">broker.id</span>=<span class="hljs-number">1</span><br><span class="hljs-attr">listeners</span>=PLAINTEXT://:<span class="hljs-number">9091</span><br><span class="hljs-attr">log.dirs</span>=D:/kafkac/k1/data<br></code></pre></td></tr></table></figure>
+
+<p>zookeeper的设置是config目录下的zookeeper.properties</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><code class="hljs haskell"><span class="hljs-title">dataDir</span>=<span class="hljs-type">D</span>:/kafkac/kz/<span class="hljs-class"><span class="hljs-keyword">data</span></span><br></code></pre></td></tr></table></figure>
+
+<p>启动命令cmd文件放在kafka节点文件夹下<br>call bin&#x2F;windows&#x2F;kafka-server-start.bat config&#x2F;server.properties<br><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-1.png" alt="alt text"><br><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-2.png" alt="alt text"></p>
+<p>同样的，启动cmd文件放在zookeeper文件夹下<br>call bin&#x2F;windows&#x2F;zookeeper-server-start.bat config&#x2F;zookeeper.properties<br><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-3.png" alt="alt text"><br><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-4.png" alt="alt text"></p>
+<p>到集群文件夹下，创建集群启动命令cmd和数据删除cmd<br><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-5.png" alt="alt text"></p>
+<figure class="highlight dos"><table><tr><td class="code"><pre><code class="hljs dos"><span class="hljs-built_in">cd</span> kz<br><span class="hljs-built_in">start</span> zk.<span class="hljs-built_in">cmd</span><br><span class="hljs-built_in">ping</span> <span class="hljs-number">127</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">1</span> -n <span class="hljs-number">10</span> &gt;<span class="hljs-built_in">nul</span><br><span class="hljs-built_in">cd</span> ../k1<br><span class="hljs-built_in">start</span> kfk.<span class="hljs-built_in">cmd</span><br><span class="hljs-built_in">cd</span> ../k2<br><span class="hljs-built_in">start</span> kfk.<span class="hljs-built_in">cmd</span><br><span class="hljs-built_in">cd</span> ../k3<br><span class="hljs-built_in">start</span> kfk.<span class="hljs-built_in">cmd</span><br></code></pre></td></tr></table></figure>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-6.png" alt="alt text"></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> kz<br>rd /s /q data<br><span class="hljs-built_in">cd</span> ../k1<br>rd /s /q data<br><span class="hljs-built_in">cd</span> ../k2<br>rd /s /q data<br><span class="hljs-built_in">cd</span> ../k3<br>rd /s /q data<br></code></pre></td></tr></table></figure>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-7.png" alt="alt text"></p>
+<p>集群文件夹下双击cluster.cmd启动集群</p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-9.png" alt="alt text"></p>
+<p>启动成功</p>
+<p>安装一个 prettyZoo</p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-8.png" alt="alt text"></p>
+<p>选择NEW查看我们刚启动的集群</p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-10.png" alt="alt text"></p>
+<p>链接成功</p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-11.png" alt="alt text"></p>
+<h2 id="2-启动服务"><a href="#2-启动服务" class="headerlink" title="2.启动服务"></a>2.启动服务</h2><h3 id="2-1-相关概念"><a href="#2-1-相关概念" class="headerlink" title="2.1 相关概念"></a>2.1 相关概念</h3><h4 id="2-1-1-代理：Broker"><a href="#2-1-1-代理：Broker" class="headerlink" title="2.1.1 代理：Broker"></a>2.1.1 代理：Broker</h4><p>使用Kafka前，我们都会启动Kafka服务进程，这里的Kafka服务进程我们一般会称之为Kafka Broker或Kafka Server。因为Kafka是分布式消息系统，所以在实际的生产环境中，是需要多个服务进程形成集群提供消息服务的。所以每一个服务节点都是一个broker，而且在Kafka集群中，为了区分不同的服务节点，每一个broker都应该有一个不重复的全局ID，称之为broker.id，这个ID可以在kafka软件的配置文件server.properties中进行配置</p>
+<p>broker.id&#x3D;0</p>
+<p>刚刚启动的Kafka集群中每一个节点都有自己的ID，整数且唯一。</p>
+<table>
+<thead>
+<tr>
+<th>主机</th>
+<th>kafka-broker1</th>
+<th>kafka-broker2</th>
+<th>kafka-broker3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>​<strong>broker.id</strong>​</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+</tbody></table>
+<h4 id="2-1-2-控制器：Controller"><a href="#2-1-2-控制器：Controller" class="headerlink" title="2.1.2 控制器：Controller"></a>2.1.2 控制器：Controller</h4><p>Kafka是分布式消息传输系统，所以存在多个Broker服务节点，但是它的软件架构采用的是分布式系统中比较常见的主从（Master - Slave）架构，也就是说需要从多个Broker中找到一个用于管理整个Kafka集群的Master节点，这个节点，我们就称之为Controller。它是Apache Kafka的核心组件，主要作用是在Apache Zookeeper的帮助下管理和协调控制整个Kafka集群。</p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-12.png" alt="alt text"></p>
+<p>如果在运行过程中，Controller节点出现了故障，那么Kafka会依托于ZooKeeper软件选举其他的节点作为新的Controller，让Kafka集群实现高可用。</p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-13.png" alt="alt text"></p>
+<p>Kafka集群中Controller的基本功能：</p>
+<ul>
+<li>Broker管理 监听 &#x2F;brokers&#x2F;ids节点相关的变化：<ul>
+<li>Broker数量增加或减少的变化</li>
+<li>Broker对应的数据变化</li>
+</ul>
+</li>
+<li>Topic管理<ul>
+<li>新增：监听 &#x2F;brokers&#x2F;topics节点相关的变化</li>
+<li>修改：监听 &#x2F;brokers&#x2F;topics节点相关的变化</li>
+<li>删除：监听 &#x2F;admin&#x2F;delete_topics节点相关的变化</li>
+</ul>
+</li>
+<li>Partition管理<ul>
+<li>监听 &#x2F;admin&#x2F;reassign_partitions节点相关的变化</li>
+<li>监听 &#x2F;isr_change_notification节点相关的变化</li>
+<li>监听 &#x2F;preferred_replica_election节点相关的变化</li>
+</ul>
+</li>
+<li>数据服务<ul>
+<li>启动分区状态机和副本状态机</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-启动ZooKeeper"><a href="#2-2-启动ZooKeeper" class="headerlink" title="2.2 启动ZooKeeper"></a>2.2 启动ZooKeeper</h3><p>Kafka集群中含有多个服务节点，而分布式系统中经典的主从（Master - Slave）架构就要求从多个服务节点中找一个节点作为集群管理Master，Kafka集群中的这个Master，我们称之为集群控制器Controller</p>
+<p>如果此时Controller节点出现故障，它就不能再管理集群功能，那么其他的Slave节点该如何是好呢？</p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-14.png" alt="alt text"></p>
+<p>如果从剩余的2个Slave节点中选一个节点出来作为新的集群控制器是不是一个不错的方案，我们将这个选择的过程称之为：选举（elect）。方案是不错，但是问题就在于选哪一个Slave节点呢？不同的软件实现类似的选举功能都会有一些选举算法，而Kafka是依赖于ZooKeeper软件实现Broker节点选举功能。</p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-15.png" alt="alt text"></p>
+<p>ZooKeeper如何实现Kafka的节点选举呢？这就要说到我们用到ZooKeeper的3个功能：</p>
+<ul>
+<li>一个是在ZooKeeper软件中创建节点Node，创建一个Node时，我们会设定这个节点是持久化创建，还是临时创建。所谓的持久化创建，就是Node一旦创建后会一直存在，而临时创建，是根据当前的客户端连接创建的临时节点Node，一旦客户端连接断开，那么这个临时节点Node也会被自动删除，所以这样的节点称之为临时节点。</li>
+<li>ZooKeeper节点是不允许有重复的,所以多个客户端创建同一个节点，只能有一个创建成功。</li>
+<li>另外一个是客户端可以在ZooKeeper的节点上增加监听器，用于监听节点的状态变化，一旦监听的节点状态发生变化，那么监听器就会触发响应，实现特定监听功能。</li>
+</ul>
+<p>有了上面的三个知识点，我们这里就介绍一下Kafka是如何利用ZooKeeper实现Controller节点的选举的：</p>
+<ul>
+<li>第一次启动Kafka集群时，会同时启动多个Broker节点，每一个Broker节点就会连接ZooKeeper，并尝试创建一个临时节点 &#x2F;controller</li>
+<li>因为ZooKeeper中一个节点不允许重复创建，所以多个Broker节点，最终只能有一个Broker节点可以创建成功，那么这个创建成功的Broker节点就会自动作为Kafka集群控制器节点，用于管理整个Kafka集群。</li>
+<li>没有选举成功的成为Slave节点，它们会创建Node监听器，用于监听 &#x2F;controller节点的状态变化。</li>
+<li>一旦Controller节点出现故障或挂掉了，那么对应的ZooKeeper客户端连接就会中断。ZooKeeper中的 &#x2F;controller 节点就会自动被删除，而其他的那些Slave节点因为增加了监听器，所以当监听到 &#x2F;controller 节点被删除后，就会马上向ZooKeeper发出创建 &#x2F;controller 节点的请求，一旦创建成功，那么该Broker就变成了新的Controller节点了。<br>现在我们能明白启动Kafka集群之前，为什么要先启动ZooKeeper集群了吧。就是因为ZooKeeper可以协助Kafka进行集群管理。</li>
+</ul>
+<h3 id="2-3-启动Kafka"><a href="#2-3-启动Kafka" class="headerlink" title="2.3 启动Kafka"></a>2.3 启动Kafka</h3><p>ZooKeeper已经启动好了，那我们现在可以启动多个Kafka Broker节点构建Kafka集群了。构建的过程中，每一个Broker节点就是一个Java进程，而在这个进程中，有很多需要提前准备好，并进行初始化的内部组件对象。</p>
+<h4 id="2-3-1初始化ZooKeeper"><a href="#2-3-1初始化ZooKeeper" class="headerlink" title="2.3.1初始化ZooKeeper"></a>2.3.1初始化ZooKeeper</h4><p>Kafka Broker启动时，首先会先创建ZooKeeper客户端（KafkaZkClient），用于和ZooKeeper进行交互。客户端对象创建完成后，会通过该客户端对象向ZooKeeper发送创建Node的请求，注意，这里创建的Node都是持久化Node。</p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-17.png" alt="alt text"></p>
+<table>
+<thead>
+<tr>
+<th>节点</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/admin/delete_topics</code></td>
+<td>持久化节点</td>
+<td>配置需要删除的 topic，因为删除过程中，可能 broker 下线，或执行失败，那么就需要在 broker 重新上线后，根据当前节点继续删除操作，一旦 topic 所有的分区数据全部删除，那么当前节点的数据才会进行清理。</td>
+</tr>
+<tr>
+<td><code>/brokers/ids</code></td>
+<td>持久化节点</td>
+<td>服务节点 ID 标识，只要 broker 启动，那么就会在当前节点中增加子节点，brokerID 不能重复。</td>
+</tr>
+<tr>
+<td><code>/brokers/topics</code></td>
+<td>持久化节点</td>
+<td>服务节点中的主题详细信息，包括分区，副本。</td>
+</tr>
+<tr>
+<td><code>/brokers/seqid</code></td>
+<td>持久化节点</td>
+<td>seqid 主要用于自动生产 brokerId。</td>
+</tr>
+<tr>
+<td><code>/config/changes</code></td>
+<td>持久化节点</td>
+<td>Kafka 的元数据发生变化时，会向该节点下创建子节点，并写入对应信息。</td>
+</tr>
+<tr>
+<td><code>/config/clients</code></td>
+<td>持久化节点</td>
+<td>客户端配置，默认为空。</td>
+</tr>
+<tr>
+<td><code>/config/brokers</code></td>
+<td>持久化节点</td>
+<td>服务节点相关配置，默认为空。</td>
+</tr>
+<tr>
+<td><code>/config/ips</code></td>
+<td>持久化节点</td>
+<td>IP 配置，默认为空。</td>
+</tr>
+<tr>
+<td><code>/config/topics</code></td>
+<td>持久化节点</td>
+<td>主题配置，默认为空。</td>
+</tr>
+<tr>
+<td><code>/config/users</code></td>
+<td>持久化节点</td>
+<td>用户配置，默认为空。</td>
+</tr>
+<tr>
+<td><code>/consumers</code></td>
+<td>持久化节点</td>
+<td>消费者节点，用于记录消费者相关信息。</td>
+</tr>
+<tr>
+<td><code>/isr_change_notification</code></td>
+<td>持久化节点</td>
+<td>ISR 列表发生变更时候的通知，在 Kafka 当中由于存在 ISR 列表变更的情况发生，为了保证 ISR 列表更新的及时性，定义了 <code>isr_change_notification</code> 这个节点，主要用于通知 Controller 来及时将 ISR 列表进行变更。</td>
+</tr>
+<tr>
+<td><code>/latest_producer_id_block</code></td>
+<td>持久化节点</td>
+<td>保存 PID 块，主要用于能够保证生产者的任意写入请求都能够得到响应。</td>
+</tr>
+<tr>
+<td><code>/log_dir_event_notification</code></td>
+<td>持久化节点</td>
+<td>主要用于保存当 broker 当中某些数据路径出现异常时候，例如磁盘损坏，文件读写失败等异常时候，向 ZooKeeper 当中增加一个通知序号，Controller 节点监听到这个节点的变化之后，就会做出对应的处理操作。</td>
+</tr>
+<tr>
+<td><code>/cluster/id</code></td>
+<td>持久化节点</td>
+<td>主要用于保存 Kafka 集群的唯一 id 信息，每个 Kafka 集群都会给分配一个唯一 id，以及对应的版本号。</td>
+</tr>
+</tbody></table>
+<h4 id="2-3-2初始化服务"><a href="#2-3-2初始化服务" class="headerlink" title="2.3.2初始化服务"></a>2.3.2初始化服务</h4><p>Kafka Broker中有很多的服务对象，用于实现内部管理和外部通信操作。</p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-18.png" alt="alt text"></p>
+<ul>
+<li>启动任务调度器<br>每一个Broker在启动时都会创建内部调度器（KafkaScheduler）并启动，用于完成节点内部的工作任务。底层就是Java中的定时任务线程池ScheduledThreadPoolExecutor</li>
+<li>创建数据管理器<br>每一个Broker在启动时都会创建数据管理器（LogManager），用于接收到消息后，完成后续的数据创建，查询，清理等处理。</li>
+<li>创建远程数据管理器<br>每一个Broker在启动时都会创建远程数据管理器（RemoteLogManager），用于和其他Broker节点进行数据状态同步。</li>
+<li>创建副本管理器<br>每一个Broker在启动时都会创建副本管理器（ReplicaManager），用于对主题的副本进行处理。</li>
+<li>创建ZK元数据缓存<br>每一个Broker在启动时会将ZK的关于Kafka的元数据进行缓存，创建元数据对象（ZkMetadataCache）</li>
+<li>创建Broker通信对象<br>每一个Broker在启动时会创建Broker之间的通道管理器对象（BrokerToControllerChannelManager），用于管理Broker和Controller之间的通信。</li>
+<li>创建网络通信对象<br>每一个Broker在启动时会创建自己的网络通信对象（SocketServer），用于和其他Broker之间的进行通信，其中包含了Java用于NIO通信的Channel、Selector对象。</li>
+<li>注册Broker节点<br>Broker启动时，会通过ZK客户端对象向ZK注册当前的Broker 节点ID，注册后创捷的ZK节点为临时节点。如果当前Broker的ZK客户端断开和ZK的连接，注册的节点会被删除。</li>
+</ul>
+<h4 id="2-3-3启动控制器"><a href="#2-3-3启动控制器" class="headerlink" title="2.3.3启动控制器"></a>2.3.3启动控制器</h4><p>控制器（KafkaController）是每一个Broker启动时都会创建的核心对象，用于和ZK之间建立连接并申请自己为整个Kafka集群的Master管理者。如果申请成功，那么会完成管理者的初始化操作，并建立和其他Broker之间的数据通道接收各种事件，进行封装后交给事件管理器，并定义了process方法，用于真正处理各类事件。</p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-19.png" alt="alt text"></p>
+<ul>
+<li>初始化通道管理器<br>创建通道管理器（ControllerChannelManager），该管理器维护了Controller和集群所有Broker节点之间的网络连接，并向Broker发送控制类请求及接收响应。</li>
+<li>初始化事件管理器<br>创建事件管理器（ControllerEventManager）维护了Controller和集群所有Broker节点之间的网络连接，并向Broker发送控制类请求及接收响应。</li>
+<li>初始化状态管理器<br>创建状态管理器（ControllerChangeHandler）可以监听 &#x2F;controller 节点的操作，一旦节点创建（ControllerChange），删除（Reelect），数据发生变化（ControllerChange），那么监听后执行相应的处理。</li>
+<li>启动控制器<br>控制器对象启动后，会向事件管理器发送Startup事件，事件处理线程接收到事件后会通过ZK客户端向ZK申请 &#x2F;controller 节点，申请成功后，执行当前节点成为Controller的一些列操作。主要是注册各类 ZooKeeper 监听器、删除日志路径变更和 ISR 副本变更通知事件、启动 Controller 通道管理器，以及启动副本状态机和分区状态机。</li>
+</ul>
+<h2 id="3-创建主题"><a href="#3-创建主题" class="headerlink" title="3.创建主题"></a>3.创建主题</h2><p>Topic主题是Kafka中消息的逻辑分类，但是这个分类不应该是固定的，而是应该由外部的业务场景进行定义（注意：Kafka中其实是有两个固定的，用于记录消费者偏移量和事务处理的主题），所以Kafka提供了相应的指令和客户端进行主题操作。</p>
+<h3 id="3-1-相关概念"><a href="#3-1-相关概念" class="headerlink" title="3.1 相关概念"></a>3.1 相关概念</h3><h4 id="3-1-1-主题：Topic"><a href="#3-1-1-主题：Topic" class="headerlink" title="3.1.1 主题：Topic"></a>3.1.1 主题：Topic</h4><p>Kafka是分布式消息传输系统，采用的数据传输方式为发布，订阅模式，也就是说由消息的生产者发布消息，消费者订阅消息后获取数据。为了对消费者订阅的消息进行区分，所以对消息在逻辑上进行了分类，这个分类我们称之为主题：Topic。消息的生产者必须将消息数据发送到某一个主题，而消费者必须从某一个主题中获取消息，并且消费者可以同时消费一个或多个主题的数据。Kafka集群中可以存放多个主题的消息数据。<br>为了防止主题的名称和监控指标的名称产生冲突，官方推荐主题的名称中不要同时包含下划线和点。</p>
+<h4 id="3-1-2-分区：Partition"><a href="#3-1-2-分区：Partition" class="headerlink" title="3.1.2 分区：Partition"></a>3.1.2 分区：Partition</h4><p>Kafka消息传输采用发布、订阅模式，所以消息生产者必须将数据发送到一个主题，假如发送给某个主题的数据非常多，这个主题所在的broker节点的负载和吞吐量就会受到极大的考验，甚至有可能因为热点问题引起broker节点故障，导致服务不可用。</p>
+<p>一个好的方案就是将一个主题从物理上分成几块，然后将不同的数据块均匀地分配到不同的broker节点上，这样就可以缓解单节点的负载问题。这个主题的分块我们称之为：分区partition。</p>
+<p>默认情况下，topic主题创建时分区数量为1，也就是一块分区，可以指定参数–partitions改变。Kafka的分区解决了单一主题topic线性扩展的问题，也解决了负载均衡的问题。</p>
+<p>topic主题的每个分区都会用一个编号进行标记，一般是从0开始的连续整数数字。Partition分区是物理上的概念，也就意味着会以数据文件的方式真实存在。每个topic包含一个或多个partition，每个partition都是一个有序的队列。partition中每条消息都会分配一个有序的ID，称之为偏移量：Offset</p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-20.png" alt="alt text"></p>
+<h4 id="3-1-3-副本：Replication"><a href="#3-1-3-副本：Replication" class="headerlink" title="3.1.3 副本：Replication"></a>3.1.3 副本：Replication</h4><p>分布式系统出现错误是比较常见的，只要保证集群内部依然存在可用的服务节点即可，当然效率会有所降低，不过只要能保证系统可用就可以了。咱们Kafka的topic也存在类似的问题，也就是说，如果一个topic划分了多个分区partition，那么这些分区就会均匀地分布在不同的broker节点上，一旦某一个broker节点出现了问题，那么在这个节点上的分区就会出现问题，那么Topic的数据就不完整了。所以一般情况下，为了防止出现数据丢失的情况，我们会给分区数据设定多个备份，这里的备份，我们称之为：副本Replication。</p>
+<p>Kafka支持多副本，使得主题topic可以做到更多容错性，牺牲性能与空间去换取更高的可靠性。</p>
+<p>注意：这里不能将备份和原件放置在同一个broker中，因为一旦某个broker出现故障，它保有的副本也都不能用了，那么副本的意义就没有了。</p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-21.png" alt="alt text"></p>
+<h4 id="3-1-4-副本类型：Leader-Follower"><a href="#3-1-4-副本类型：Leader-Follower" class="headerlink" title="3.1.4 副本类型：Leader &amp; Follower"></a>3.1.4 副本类型：Leader &amp; Follower</h4><p>假设我们有一份文件，一般情况下，我们对副本的理解应该是有一个正式的完整文件，然后这个文件的备份，我们称之为副本。但是在Kafka中，不是这样的，所有的文件都称之为副本，只不过会选择其中的一个文件作为主文件，称之为：Leader(主导)副本，其他的文件作为备份文件，称之为：Follower（追随）副本。在Kafka中，一个文件对应一个主题下的一个分区，每一个分区都可以存在1个或多个副本，但只有Leader副本才能进行数据的读写，Follower副本只做备份使用。</p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-22.png" alt="alt text"></p>
+<h4 id="3-1-5-日志：Log"><a href="#3-1-5-日志：Log" class="headerlink" title="3.1.5 日志：Log"></a>3.1.5 日志：Log</h4><p>Kafka最开始的应用场景就是日志场景或MQ场景，更多的扮演着一个日志传输和存储系统，这是Kafka立家之本。所以Kafka接收到的消息数据最终都是存储在log日志文件中的，底层存储数据的文件的扩展名就是log。<br>主题创建后，会创建对应的分区数据Log日志。并打开文件连接通道，随时准备写入数据。</p>
+<h3 id="3-2-创建第一个主题"><a href="#3-2-创建第一个主题" class="headerlink" title="3.2 创建第一个主题"></a>3.2 创建第一个主题</h3><p>创建主题Topic的方式有很多种：命令行，工具，客户端API，自动创建。在server.properties文件中配置参数auto.create.topics.enable&#x3D;true时，如果访问的主题不存在，那么Kafka就会自动创建主题，这个操作不在我们的讨论范围内。由于我们学习的重点在于学习原理和基础概念，所以这里我们选择比较基础的命令行方式即可。<br>我们首先创建的主题，仅仅指明主题的名称即可，其他参数暂时无需设定。</p>
+<ul>
+<li>执行指令</li>
+</ul>
+<p>cd &#x2F;kafka<br>bin&#x2F;kafka-topics.sh –bootstrap-server kafka-broker1:9092 –create –topic first-topic</p>
+<ul>
+<li>ZooKeeper节点变化</li>
+</ul>
+<p>指令执行后，当前Kafka会增加一个主题，因为指令中没有配置分区和副本参数，所以当前主题分区数量为默认值1，编号为0，副本为1，编号为所在broker的ID值。为了方便集群的管理，创建topic时，会同时在ZK中增加子节点，记录主题相关配置信息：</p>
+<p>&#x2F;config&#x2F;topics节点中会增加first-topic节点。<br><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-24.png" alt="alt text"></p>
+<p>&#x2F;brokers&#x2F;topics节点中会增加first-topic节点以及相应的子节点。<br><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-25.png" alt="alt text"></p>
+<table>
+<thead>
+<tr>
+<th>节点</th>
+<th>节点类型</th>
+<th>数据名称</th>
+<th>数据值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/topics/request-topic</code></td>
+<td>持久类型</td>
+<td><code>removing_replicas</code></td>
+<td>无</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><code>partitions</code></td>
+<td><code>&#123;&quot;0&quot;:[3]&#125;</code></td>
+<td>分区配置</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><code>topic_id</code></td>
+<td>随机字符串</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><code>adding_replicas</code></td>
+<td>无</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><code>version</code></td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td><code>/topics/first-topic/partitions</code></td>
+<td>持久类型</td>
+<td></td>
+<td></td>
+<td>主题分区节点，每个主题都应该设置分区，保存在该节点</td>
+</tr>
+<tr>
+<td><code>/topics/first-topic/partitions/0</code></td>
+<td>持久类型</td>
+<td></td>
+<td></td>
+<td>主题分区副本节点，因为当前主题只有一个分区，所以编号为 0</td>
+</tr>
+<tr>
+<td><code>/topics/first-topic/partitions/0/state</code></td>
+<td>持久类型</td>
+<td><code>controller_epoch</code></td>
+<td>7</td>
+<td>主题分区副本状态节点</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><code>leader</code></td>
+<td>3</td>
+<td>Leader 副本所在的 broker Id</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><code>version</code></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><code>leader_epoch</code></td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><code>isr</code></td>
+<td><code>[3]</code></td>
+<td>副本同步列表，因为当前只有一个副本，所以副本中只有一个副本编号</td>
+</tr>
+</tbody></table>
+<ul>
+<li>数据存储位置</li>
+</ul>
+<p>主题创建后，需要找到一个用于存储分区数据的位置，根据上面ZooKeeper存储的节点配置信息可以知道，当前主题的分区数量为1，副本数量为1，那么数据存储的位置就是副本所在的broker节点，从当前数据来看，数据存储在我们的第三台broker上。<br>路径中的00000000000000000000.log文件就是真正存储消息数据的文件，文件名称中的0表示当前文件的起始偏移量为0，index文件和timeindex文件都是数据索引文件，用于快速定位数据。只不过index文件采用偏移量的方式进行定位，而timeindex是采用时间戳的方式。</p>
+<h3 id="3-3-创建第二个主题"><a href="#3-3-创建第二个主题" class="headerlink" title="3.3 创建第二个主题"></a>3.3 创建第二个主题</h3><p>接下来我们创建第二个主题，不过创建时，我们需要设定分区参数 –partitions，参数值为3，表示创建3个分区</p>
+<ul>
+<li>执行指令</li>
+</ul>
+<p>cd &#x2F;kafka<br>bin&#x2F;kafka-topics.sh –bootstrap-server kafka-broker1:9092 –create –topic second-topic –partitions 3</p>
+<ul>
+<li>ZooKeeper节点变化</li>
+</ul>
+<p>指令执行后，当前Kafka会增加一个主题，因为指令中指定了分区数量（–partitions 3），所以当前主题分区数量为3，编号为[0、1、2]，副本为1，编号为所在broker的ID值。为了方便集群的管理，创建Topic时，会同时在ZK中增加子节点，记录主题相关配置信息：</p>
+<p>&#x2F;config&#x2F;topics节点中会增加second-topic节点。</p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-28.png" alt="alt text"></p>
+<p>&#x2F;brokers&#x2F;topics节点中会增加second-topic节点以及相应的子节点。</p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-29.png" alt="alt text"></p>
+<table>
+<thead>
+<tr>
+<th>节点</th>
+<th>节点类型</th>
+<th>数据名称</th>
+<th>数据值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x2F;topics&#x2F;second - topic</td>
+<td>持久类型</td>
+<td>removing_replicas</td>
+<td>无</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;second - topic</td>
+<td>持久类型</td>
+<td>partitions</td>
+<td>{“2”:[3],”1”:[2],”0”:[1]}</td>
+<td>分区配置</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;second - topic</td>
+<td>持久类型</td>
+<td>topic_id</td>
+<td>随机字符串</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;second - topic</td>
+<td>持久类型</td>
+<td>adding_replicas</td>
+<td>无</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;second - topic</td>
+<td>持久类型</td>
+<td>version</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;second - topic&#x2F;partitions</td>
+<td>持久类型</td>
+<td></td>
+<td></td>
+<td>主题分区节点，每个主题都应该设置分区，保存在该节点</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;second - topic&#x2F;partitions&#x2F;0</td>
+<td>持久类型</td>
+<td></td>
+<td></td>
+<td>主题分区副本节点，因为当前主题有3个分区，第一个分区编号为0</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;second - topic&#x2F;partitions&#x2F;0&#x2F;state</td>
+<td>持久类型</td>
+<td>controller_epoch</td>
+<td>7</td>
+<td>主题分区副本状态节点</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;second - topic&#x2F;partitions&#x2F;0&#x2F;state</td>
+<td>持久类型</td>
+<td>leader</td>
+<td>1</td>
+<td>Leader副本所在的broker Id</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;second - topic&#x2F;partitions&#x2F;0&#x2F;state</td>
+<td>持久类型</td>
+<td>version</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;second - topic&#x2F;partitions&#x2F;0&#x2F;state</td>
+<td>持久类型</td>
+<td>leader_epoch</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;second - topic&#x2F;partitions&#x2F;0&#x2F;state</td>
+<td>持久类型</td>
+<td>isr</td>
+<td>[1]</td>
+<td>副本同步列表，因为当前只有一个副本，所以副本中只有一个副本编号</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;second - topic&#x2F;partitions&#x2F;1</td>
+<td>持久类型</td>
+<td></td>
+<td></td>
+<td>主题分区副本节点，因为当前主题有3个分区，当前为第2个分区，所以编号为1</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;second - topic&#x2F;partitions&#x2F;1&#x2F;state</td>
+<td>持久类型</td>
+<td>controller_epoch</td>
+<td>7</td>
+<td>主题分区副本状态节点</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;second - topic&#x2F;partitions&#x2F;1&#x2F;state</td>
+<td>持久类型</td>
+<td>leader</td>
+<td>2</td>
+<td>Leader副本所在的broker Id</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;second - topic&#x2F;partitions&#x2F;1&#x2F;state</td>
+<td>持久类型</td>
+<td>version</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;second - topic&#x2F;partitions&#x2F;1&#x2F;state</td>
+<td>持久类型</td>
+<td>leader_epoch</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;second - topic&#x2F;partitions&#x2F;1&#x2F;state</td>
+<td>持久类型</td>
+<td>isr</td>
+<td>[2]</td>
+<td>副本同步列表，因为当前只有一个副本，所以副本中只有一个副本编号</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;second - topic&#x2F;partitions&#x2F;2</td>
+<td>持久类型</td>
+<td></td>
+<td></td>
+<td>主题分区副本节点，因为当前主题有3个分区，当前为第3个分区，所以编号为2</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;second - topic&#x2F;partitions&#x2F;2&#x2F;state</td>
+<td>持久类型</td>
+<td>controller_epoch</td>
+<td>7</td>
+<td>主题分区副本状态节点</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;second - topic&#x2F;partitions&#x2F;2&#x2F;state</td>
+<td>持久类型</td>
+<td>leader</td>
+<td>3</td>
+<td>Leader副本所在的broker Id</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;second - topic&#x2F;partitions&#x2F;2&#x2F;state</td>
+<td>持久类型</td>
+<td>version</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;second - topic&#x2F;partitions&#x2F;2&#x2F;state</td>
+<td>持久类型</td>
+<td>leader_epoch</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;second - topic&#x2F;partitions&#x2F;2&#x2F;state</td>
+<td>持久类型</td>
+<td>isr</td>
+<td>[3]</td>
+<td>副本同步列表，因为当前只有一个副本，所以副本中只有一个副本编号</td>
+</tr>
+</tbody></table>
+<ul>
+<li>数据存储位置</li>
+</ul>
+<p>当前主题的分区数量为3，副本数量为1，那么每个broker节点各存储三个分区中的一个分区的Leader副本。</p>
+<h3 id="3-4-创建第三个主题"><a href="#3-4-创建第三个主题" class="headerlink" title="3.4 创建第三个主题"></a>3.4 创建第三个主题</h3><p>接下来我们创建第三个主题，不过创建时，我们需要设定副本参数 –replication-factor，参数值为3，表示每个分区创建3个副本。</p>
+<ul>
+<li>执行指令</li>
+</ul>
+<p>cd &#x2F;kafka<br>bin&#x2F;kafka-topics.sh –bootstrap-server kafka-broker1:9092 –create –topic third-topic –partitions 3 –replication-factor 3</p>
+<ul>
+<li>ZooKeeper节点变化</li>
+</ul>
+<p>指令执行后，当前Kafka会增加一个主题，因为指令中指定了分区数量和副本数量（–replication-factor 3），所以当前主题分区数量为3，编号为[0、1、2]，副本为3，编号为[1、2、3]。为了方便集群的管理，创建Topic时，会同时在ZK中增加子节点，记录主题相关配置信息：</p>
+<p>&#x2F;config&#x2F;topics节点中会增加third-topic节点。</p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-30.png" alt="alt text"></p>
+<p>&#x2F;brokers&#x2F;topics节点中会增加third-topic节点以及相应的子节点。</p>
+<p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-31.png" alt="alt text"></p>
+<table>
+<thead>
+<tr>
+<th>节点</th>
+<th>节点类型</th>
+<th>数据名称</th>
+<th>数据值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x2F;topics&#x2F;third - topic</td>
+<td>持久类型</td>
+<td>removing_replicas</td>
+<td>无</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;third - topic</td>
+<td>持久类型</td>
+<td>partitions</td>
+<td>{“2”:[1,2,3],”1”:[3,1,2],”0”:[2,3,1]}</td>
+<td>分区配置</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;third - topic</td>
+<td>持久类型</td>
+<td>topic_id</td>
+<td>随机字符串</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;third - topic</td>
+<td>持久类型</td>
+<td>adding_replicas</td>
+<td>无</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;third - topic</td>
+<td>持久类型</td>
+<td>version</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;third - topic&#x2F;partitions</td>
+<td>持久类型</td>
+<td></td>
+<td></td>
+<td>主题分区节点，每个主题都应该设置分区，保存在该节点</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;third - topic&#x2F;partitions&#x2F;0</td>
+<td>持久类型</td>
+<td></td>
+<td></td>
+<td>主题分区副本节点，因为当前主题有3个分区，第一个分区编号为0</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;third - topic&#x2F;partitions&#x2F;0&#x2F;state</td>
+<td>持久类型</td>
+<td>controller_epoch</td>
+<td>7</td>
+<td>主题分区副本状态节点</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;third - topic&#x2F;partitions&#x2F;0&#x2F;state</td>
+<td>持久类型</td>
+<td>leader</td>
+<td>2</td>
+<td>Leader副本所在的broker Id</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;third - topic&#x2F;partitions&#x2F;0&#x2F;state</td>
+<td>持久类型</td>
+<td>version</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;third - topic&#x2F;partitions&#x2F;0&#x2F;state</td>
+<td>持久类型</td>
+<td>leader_epoch</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;third - topic&#x2F;partitions&#x2F;0&#x2F;state</td>
+<td>持久类型</td>
+<td>isr</td>
+<td>[2,3,1]</td>
+<td>副本同步列表，因为当前有3个副本，所以列表中的第一个副本就是Leader副本，其他副本均为follower副本</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;third - topic&#x2F;partitions&#x2F;1</td>
+<td>持久类型</td>
+<td></td>
+<td></td>
+<td>主题分区副本节点，因为当前主题有3个分区，当前为第2个分区，所以编号为1</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;third - topic&#x2F;partitions&#x2F;1&#x2F;state</td>
+<td>持久类型</td>
+<td>controller_epoch</td>
+<td>7</td>
+<td>主题分区副本状态节点</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;third - topic&#x2F;partitions&#x2F;1&#x2F;state</td>
+<td>持久类型</td>
+<td>leader</td>
+<td>3</td>
+<td>Leader副本所在的broker Id</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;third - topic&#x2F;partitions&#x2F;1&#x2F;state</td>
+<td>持久类型</td>
+<td>version</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;third - topic&#x2F;partitions&#x2F;1&#x2F;state</td>
+<td>持久类型</td>
+<td>leader_epoch</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;third - topic&#x2F;partitions&#x2F;1&#x2F;state</td>
+<td>持久类型</td>
+<td>isr</td>
+<td>[3,1,2]</td>
+<td>副本同步列表，因为当前有3个副本，所以列表中的第一个副本就是Leader副本，其他副本均为follower副本</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;third - topic&#x2F;partitions&#x2F;2</td>
+<td>持久类型</td>
+<td></td>
+<td></td>
+<td>主题分区副本节点，因为当前主题有3个分区，当前为第3个分区，所以编号为2</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;third - topic&#x2F;partitions&#x2F;2&#x2F;state</td>
+<td>持久类型</td>
+<td>controller_epoch</td>
+<td>7</td>
+<td>主题分区副本状态节点</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;third - topic&#x2F;partitions&#x2F;2&#x2F;state</td>
+<td>持久类型</td>
+<td>leader</td>
+<td>1</td>
+<td>Leader副本所在的broker Id</td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;third - topic&#x2F;partitions&#x2F;2&#x2F;state</td>
+<td>持久类型</td>
+<td>version</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;third - topic&#x2F;partitions&#x2F;2&#x2F;state</td>
+<td>持久类型</td>
+<td>leader_epoch</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;topics&#x2F;third - topic&#x2F;partitions&#x2F;2&#x2F;state</td>
+<td>持久类型</td>
+<td>isr</td>
+<td>[1,2,3]</td>
+<td>副本同步列表，因为当前有3个副本，所以列表中的第一个副本就是Leader副本，其他副本均为follower副本</td>
+</tr>
+</tbody></table>
+<ul>
+<li>数据存储位置</li>
+</ul>
+<p>当前主题的分区数量为3，副本数量为3，3个broker节点各自保存某一个分区的leader副本和另外两个分区的一个follower副本。</p>
+<h3 id="3-5-创建主题流程"><a href="#3-5-创建主题流程" class="headerlink" title="3.5 创建主题流程"></a>3.5 创建主题流程</h3><p>Kafka中主题、分区以及副本的概念都和数据存储相关，所以是非常重要的。前面咱们演示了一下创建主题的具体操作和现象，那么接下来，我们就通过图解来了解一下Kafka是如何创建主题，并进行分区副本分配的。</p>
+<h4 id="3-5-1-命令行提交创建指令"><a href="#3-5-1-命令行提交创建指令" class="headerlink" title="3.5.1 命令行提交创建指令"></a>3.5.1 命令行提交创建指令</h4><p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-34.png" alt="alt text"></p>
+<ol>
+<li>通过命令行提交指令，指令中会包含操作类型（–create）、topic的名称（–topic）、主题分区数量（–partitions）、主题分区副本数量（–replication-facotr）、副本分配策略（–replica-assignment）等参数。</li>
+<li>指令会提交到客户端进行处理，客户端获取指令后，会首先对指令参数进行校验。<ul>
+<li>操作类型取值：create、list、alter、describe、delete，只能存在一个。   </li>
+<li>分区数量为大于1的整数。</li>
+<li>主题是否已经存在</li>
+<li>分区副本数量大于1且小于Short.MaxValue，一般取值小于等于Broker数量。</li>
+</ul>
+</li>
+<li>将参数封装主题对象（NewTopic）。</li>
+<li>创建通信对象，设定请求标记（CREATE_TOPICS），查找Controller，通过通信对象向Controller发起创建主题的网络请求。</li>
+</ol>
+<h4 id="3-5-2-Controller接收创建主题请求"><a href="#3-5-2-Controller接收创建主题请求" class="headerlink" title="3.5.2 Controller接收创建主题请求"></a>3.5.2 Controller接收创建主题请求</h4><p><img src="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/image-35.png" alt="alt text"></p>
+<ol>
+<li>Controller节点接收到网络请求（Acceptor），并将请求数据封装成请求对象放置在队列（requestQueue）中。</li>
+<li>请求控制器（KafkaRequestHandler）周期性从队列中获取请求对象（BaseRequest）。</li>
+<li>将请求对象转发给请求处理器（KafkaApis），根据请求对象的类型调用创建主题的方法。</li>
+</ol>
+<h4 id="3-5-3-创建主题"><a href="#3-5-3-创建主题" class="headerlink" title="3.5.3 创建主题"></a>3.5.3 创建主题</h4><ol>
+<li><p>请求处理器（KafkaApis）校验主题参数。</p>
+<ul>
+<li>如果分区数量没有设置，那么会采用Kafka启动时加载的配置项：num.partitions（默认值为1）</li>
+<li>如果副本数量没有设置，那么会采用Kafka启动时记载的配置项：default.replication.factor（默认值为1）</li>
+</ul>
+</li>
+<li><p>在创建主题时，如果使用了replica-assignment参数，那么就按照指定的方案来进行分区副本的创建；如果没有指定replica-assignment参数，那么就按照Kafka内部逻辑来分配，内部逻辑按照机架信息分为两种策略：【未指定机架信息】和【指定机架信息】。当前课程中采用的是【未指定机架信息】副本分配策略：</p>
+</li>
+</ol>
+<ul>
+<li>分区起始索引设置0</li>
+<li>轮询所有分区，计算每一个分区的所有副本位置： <ul>
+<li>副本起始索引 &#x3D; （分区编号 + 随机值） %  BrokerID列表长度。</li>
+<li>其他副本索引 &#x3D; 随机值（基本算法为使用随机值执行多次模运算）</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight clean"><table><tr><td class="code"><pre><code class="hljs clean">##################################################################<br># 假设 <br>#     当前分区编号 : <span class="hljs-number">0</span><br>#     BrokerID列表 :【<span class="hljs-number">1</span>，<span class="hljs-number">2</span>，<span class="hljs-number">3</span>，<span class="hljs-number">4</span>】<br>#     副本数量 : <span class="hljs-number">4</span><br>#     随机值（BrokerID列表长度）: <span class="hljs-number">2</span><br>#     副本分配间隔随机值（BrokerID列表长度）: <span class="hljs-number">2</span><br>##################################################################<br># 第一个副本索引：（分区编号 + 随机值）% BrokerID列表长度 =（<span class="hljs-number">0</span> + <span class="hljs-number">2</span>）% <span class="hljs-number">4</span> = <span class="hljs-number">2</span><br># 第一个副本所在BrokerID : <span class="hljs-number">3</span><br><br># 第二个副本索引（第一个副本索引 + （<span class="hljs-number">1</span> +（副本分配间隔 + <span class="hljs-number">0</span>）% （BrokerID列表长度 - <span class="hljs-number">1</span>））） % BrokerID列表长度 = （<span class="hljs-number">2</span> +（<span class="hljs-number">1</span>+（<span class="hljs-number">2</span>+<span class="hljs-number">0</span>）%<span class="hljs-number">3</span>））% <span class="hljs-number">4</span> = <span class="hljs-number">1</span><br># 第二个副本所在BrokerID：<span class="hljs-number">2</span><br><br># 第三个副本索引：（第一个副本索引 + （<span class="hljs-number">1</span> +（副本分配间隔 + <span class="hljs-number">1</span>）% （BrokerID列表长度 - <span class="hljs-number">1</span>））） % BrokerID列表长度 = （<span class="hljs-number">2</span> +（<span class="hljs-number">1</span>+（<span class="hljs-number">2</span>+<span class="hljs-number">1</span>）%<span class="hljs-number">3</span>））% <span class="hljs-number">4</span> = <span class="hljs-number">3</span><br># 第三个副本所在BrokerID：<span class="hljs-number">4</span><br><br># 第四个副本索引：（第一个副本索引 + （<span class="hljs-number">1</span> +（副本分配间隔 + <span class="hljs-number">2</span>）% （BrokerID列表长度 - <span class="hljs-number">1</span>））） % BrokerID列表长度 = （<span class="hljs-number">2</span> +（<span class="hljs-number">1</span>+（<span class="hljs-number">2</span>+<span class="hljs-number">2</span>）%<span class="hljs-number">3</span>））% <span class="hljs-number">4</span> = <span class="hljs-number">0</span><br># 第四个副本所在BrokerID：<span class="hljs-number">1</span><br><br># 最终分区<span class="hljs-number">0</span>的副本所在的Broker节点列表为【<span class="hljs-number">3</span>，<span class="hljs-number">2</span>，<span class="hljs-number">4</span>，<span class="hljs-number">1</span>】<br># 其他分区采用同样算法<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>通过索引位置获取副本节点ID</li>
+<li>保存分区以及对应的副本ID列表。</li>
+</ul>
+<ol start="3">
+<li>通过ZK客户端在ZK端创建节点：</li>
+</ol>
+<ul>
+<li>在 &#x2F;config&#x2F;topics节点下，增加当前主题节点，节点类型为持久类型。</li>
+<li>在 &#x2F;brokers&#x2F;topics节点下，增加当前主题及相关节点，节点类型为持久类型。</li>
+</ul>
+<ol start="4">
+<li>Controller节点启动后，会在&#x2F;brokers&#x2F;topics节点增加监听器，一旦节点发生变化，会触发相应的功能：</li>
+</ol>
+<ul>
+<li>获取需要新增的主题信息</li>
+<li>更新当前Controller节点保存的主题状态数据</li>
+<li>更新分区状态机的状态为：NewPartition</li>
+<li>更新副本状态机的状态：NewReplica</li>
+<li>更新分区状态机的状态为：OnlinePartition，从正常的副本列表中的获取第一个作为分区的Leader副本，所有的副本作为分区的同步副本列表，我们称之为ISR( In-Sync Replica)。在ZK路径&#x2F;brokers&#x2F;topics&#x2F;主题名上增加分区节点&#x2F;partitions，及状态&#x2F;state节点。</li>
+<li>更新副本状态机的状态：OnlineReplica</li>
+</ul>
+<ol start="5">
+<li>Controller节点向主题的各个分区副本所属Broker节点发送LeaderAndIsrRequest请求，向所有的Broker发送UPDATE_METADATA请求，更新自身的缓存。</li>
+</ol>
+<ul>
+<li>Controller向分区所属的Broker发送请求</li>
+<li>Broker节点接收到请求后，根据分区状态信息，设定当前的副本为Leader或Follower，并创建底层的数据存储文件目录和空的数据文件。</li>
+</ul>
+<p>文件目录名：主题名 + 分区编号</p>
+<table>
+<thead>
+<tr>
+<th>文件名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0000000000000000.log</td>
+<td>数据文件，用于存储传输的小心</td>
+</tr>
+<tr>
+<td>0000000000000000.index</td>
+<td>索引文件，用于定位数据</td>
+</tr>
+<tr>
+<td>0000000000000000.timeindex</td>
+<td>时间索引文件，用于定位数据</td>
+</tr>
+</tbody></table>
+</div></article><div class="post-view__sidebar"><div class="sidebar"><div class="tocbot"><h2>Toc</h2><div class="toc__content"></div></div><h2>Links</h2><div class="sidebar__link"><ul><li><a target="_blank" rel="noopener" href="https://github.com/15hmael">Github</a></li><li><a href="/3556897601@qq.com">Mail</a></li></ul></div><h2>Archives</h2><div class="sidebar__archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/">2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul></div><h2>Categories</h2><div class="sidebar__categories"></div><h2>Tags</h2><div class="sidebar__tags"><ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Caffeine/" rel="tag">Caffeine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenResty/" rel="tag">OpenResty</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="tag">Redis.多级缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis%E6%BA%90%E7%A0%81/" rel="tag">Redis源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis%E9%AB%98%E7%BA%A7/" rel="tag">Redis高级</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reids/" rel="tag">Reids</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dpdk/" rel="tag">dpdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hiredis/" rel="tag">hiredis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" rel="tag">分布式缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="tag">多级缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%91%B8%E9%B1%BC/" rel="tag">摸鱼</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul></div></div></div></div><div class="horizontal-line" style="height: 1px"></div><div class="main__bottom"><div class="pre-next"><a class="pre-button" href="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/">Kafka 生产数据</a><a class="next-button" href="/2025/02/23/Kafka%20%E4%BD%BF%E7%94%A8Java%E7%BC%96%E5%86%99%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E7%A4%BA%E4%BE%8B/">Kafka 使用Java编写生产者消费者示例</a></div></div></div></div><div class="footer"><span>©️2019-2025 Designed By&nbsp;<strong><a target="_blank" rel="noopener" href="https://github.com/random-yang">RandomYang</a></strong> Powered By&nbsp;</span><strong><a target="_blank" rel="noopener" href="https://hexo.io">hexo</a></strong></div><div class="darkmode-mask" id="darkmode-mask"></div><div class="sidebar__button"></div></body></html>

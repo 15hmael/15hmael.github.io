@@ -1,0 +1,427 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0"><meta name="description" content="Kafka 生产数据 - Hexo"><meta name="theme-color" content="#6ba8a9"><title>Kafka 生产数据 - Hexo</title><style>@font-face {
+  font-family: 'Abril Fatface';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Abril Fatface'), local('AbrilFatface-Regular'), url(data:font/woff2;base64,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) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Abril Fatface';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Abril Fatface'), local('AbrilFatface-Regular'), url(data:font/woff2;base64,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BL3+M1K+NfPvjlJEHZTOrkYvtdprqx0Hka+W/IhsQoUJE0jsPVOhV2itgp3Wame8dsB73DeCOfp+FMSxp2At3aozP1zVQ/tmEpXdveum7kat3CaLXRcmTZHmOveMiqxSteCZOrGKmscOa9WycTUXtRFabrtts1Nb3e5qHtqWPMWtuEkMSdydcarhKoTcVXtBgujKwULbPFJvqywIzBjboUacECG6ajlIews5dBUMkJ/LYHa12gpRLEsBDAAA6raxOaTnbx4GG5J6hdn4twxT1DRvEQZvD6banOa3BbstVh48efHmw5cffwECBQkWIvK/LTbhIkSKEi1GrDjxEiRKkixFqjTpMmTKki1Hrjz5ChQqUqxEqTLlKlSqUq2e+hpoqJHGmmiqmeZhWGKoYfaZ7qXhxhtjnlWWxsBotw0xxWdfjDPDSEfc98l8q33z1XeLrXPKCeu10NJErZzR2kmnXXDWOee90sYVF12yQVsfTXLdVde088Y7o3TQXkedddLFQnb/qVGrq24cuuvhtZ5666WPfvraaZEB+htokLfe2+1GBDbalARuuueWzbbYboejttrmmBHW2O+AvUmRDMb6EEUsHHQoDskRjxRIiVRILev2qn1oaGpomZOB2z/jmn/eUk6tvaZda/5znbhPCguQ7wsEvd1strBI3OYR8ye01+ZO0jbH36oqKm37w90hl2v/wO5o3vIjtpoZx20H) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style><link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/index.css"><script src="https://cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js" defer></script><script src="/js/paper.js" defer></script><script src="https://www.googletagmanager.com/gtag/js?id=xx-xxxxxxx-xx" async></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbot.css"><script src="/js/tocbot.js" defer></script><script>window.addEventListener('DOMContentLoaded', () => {
+  tocbot.init({
+    // Where to render the table of contents.
+    tocSelector: '.toc__content',
+    // Where to grab the headings to build the table of contents.
+    contentSelector: '.article__content',
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    // For headings inside relative or absolute positioned containers within content.
+    hasInnerContainers: true,
+    orderedList: false,
+    collapseDepth: 2,
+  });
+})</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 7.3.0"></head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">Hexo</a></h1><p></p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">Kafka 生产数据</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">Kafka 生产数据</a></h2><span class="post__date">2025-02-26</span><a href="/tags/Kafka/"><span class="post__tags">#Kafka</span></a></div></div><div class="article__content"><p>还是一如既往的难啊，这Kafka用起来简单学起来难</p>
+<h1 id="生产消息"><a href="#生产消息" class="headerlink" title="生产消息"></a>生产消息</h1><p>Topic主题已经创建好了，接下来我们就可以向该主题生产消息了，这里我们采用Java代码通过Kafka Producer API的方式生产数据。</p>
+<h1 id="1-生产消息的基本步骤"><a href="#1-生产消息的基本步骤" class="headerlink" title="1 生产消息的基本步骤"></a>1 生产消息的基本步骤</h1><h1 id="1-1-创建Map类型的配置对象，根据场景增加相应的配置属性："><a href="#1-1-创建Map类型的配置对象，根据场景增加相应的配置属性：" class="headerlink" title="1.1 创建Map类型的配置对象，根据场景增加相应的配置属性："></a>1.1 创建Map类型的配置对象，根据场景增加相应的配置属性：</h1><table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>参数作用</th>
+<th>类型</th>
+<th>默认值</th>
+<th>推荐值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bootstrap.servers</td>
+<td>集群地址，格式为：brokerIP1:端口号,brokerIP2:端口号</td>
+<td>必须</td>
+<td>无</td>
+<td>无</td>
+</tr>
+<tr>
+<td>key.serializer</td>
+<td>对生产数据 Key 进行序列化的类完整名称</td>
+<td>必须</td>
+<td>无</td>
+<td>Kafka 提供的字符串序列化类：<code>StringSerializer</code></td>
+</tr>
+<tr>
+<td>value.serializer</td>
+<td>对生产数据 Value 进行序列化的类完整名称</td>
+<td>必须</td>
+<td>无</td>
+<td>Kafka 提供的字符串序列化类：<code>StringSerializer</code></td>
+</tr>
+<tr>
+<td>interceptor.classes</td>
+<td>拦截器类名，多个用逗号隔开</td>
+<td>可选</td>
+<td>无</td>
+<td>无</td>
+</tr>
+<tr>
+<td>batch.size</td>
+<td>数据批次字节大小。此大小会和数据最大估计值进行比较，取大值。<br>估值&#x3D;61+21+ (keySize+1+valueSize+1+1)</td>
+<td>可选</td>
+<td>16K</td>
+<td>无</td>
+</tr>
+<tr>
+<td>retries</td>
+<td>重试次数</td>
+<td>可选</td>
+<td>整型最大值</td>
+<td>0或整型最大值</td>
+</tr>
+<tr>
+<td>request.timeout.ms</td>
+<td>请求超时时间</td>
+<td>可选</td>
+<td>30s</td>
+<td>无</td>
+</tr>
+<tr>
+<td>linger.ms</td>
+<td>数据批次在缓冲区中停留时间</td>
+<td>可选</td>
+<td>无</td>
+<td>无</td>
+</tr>
+<tr>
+<td>acks</td>
+<td>请求应答类型：all(-1), 0, 1</td>
+<td>可选</td>
+<td>all(-1)</td>
+<td>根据数据场景进行设置</td>
+</tr>
+<tr>
+<td>retry.backoff.ms</td>
+<td>两次重试之间的时间间隔</td>
+<td>可选</td>
+<td>100ms</td>
+<td>无</td>
+</tr>
+<tr>
+<td>buffer.memory</td>
+<td>数据收集器缓冲区内存大小</td>
+<td>可选</td>
+<td>32M</td>
+<td>64M</td>
+</tr>
+<tr>
+<td>max.in.flight.requests.per.connection</td>
+<td>每个节点连接的最大同时处理请求的数量</td>
+<td>可选</td>
+<td>5</td>
+<td>小于等于 5</td>
+</tr>
+<tr>
+<td>enable.idempotence</td>
+<td>幂等性，</td>
+<td>可选</td>
+<td>true</td>
+<td>根据数据场景进行设置</td>
+</tr>
+<tr>
+<td>partitioner.ignore.keys</td>
+<td>是否放弃使用数据 key 选择分区</td>
+<td>可选</td>
+<td>false</td>
+<td>无</td>
+</tr>
+<tr>
+<td>partitioner.class</td>
+<td>分区器类名</td>
+<td>可选</td>
+<td>null</td>
+<td>无</td>
+</tr>
+</tbody></table>
+<h1 id="1-2-创建待发送数据"><a href="#1-2-创建待发送数据" class="headerlink" title="1.2 创建待发送数据"></a>1.2 创建待发送数据</h1><p>在kafka中传递的数据我们称之为消息（message）或记录(record)，所以Kafka发送数据前，需要将待发送的数据封装为指定的数据模型：</p>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-1.png" alt="alt text"></p>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-2.png" alt="alt text"></p>
+<p>相关属性必须在构建数据模型时指定，其中主题和value的值是必须要传递的。如果配置中开启了自动创建主题，那么Topic主题可以不存在。value就是我们需要真正传递的数据了，而Key用于决定数据存在哪个分区上。</p>
+<h1 id="1-3-创建生产者对象，发送生产的数据"><a href="#1-3-创建生产者对象，发送生产的数据" class="headerlink" title="1.3 创建生产者对象，发送生产的数据"></a>1.3 创建生产者对象，发送生产的数据</h1><p>根据前面提供的配置信息创建生产者对象，通过这个生产者对象向Kafka服务器节点发送数据。发送任务是由生产者对象创建时内部构建的多个组件完成的，这些组件之间的关系也有点类似于生产者消费者模式。<br><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-3.png" alt="alt text"></p>
+<ul>
+<li><p>数据生产者（KafkaProducer）：生产者对象，用于对我们的数据进行必要的转换和处理，将处理后的数据放入到数据收集器中，类似于生产者消费者模式下的生产者。这里我们简单介绍一下内部的数据转换处理：</p>
+<ul>
+<li>如果配置拦截器栈（interceptor.classes），那么将数据进行拦截处理。某一个拦截器出现异常并不会影响后续的拦截器处理。</li>
+<li>因为发送的数据为KV数据，所以需要根据配置信息中的序列化对象对数据中Key和Value分别进行序列化处理。</li>
+<li>计算数据所发送的分区位置。</li>
+<li>将数据追加到数据收集器中。</li>
+</ul>
+</li>
+<li><p>数据收集器（RecordAccumulator）：用于收集，转换我们产生的数据，类似于生产者消费者模式下的缓冲区。为了优化数据的传输，Kafka并不是生产一条数据就向Broker发送一条数据，而是通过合并单条消息，进行批量（批次）发送，提高吞吐量，减少带宽消耗。</p>
+<ul>
+<li>默认情况下，一个发送批次的数据容量为16K，这个可以通过参数batch.size进行改善。</li>
+<li>批次是和分区进行绑定的。当生产者发送消息时，会根据消息所属的分区找到对应的队列，并将消息追加到该队列的最后一个ProducerBatch（批次）中。（若消息发往不同分区，即使属于同一主题，也会进入不同的队列）</li>
+<li>如果当前批次能容纳数据，那么直接将数据追加到批次中即可，如果不能容纳数据，那么会产生新的批次放入到当前分区的批次队列中，这个队列使用的是Java的双端队列Deque（每个队列对应一个特定的Topic-Partition组合）。旧的批次关闭不再接收新的数据，等待发送</li>
+</ul>
+</li>
+<li><p>数据发送器（Sender）：线程对象，用于从收集器对象中获取数据，向服务节点发送。类似于生产者消费者模式下的消费者。因为是线程对象，所以启动后会不断轮询获取数据收集器中已经关闭的批次数据。对批次进行整合后再发送到Broker节点中</p>
+<ul>
+<li>因为数据真正发送的地方是Broker节点，不是分区（尽管同一分区的所有副本的Leader必然位于仅一个Broker节点，但这一个Broker可能承载多个分区的Leader副本，所以要把不同分区但分区的leader副本在同一个broker的队列组合到一起）。所以需要将从数据收集器中收集到的批次数据按照可用Broker节点重新组合成List集合。</li>
+<li>将组合后的&lt;节点，List&lt;批次&gt;&gt;的数据封装成客户端请求（请求键为：Produce）发送到网络客户端对象的缓冲区，由网络客户端对象通过网络发送给Broker节点。</li>
+<li>Broker节点获取客户端请求，并根据请求键进行后续的数据处理：向分区中增加数据。</li>
+</ul>
+<p>  <img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-4.png" alt="alt text"></p>
+</li>
+</ul>
+<h1 id="2-生产消息的基本代码"><a href="#2-生产消息的基本代码" class="headerlink" title="2 生产消息的基本代码"></a>2 生产消息的基本代码</h1><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// TODO 配置属性集合</span><br>Map&lt;String, Object&gt; configMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br><span class="hljs-comment">// TODO 配置属性：Kafka服务器集群地址</span><br>configMap.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, <span class="hljs-string">&quot;localhost:9092&quot;</span>);<br><span class="hljs-comment">// TODO 配置属性：Kafka生产的数据为KV对，所以在生产数据进行传输前需要分别对K,V进行对应的序列化操作</span><br>configMap.put(<br>        ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,<br>        <span class="hljs-string">&quot;org.apache.kafka.common.serialization.StringSerializer&quot;</span>);<br>configMap.put(<br>        ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,<br>        <span class="hljs-string">&quot;org.apache.kafka.common.serialization.StringSerializer&quot;</span>);<br><span class="hljs-comment">// TODO 创建Kafka生产者对象，建立Kafka连接</span><br><span class="hljs-comment">//      构造对象时，需要传递配置参数</span><br>KafkaProducer&lt;String, String&gt; producer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">KafkaProducer</span>&lt;&gt;(configMap);<br><span class="hljs-comment">// TODO 准备数据,定义泛型</span><br><span class="hljs-comment">//      构造对象时需要传递 【Topic主题名称】，【Key】，【Value】三个参数</span><br>ProducerRecord&lt;String, String&gt; record = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProducerRecord</span>&lt;String, String&gt;(<br>        <span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-string">&quot;key1&quot;</span>, <span class="hljs-string">&quot;value1&quot;</span><br>);<br><span class="hljs-comment">// TODO 生产（发送）数据</span><br>producer.send(record);<br><span class="hljs-comment">// TODO 关闭生产者连接</span><br>producer.close();<br></code></pre></td></tr></table></figure>
+<h1 id="3-发送消息"><a href="#3-发送消息" class="headerlink" title="3 发送消息"></a>3 发送消息</h1><h1 id="3-1拦截器"><a href="#3-1拦截器" class="headerlink" title="3.1拦截器"></a>3.1拦截器</h1><p>生产者API在数据准备好发送给Kafka服务器之前，允许我们对生产的数据进行统一的处理，比如校验，整合数据等等。这些处理我们是可以通过Kafka提供的拦截器完成。因为拦截器不是生产者必须配置的功能，可以根据实际的情况自行选择使用。<br>但是要注意，这里的拦截器是可以配置多个的。执行时，会按照声明顺序执行完一个后，再执行下一个。并且某一个拦截器如果出现异常，只会跳出当前拦截器逻辑，并不会影响后续拦截器的处理。所以开发时，需要将拦截器的这种处理方法考虑进去。</p>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-5.png" alt="alt text"></p>
+<h1 id="3-1-1-增加拦截器类"><a href="#3-1-1-增加拦截器类" class="headerlink" title="3.1.1 增加拦截器类"></a>3.1.1 增加拦截器类</h1><ul>
+<li>实现生产者拦截器接口ProducerInterceptor</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.atguigu.test;<br><br><span class="hljs-keyword">import</span> org.apache.kafka.clients.producer.ProducerInterceptor;<br><span class="hljs-keyword">import</span> org.apache.kafka.clients.producer.ProducerRecord;<br><span class="hljs-keyword">import</span> org.apache.kafka.clients.producer.RecordMetadata;<br><br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * TODO 自定义数据拦截器</span><br><span class="hljs-comment"> *      1. 实现Kafka提供的生产者接口ProducerInterceptor</span><br><span class="hljs-comment"> *      2. 定义数据泛型 &lt;K, V&gt;</span><br><span class="hljs-comment"> *      3. 重写方法</span><br><span class="hljs-comment"> *         onSend</span><br><span class="hljs-comment"> *         onAcknowledgement</span><br><span class="hljs-comment"> *         close</span><br><span class="hljs-comment"> *         configure</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KafkaInterceptorMock</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ProducerInterceptor</span>&lt;String, String&gt; &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> ProducerRecord&lt;String, String&gt; <span class="hljs-title function_">onSend</span><span class="hljs-params">(ProducerRecord&lt;String, String&gt; record)</span> &#123;<br>        <span class="hljs-keyword">return</span> record;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span>	<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onAcknowledgement</span><span class="hljs-params">(RecordMetadata metadata, Exception exception)</span> &#123;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">close</span><span class="hljs-params">()</span> &#123;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">configure</span><span class="hljs-params">(Map&lt;String, ?&gt; configs)</span> &#123;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>实现接口中的方法，根据业务功能重写具体的方法</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>onSend</td>
+<td>数据发送前，会执行此方法，进行数据发送前的预处理</td>
+</tr>
+<tr>
+<td>onAcknowledgement</td>
+<td>数据发送后，获取ACK应答时，会执行此方法</td>
+</tr>
+<tr>
+<td>close</td>
+<td>生产者关闭时，会执行此方法，完成一些资源回收和释放的操作</td>
+</tr>
+<tr>
+<td>configure</td>
+<td>创建生产者对象的时候，会执行此方法，可以根据场景对生产者对象的配置进行统一修改或转换。</td>
+</tr>
+</tbody></table>
+<h1 id="3-1-2-配置拦截器"><a href="#3-1-2-配置拦截器" class="headerlink" title="3.1.2 配置拦截器"></a>3.1.2 配置拦截器</h1><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.atguigu.test;<br><br><span class="hljs-keyword">import</span> org.apache.kafka.clients.producer.*;<br><span class="hljs-keyword">import</span> org.apache.kafka.common.serialization.StringSerializer;<br><br><span class="hljs-keyword">import</span> java.util.HashMap;<br><span class="hljs-keyword">import</span> java.util.Map;<br><span class="hljs-keyword">import</span> java.util.concurrent.Future;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ProducerInterceptorTest</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        Map&lt;String, Object&gt; configMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        configMap.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, <span class="hljs-string">&quot;localhost:9092&quot;</span>);<br>        configMap.put( ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());<br>        configMap.put( ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());<br><br>        configMap.put( ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, KafkaInterceptorMock.class.getName());<br><br>        KafkaProducer&lt;String, String&gt; producer = <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            producer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">KafkaProducer</span>&lt;&gt;(configMap);<br>            <span class="hljs-keyword">for</span> ( <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1</span>; i++ ) &#123;<br>                ProducerRecord&lt;String, String&gt; record = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProducerRecord</span>&lt;String, String&gt;(<span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-string">&quot;key&quot;</span> + i, <span class="hljs-string">&quot;value&quot;</span> + i);<br>                <span class="hljs-keyword">final</span> Future&lt;RecordMetadata&gt; send = producer.send(record);<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> ( Exception e ) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            <span class="hljs-keyword">if</span> ( producer != <span class="hljs-literal">null</span> ) &#123;<br>                producer.close();<br>            &#125;<br>        &#125;<br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="3-2回调方法"><a href="#3-2回调方法" class="headerlink" title="3.2回调方法"></a>3.2回调方法</h1><p>Kafka发送数据时，可以同时传递回调对象（Callback）用于对数据的发送结果进行对应处理，具体代码实现采用匿名类或Lambda表达式都可以。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.atguigu.kafka.test;<br><br><span class="hljs-keyword">import</span> org.apache.kafka.clients.producer.*;<br><br><span class="hljs-keyword">import</span> java.util.HashMap;<br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KafkaProducerASynTest</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        Map&lt;String, Object&gt; configMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        configMap.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, <span class="hljs-string">&quot;localhost:9092&quot;</span>);<br>        configMap.put(<br>                ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,<br>                <span class="hljs-string">&quot;org.apache.kafka.common.serialization.StringSerializer&quot;</span>);<br>        configMap.put(<br>                ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,<br>                <span class="hljs-string">&quot;org.apache.kafka.common.serialization.StringSerializer&quot;</span>);<br>        KafkaProducer&lt;String, String&gt; producer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">KafkaProducer</span>&lt;&gt;(configMap);<br>        <span class="hljs-comment">// TODO 循环生产数据</span><br>        <span class="hljs-keyword">for</span> ( <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1</span>; i++ ) &#123;<br>            <span class="hljs-comment">// TODO 创建数据</span><br>            ProducerRecord&lt;String, String&gt; record = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProducerRecord</span>&lt;String, String&gt;(<span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-string">&quot;key&quot;</span> + i, <span class="hljs-string">&quot;value&quot;</span> + i);<br>            <span class="hljs-comment">// TODO 发送数据</span><br>            producer.send(record, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Callback</span>() &#123;<br>                <span class="hljs-comment">// TODO 回调对象</span><br>                <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onCompletion</span><span class="hljs-params">(RecordMetadata recordMetadata, Exception e)</span> &#123;<br>                    <span class="hljs-comment">// TODO 当数据发送成功后，会回调此方法</span><br>                    System.out.println(<span class="hljs-string">&quot;数据发送成功：&quot;</span> + recordMetadata.timestamp());<br>                &#125;<br>            &#125;);<br>        &#125;<br>        producer.close();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-6.png" alt="alt text"></p>
+<h1 id="3-3异步发送"><a href="#3-3异步发送" class="headerlink" title="3.3异步发送"></a>3.3异步发送</h1><p>Kafka发送数据时，底层的实现类似于生产者消费者模式。对应的，底层会由主线程代码作为生产者向缓冲区中放数据，而数据发送线程会从缓冲区中获取数据进行发送。Broker接收到数据后进行后续处理。</p>
+<p>如果Kafka通过主线程代码将一条数据放入到缓冲区后，无需等待数据的后续发送过程，就直接发送一下条数据，我们称之为异步发送。</p>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-7.png" alt="alt text"></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.atguigu.kafka.test;<br><br><span class="hljs-keyword">import</span> org.apache.kafka.clients.producer.*;<br><br><span class="hljs-keyword">import</span> java.util.HashMap;<br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KafkaProducerASynTest</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        Map&lt;String, Object&gt; configMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        configMap.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, <span class="hljs-string">&quot;localhost:9092&quot;</span>);<br>        configMap.put(<br>                ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,<br>                <span class="hljs-string">&quot;org.apache.kafka.common.serialization.StringSerializer&quot;</span>);<br>        configMap.put(<br>                ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,<br>                <span class="hljs-string">&quot;org.apache.kafka.common.serialization.StringSerializer&quot;</span>);<br>        KafkaProducer&lt;String, String&gt; producer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">KafkaProducer</span>&lt;&gt;(configMap);<br>        <span class="hljs-comment">// TODO 循环生产数据</span><br>        <span class="hljs-keyword">for</span> ( <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ ) &#123;<br>            <span class="hljs-comment">// TODO 创建数据</span><br>            ProducerRecord&lt;String, String&gt; record = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProducerRecord</span>&lt;String, String&gt;(<span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-string">&quot;key&quot;</span> + i, <span class="hljs-string">&quot;value&quot;</span> + i);<br>            <span class="hljs-comment">// TODO 发送数据</span><br>            producer.send(record, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Callback</span>() &#123;<br>                <span class="hljs-comment">// TODO 回调对象</span><br>                <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onCompletion</span><span class="hljs-params">(RecordMetadata recordMetadata, Exception e)</span> &#123;<br>                    <span class="hljs-comment">// TODO 当数据发送成功后，会回调此方法</span><br>                    System.out.println(<span class="hljs-string">&quot;数据发送成功：&quot;</span> + recordMetadata.timestamp());<br>                &#125;<br>            &#125;);<br>            <span class="hljs-comment">// TODO 发送当前数据</span><br>            System.out.println(<span class="hljs-string">&quot;发送数据&quot;</span>);<br>        &#125;<br>        producer.close();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-8.png" alt="alt text"></p>
+<h1 id="3-4同步发送"><a href="#3-4同步发送" class="headerlink" title="3.4同步发送"></a>3.4同步发送</h1><p>Kafka发送数据时，底层的实现类似于生产者消费者模式。主线程代码作为生产者向缓冲区中放数据，数据发送线程会从缓冲区中获取数据进行发送。Broker接收到数据后进行后续处理。</p>
+<p>如果Kafka通过主线程代码将一条数据放入到缓冲区后，需等待数据的后续发送操作的应答状态，才能发送一下条数据的场合，我们就称之为同步发送。所以这里的所谓同步，就是生产数据的线程需要等待发送线程的应答（响应）结果。</p>
+<p>代码实现上，采用的是JDK1.5增加的JUC并发编程的Future接口的get方法实现。</p>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-9.png" alt="alt text"></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.atguigu.kafka.test;<br><br><span class="hljs-keyword">import</span> org.apache.kafka.clients.producer.*;<br><br><span class="hljs-keyword">import</span> java.util.HashMap;<br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KafkaProducerASynTest</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        Map&lt;String, Object&gt; configMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        configMap.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, <span class="hljs-string">&quot;localhost:9092&quot;</span>);<br>        configMap.put(<br>                ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,<br>                <span class="hljs-string">&quot;org.apache.kafka.common.serialization.StringSerializer&quot;</span>);<br>        configMap.put(<br>                ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,<br>                <span class="hljs-string">&quot;org.apache.kafka.common.serialization.StringSerializer&quot;</span>);<br>        KafkaProducer&lt;String, String&gt; producer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">KafkaProducer</span>&lt;&gt;(configMap);<br>        <span class="hljs-comment">// TODO 循环生产数据</span><br>        <span class="hljs-keyword">for</span> ( <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ ) &#123;<br>            <span class="hljs-comment">// TODO 创建数据</span><br>            ProducerRecord&lt;String, String&gt; record = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProducerRecord</span>&lt;String, String&gt;(<span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-string">&quot;key&quot;</span> + i, <span class="hljs-string">&quot;value&quot;</span> + i);<br>            <span class="hljs-comment">// TODO 发送数据</span><br>            producer.send(record, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Callback</span>() &#123;<br>                <span class="hljs-comment">// TODO 回调对象</span><br>                <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onCompletion</span><span class="hljs-params">(RecordMetadata recordMetadata, Exception e)</span> &#123;<br>                    <span class="hljs-comment">// TODO 当数据发送成功后，会回调此方法</span><br>                    System.out.println(<span class="hljs-string">&quot;数据发送成功：&quot;</span> + recordMetadata.timestamp());<br>                &#125;<br>            &#125;).get();<br>            <span class="hljs-comment">// TODO 发送当前数据</span><br>            System.out.println(<span class="hljs-string">&quot;发送数据&quot;</span>);<br>        &#125;<br>        producer.close();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-10.png" alt="alt text"></p>
+<h1 id="4-消息分区"><a href="#4-消息分区" class="headerlink" title="4 消息分区"></a>4 消息分区</h1><h1 id="4-1指定分区"><a href="#4-1指定分区" class="headerlink" title="4.1指定分区"></a>4.1指定分区</h1><p>Kafka中Topic是对数据逻辑上的分类，而Partition才是数据真正存储的物理位置。所以在生产数据时，如果只是指定Topic的名称，其实Kafka是不知道将数据发送到哪一个Broker节点的。我们可以在构建数据传递Topic参数的同时，指定数据存储的分区编号。</p>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-11.png" alt="alt text"></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">for</span> ( <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1</span>; i++ ) &#123;<br>    ProducerRecord&lt;String, String&gt; record = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProducerRecord</span>&lt;String, String&gt;(<span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-number">0</span>, <span class="hljs-string">&quot;key&quot;</span> + i, <span class="hljs-string">&quot;value&quot;</span> + i);<br>    <span class="hljs-keyword">final</span> Future&lt;RecordMetadata&gt; send = producer.send(record, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Callback</span>() &#123;<br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onCompletion</span><span class="hljs-params">(RecordMetadata recordMetadata, Exception e)</span> &#123;<br>            <span class="hljs-keyword">if</span> ( e != <span class="hljs-literal">null</span> ) &#123;<br>                e.printStackTrace();<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                System.out.println(<span class="hljs-string">&quot;数据发送成功：&quot;</span> + record.key() + <span class="hljs-string">&quot;,&quot;</span> + record.value());<br>            &#125;<br>        &#125;<br>    &#125;);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="4-2未指定分区"><a href="#4-2未指定分区" class="headerlink" title="4.2未指定分区"></a>4.2未指定分区</h1><p>指定分区传递数据是没有任何问题的。Kafka会进行基本简单的校验，比如是否为空，是否小于0之类的，但是你的分区是否存在就无法判断了，所以需要从Kafka中获取集群元数据信息，此时会因为长时间获取不到元数据信息而出现超时异常。所以如果不能确定分区编号范围的情况，不指定分区是一个更好的选择。</p>
+<p>如果不指定分区，Kafka会根据集群元数据中的主题分区来通过算法来计算分区编号并设定：</p>
+<ul>
+<li>如果指定了分区，直接选择该分区</li>
+<li>如果指定了自定义的分区器，通过该分区器计算分区编号，如果有效，直接使用</li>
+<li>如果指定了数据Key，且使用Key选择分区的场合（这是可以设置的），采用murmur2非加密散列算法（类似于hash）计算数据Key序列化后的值的散列值，然后对主题分区数量模运算取余，最后的结果就是分区编号</li>
+</ul>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-12.png" alt="alt text"></p>
+<ul>
+<li><p>如果未指定数据Key，或不使用Key选择分区，那么Kafka会采用优化后的粘性分区策略进行分区选择：</p>
+<ul>
+<li>没有分区数据加载状态信息时，会从分区列表中随机选择一个分区。</li>
+</ul>
+<p>  <img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-13.png" alt="alt text"></p>
+<ul>
+<li>如果存在分区数据加载状态信息时，根据分区数据队列加载状态，通过随机数获取一个权重值</li>
+</ul>
+<p>  <img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-14.png" alt="alt text"></p>
+<ul>
+<li>根据这个权重值在队列加载状态中进行二分查找法，查找权重值的索引值</li>
+</ul>
+<p>  <img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-15.png" alt="alt text"></p>
+<ul>
+<li>将这个索引值加1就是当前设定的分区。</li>
+</ul>
+<p>  <img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-16.png" alt="alt text"></p>
+</li>
+</ul>
+<p>增加数据后，会根据当前粘性分区中生产的数据量进行判断，是不是需要切换其他的分区。判断地标准就是大于等于批次大小（16K）的2倍，或大于一个批次大小（16K）且需要切换。如果满足条件，下一条数据就会放置到其他分区。</p>
+<h1 id="4-3分区器"><a href="#4-3分区器" class="headerlink" title="4.3分区器"></a>4.3分区器</h1><p>在某些场合中，指定的数据我们是需要根据自身的业务逻辑发往指定的分区的。所以需要自定义分区编号规则。Kafka早期版本中提供了两个分区器，不过在当前kafka版本中已经不推荐使用了。</p>
+<p>接下来我们就说一下当前版本Kafka中如何定义我们自己的分区规则：分区器</p>
+<h1 id="4-3-1-增加分区器类"><a href="#4-3-1-增加分区器类" class="headerlink" title="4.3.1 增加分区器类"></a>4.3.1 增加分区器类</h1><p>首先我们需要创建一个类，然后实现Kafka提供的分区类接口Partitioner，接下来重写方法。这里我们只关注partition方法即可，因为此方法的返回结果就是需要的分区编号。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.atguigu.test;<br><br><span class="hljs-keyword">import</span> org.apache.kafka.clients.producer.Partitioner;<br><span class="hljs-keyword">import</span> org.apache.kafka.common.Cluster;<br><br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * TODO 自定义分区器实现步骤：</span><br><span class="hljs-comment"> *      1. 实现Partitioner接口</span><br><span class="hljs-comment"> *      2. 重写方法</span><br><span class="hljs-comment"> *         partition : 返回分区编号，从0开始</span><br><span class="hljs-comment"> *         close</span><br><span class="hljs-comment"> *         configure</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KafkaPartitionerMock</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Partitioner</span> &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 分区算法 - 根据业务自行定义即可 这里之间返回0，那么发往0分区</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> topic The topic name</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> key The key to partition on (or null if no key)</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> keyBytes The serialized key to partition on( or null if no key)</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> value The value to partition on or null</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> valueBytes The serialized value to partition on or null</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> cluster The current cluster metadata</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 分区编号，从0开始</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">partition</span><span class="hljs-params">(String topic, Object key, <span class="hljs-type">byte</span>[] keyBytes, Object value, <span class="hljs-type">byte</span>[] valueBytes, Cluster cluster)</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">close</span><span class="hljs-params">()</span> &#123;<br><br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">configure</span><span class="hljs-params">(Map&lt;String, ?&gt; configs)</span> &#123;<br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="4-3-2-配置分区器"><a href="#4-3-2-配置分区器" class="headerlink" title="4.3.2 配置分区器"></a>4.3.2 配置分区器</h1><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.atguigu.test;<br><br><span class="hljs-keyword">import</span> org.apache.kafka.clients.producer.*;<br><span class="hljs-keyword">import</span> org.apache.kafka.common.serialization.StringSerializer;<br><br><span class="hljs-keyword">import</span> java.util.HashMap;<br><span class="hljs-keyword">import</span> java.util.Map;<br><span class="hljs-keyword">import</span> java.util.concurrent.Future;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ProducerPartitionTest</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        Map&lt;String, Object&gt; configMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        configMap.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, <span class="hljs-string">&quot;localhost:9092&quot;</span>);<br>        configMap.put( ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());<br>        configMap.put( ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());<br>        configMap.put( ProducerConfig.PARTITIONER_CLASS_CONFIG, KafkaPartitionerMock.class.getName());<br><br>        KafkaProducer&lt;String, String&gt; producer = <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            producer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">KafkaProducer</span>&lt;&gt;(configMap);<br>            <span class="hljs-keyword">for</span> ( <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1</span>; i++ ) &#123;<br>                ProducerRecord&lt;String, String&gt; record = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProducerRecord</span>&lt;String, String&gt;(<span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-string">&quot;key&quot;</span> + i, <span class="hljs-string">&quot;value&quot;</span> + i);<br>                <span class="hljs-keyword">final</span> Future&lt;RecordMetadata&gt; send = producer.send(record, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Callback</span>() &#123;<br>                    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onCompletion</span><span class="hljs-params">(RecordMetadata recordMetadata, Exception e)</span> &#123;<br>                        <span class="hljs-keyword">if</span> ( e != <span class="hljs-literal">null</span> ) &#123;<br>                            e.printStackTrace();<br>                        &#125; <span class="hljs-keyword">else</span> &#123;<br>                            System.out.println(<span class="hljs-string">&quot;数据发送成功：&quot;</span> + record.key() + <span class="hljs-string">&quot;,&quot;</span> + record.value());<br>                        &#125;<br>                    &#125;<br>                &#125;);<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> ( Exception e ) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            <span class="hljs-keyword">if</span> ( producer != <span class="hljs-literal">null</span> ) &#123;<br>                producer.close();<br>            &#125;<br>        &#125;<br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="5-消息可靠性"><a href="#5-消息可靠性" class="headerlink" title="5 消息可靠性"></a>5 消息可靠性</h1><p>对于生产者发送的数据，我们有的时候是不关心数据是否已经发送成功的，我们只要发送就可以了。在这种场景中，消息可能会因为某些故障或问题导致丢失，我们将这种情况称之为消息不可靠。虽然消息数据可能会丢失，但是在某些需要高吞吐，低可靠的系统场景中，这种方式也是可以接受的，甚至是必须的。</p>
+<p>但是在更多的场景中，我们是需要确定数据是否已经发送成功了且Kafka正确接收到数据的，也就是要保证数据不丢失，这就是所谓的消息可靠性保证。</p>
+<p>而这个确定的过程一般是通过Kafka给我们返回的响应确认结果（Acknowledgement）来决定的，这里的响应确认结果我们也可以简称为ACK应答。根据场景，Kafka提供了3种应答处理，可以通过配置对象进行配置</p>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-17.png" alt="alt text"></p>
+<h1 id="5-1ACK-0"><a href="#5-1ACK-0" class="headerlink" title="5.1ACK &#x3D; 0"></a>5.1ACK &#x3D; 0</h1><p>生产数据时，生产者对象通过网络客户端将数据发送到网络数据流中的时候，Kafka就对当前的数据请求进行了响应（确认应答），如果是同步发送数据，此时就可以发送下一条数据了。如果是异步发送数据，回调方法就会被触发。</p>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-18.png" alt="alt text"></p>
+<p>通过图形，明显可以看出，这种应答方式，数据已经通过网络向Kafka发送了，但这其实并不能保证Kafka能正确地接收到数据，在传输过程中如果网络出现了问题，那么数据就丢失了。也就是说这种应答确认的方式，数据的可靠性是无法保证的。不过相反，因为无需等待Kafka服务节点的确认，通信效率倒是比较高的，也就是系统吞吐量会非常高。</p>
+<h1 id="5-2ACK-1"><a href="#5-2ACK-1" class="headerlink" title="5.2ACK &#x3D; 1"></a>5.2ACK &#x3D; 1</h1><p>当生产数据时，Kafka Leader副本将数据接收到并写入到了日志文件后，就会对当前的数据请求进行响应（确认应答），如果是同步发送数据，此时就可以发送下一条数据了。如果是异步发送数据，回调方法就会被触发。</p>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-19.png" alt="alt text"></p>
+<p>通过图形，可以看出，这种应答方式，数据已经存储到了分区Leader副本中，那么数据相对来讲就比较安全了，也就是可靠性比较高。之所以说相对来讲比较安全，就是因为现在只有一个节点存储了数据，而数据并没有来得及进行备份到follower副本，那么一旦当前存储数据的broker节点出现了故障，数据也依然会丢失。</p>
+<h1 id="5-3ACK-1-默认"><a href="#5-3ACK-1-默认" class="headerlink" title="5.3ACK &#x3D; -1(默认)"></a>5.3ACK &#x3D; -1(默认)</h1><p>当生产数据时，Kafka Leader副本和Follower副本都已经将数据接收到并写入到了日志文件后，再对当前的数据请求进行响应（确认应答），如果是同步发送数据，此时就可以发送下一条数据了。如果是异步发送数据，回调方法就会被触发。</p>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-20.png" alt="alt text"></p>
+<p>通过图形，可以看出，这种应答方式，数据已经同时存储到了分区Leader副本和follower副本中，那么数据已经非常安全了，可靠性也是最高的。此时，如果Leader副本出现了故障，那么follower副本能够开始起作用，因为数据已经存储了，所以数据不会丢失。</p>
+<p>不过这里需要注意，如果假设我们的分区有5个follower副本，编号为1，2，3，4，5</p>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-21.png" alt="alt text"></p>
+<p>但是此时只有3个副本处于和Leader副本之间处于数据同步状态，那么此时分区就存在一个同步副本列表，我们称之为In Syn Replica，简称为ISR。此时，Kafka只要保证ISR中所有的4个副本接收到了数据，就可以对数据请求进行响应了。无需5个副本全部收到数据。</p>
+<h1 id="6-消息去重-有序"><a href="#6-消息去重-有序" class="headerlink" title="6 消息去重 &amp; 有序"></a>6 消息去重 &amp; 有序</h1><h1 id="6-1数据重试"><a href="#6-1数据重试" class="headerlink" title="6.1数据重试"></a>6.1数据重试</h1><p>由于网络或服务节点的故障，Kafka在传输数据时，可能会导致数据丢失，所以我们才会设置ACK应答机制，尽可能提高数据的可靠性。但其实在某些场景中，数据的丢失并不是真正地丢失，而是“虚假丢失”，比如咱们将ACK应答设置为1，也就是说一旦Leader副本将数据写入文件后，Kafka就可以对请求进行响应了。</p>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-22.png" alt="alt text"></p>
+<p>此时，如果假设由于网络故障的原因，Kafka并没有成功将ACK应答信息发送给Producer，那么此时对于Producer来讲，以为kafka没有收到数据，所以就会一直等待响应，一旦超过某个时间阈值，就会发生超时错误，也就是说在Kafka Producer眼里，数据已经丢了</p>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-23.png" alt="alt text"></p>
+<p>所以在这种情况下，kafka Producer会尝试对超时的请求数据进行重试(retry)操作。通过重试操作尝试将数据再次发送给Kafka。</p>
+<p>如果此时发送成功，那么Kafka就又收到了数据，而这两条数据是一样的，也就是说，导致了数据的重复。</p>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-24.png" alt="alt text"></p>
+<h1 id="6-2数据乱序"><a href="#6-2数据乱序" class="headerlink" title="6.2数据乱序"></a>6.2数据乱序</h1><p>数据重试(retry)功能除了可能会导致数据重复以外，还可能会导致数据乱序。假设我们需要将编号为1，2，3的三条连续数据发送给Kafka。每条数据会对应于一个连接请求</p>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-25.png" alt="alt text"></p>
+<p>此时，如果第一个数据的请求出现了故障，而第二个数据和第三个数据的请求正常，那么Broker就收到了第二个数据和第三个数据，并进行了应答。</p>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-26.png" alt="alt text"></p>
+<p>为了保证数据的可靠性，此时，Kafka Producer会将第一条数据重新放回到缓冲区的第一个。进行重试操作</p>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-27.png" alt="alt text"></p>
+<p>如果重试成功，Broker收到第一条数据，你会发现。数据的顺序已经被打乱了。</p>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-28.png" alt="alt text"></p>
+<h1 id="6-3数据幂等性"><a href="#6-3数据幂等性" class="headerlink" title="6.3数据幂等性"></a>6.3数据幂等性</h1><p>为了解决Kafka传输数据时，所产生的数据重复和乱序问题，Kafka引入了幂等性操作，所谓的幂等性，就是Producer同样的一条数据，无论向Kafka发送多少次，kafka都只会存储一条。注意，这里的同样的一条数据，指的不是内容一致的数据，而是指的不断被retry的同一条数据。</p>
+<p>默认幂等性是不起作用的，所以如果想要使用幂等性操作，只需要在生产者对象的配置中开启幂等性配置即可</p>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>配置值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>enable.idempotence</td>
+<td>true</td>
+<td>开启幂等性</td>
+</tr>
+<tr>
+<td>max.in.flight.requests.per.connection</td>
+<td>小于等于 5</td>
+<td>每个连接的在途请求数，不能大于 5，取值范围为[1,5]</td>
+</tr>
+<tr>
+<td>acks</td>
+<td>all(-1)</td>
+<td>确认应答，固定值，不能修改</td>
+</tr>
+<tr>
+<td>retries</td>
+<td>&gt;0</td>
+<td>重试次数，推荐使用 Int 最大值</td>
+</tr>
+</tbody></table>
+<p>kafka是如何实现数据的幂等性操作呢，我们这里简单说一下流程：</p>
+<ul>
+<li>开启幂等性后，为了保证数据不会重复，那么就需要给每一个请求批次的数据增加唯一性标识，kafka中，这个标识采用的是连续的序列号数字sequencenum，但是不同的生产者Producer可能序列号是一样的，所以仅仅靠seqnum还无法唯一标记数据，所以还需要同时对生产者进行区分，所以Kafka采用申请生产者ID（producerid）的方式对生产者进行区分。这样，在发送数据前，我们就需要提前申请producerid以及序列号sequencenum。</li>
+</ul>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-30.png" alt="alt text"></p>
+<ul>
+<li>Broker中会给每一个分区记录生产者的生产状态：采用队列的方式缓存最近的5个批次数据。队列中的数据按照seqnum进行升序排列。这里的数字5是经过压力测试，均衡空间效率和时间效率所得到的值，所以为固定值，无法配置且不能修改。</li>
+</ul>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-31.png" alt="alt text"></p>
+<ul>
+<li>如果Borker当前新的请求批次数据在缓存的5个旧的批次中存在相同的，说明是重复，当前批次数据不做任何处理。</li>
+</ul>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-32.png" alt="alt text"></p>
+<ul>
+<li>如果Broker当前的请求批次数据在缓存中没有相同的，那么判断当前新的请求批次的序列号是否为缓存的最后一个批次的序列号加1，如果是，说明是连续的，顺序没乱，那么继续。如果不是，那么说明数据已经乱了，发生异常。</li>
+</ul>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-33.png" alt="alt text"></p>
+<ul>
+<li><p>Broker根据异常返回响应，通知Producer进行重试。Producer需要在缓冲区中将数据重新排序，保证正确的顺序后。再进行重试。</p>
+</li>
+<li><p>如果请求批次不重复，且有序，那么更新缓冲区中的批次数据。将当前的批次放置再队列的结尾，将队列的第一个移除，保证队列中缓冲的数据最多5个。</p>
+</li>
+</ul>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-34.png" alt="alt text"></p>
+<p>从上面的流程可以看出，Kafka的幂等性是通过消耗时间和性能的方式提升了数据传输的有序和去重，在一些对数据敏感的业务中是十分重要的。但是通过原理，咱们也能明白，这种幂等性还是有缺陷的：</p>
+<ul>
+<li><p>幂等性的producer仅做到单分区上的幂等性，即单分区消息有序不重复，多分区无法保证幂等性（）。</p>
+</li>
+<li><p>只能保持生产者单个会话的幂等性，无法实现跨会话的幂等性，也就是说如果一个producer挂掉再重启，那么重启前和重启后的producer对象会被当成两个独立的生产者，从而获取两个不同的独立的生产者ID，导致broker端无法获取之前的状态信息，所以无法实现跨会话的幂等。要想解决这个问题，可以采用后续的事务功能。</p>
+</li>
+<li><p>为什么需要跨分区幂等性？（同一个消息被发往两个分区的情况是存在的，比如未指定分区，未指定key）</p>
+<ul>
+<li>尽管跨分区的消息本身不会因Kafka机制重复，但以下场景仍需要保证跨分区的幂等性</li>
+<li>生产者事务的原子性要求：​事务中多个分区的写入必须作为一个原子操作完成。若事务提交失败后重试，可能导致部分分区的消息重复提交（例如第一次写入成功但未提交事务，重试时需确保所有分区的消息不重复）。</li>
+<li>​应用层逻辑的复杂性​<ul>
+<li>​业务关联性：例如订单创建后需同时更新库存和用户积分（不同分区），若其中一个操作失败重试，需保证整体操作的幂等性。</li>
+<li>外部系统依赖：若下游系统（如数据库）的幂等性依赖于Kafka消息的唯一性，跨分区的重复消息可能导致数据不一致。</li>
+</ul>
+</li>
+<li>​消费者端的重复消费风险​：消费者可能因故障重启或手动重置位点（Offset）导致重复消费跨分区的消息。虽然Kafka不直接处理跨分区幂等，但应用层需通过全局唯一标识符（如UUID）或数据库唯一约束去重。</li>
+</ul>
+</li>
+</ul>
+<h1 id="6-4数据事务"><a href="#6-4数据事务" class="headerlink" title="6.4数据事务"></a>6.4数据事务</h1><p>对于幂等性的缺陷，kafka可以采用事务的方式解决跨会话的幂等性。基本的原理就是通过事务功能管理生产者ID，保证事务开启后，生产者对象总能获得相同的生产者ID。</p>
+<p>为了实现事务，Kafka引入了事务协调器（TransactionCoodinator）负责事务的处理，所有的事务逻辑包括分派PID等都是由TransactionCoodinator负责实施的。TransactionCoodinator 会将事务状态持久化到该主题中。</p>
+<p>事务基本的实现思路就是通过配置的事务ID，将生产者ID进行绑定，然后存储在Kafka专门管理事务的内部主题 __transaction_state中，而内部主题的操作是由事务协调器（TransactionCoodinator）对象完成的，这个协调器对象有点类似于咱们数据发送时的那个副本Leader。其实这种设计是很巧妙的，因为kafka将事务ID和生产者ID看成了消息数据，然后将数据发送到一个内部主题中。这样，使用事务处理的流程和咱们自己发送数据的流程是很像的。接下来，我们就把这两个流程简单做一个对比。</p>
+<h1 id="6-4-1-普通数据发送流程"><a href="#6-4-1-普通数据发送流程" class="headerlink" title="6.4.1 普通数据发送流程"></a>6.4.1 普通数据发送流程</h1><p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-35.png" alt="alt text"></p>
+<h1 id="6-4-2-事务数据发送流程"><a href="#6-4-2-事务数据发送流程" class="headerlink" title="6.4.2 事务数据发送流程"></a>6.4.2 事务数据发送流程</h1><p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-36.png" alt="alt text"></p>
+<ol>
+<li>Producer在启动事务时，会向Kafka集群中的任意一个Broker发送请求（不需要特定节点），以获取负责该事务的事务协调器（Transaction Coordinator, TC）​的地址信息。</li>
+</ol>
+<p>Kafka内部有一个名为__transaction_state的特殊主题（默认50个分区），用于持久化事务元数据。TC服务的分配规则为：</p>
+<p>对事务ID进行哈希计算，确定其所属的__transaction_state分区；</p>
+<p>该分区的Leader副本所在的Broker，即为该事务对应的TC服务节点。</p>
+<ol start="2">
+<li><p>获取到该事务对应的TC服务节点位置</p>
+</li>
+<li><p>TC会在内部事务日志主题（__transaction_state）中记录事务状态为“进行中”，并为生产者分配唯一的PID（Producer ID）和序列号，用于消息去重和状态追踪</p>
+</li>
+<li><p>生产者发送的消息会被标记为“未提交”，Broker暂存这些消息但不会对消费者可见。消息的分区信息会上报至协调器并持久化到事务日志，确保故障恢复后能继续处理</p>
+</li>
+</ol>
+<p>通过两张图大家可以看到，基本的事务操作和数据操作是很像的，不过要注意，我们这里只是简单对比了数据发送的过程，其实它们的区别还在于数据发送后的提交过程。普通的数据操作，只要数据写入了日志，那么对于消费者来讲。数据就可以读取到了，但是事务操作中，如果数据写入了日志，但是没有提交的话，其实数据默认情况下也是不能被消费者看到的。只有提交后才能看见数据。</p>
+<h1 id="6-4-3-事务提交流程"><a href="#6-4-3-事务提交流程" class="headerlink" title="6.4.3 事务提交流程"></a>6.4.3 事务提交流程</h1><p>Kafka中的事务是分布式事务，所以采用的也是二阶段提交</p>
+<ul>
+<li>第一个阶段提交事务协调器会告诉生产者事务已经提交了，所以也称之预提交操作，事务协调器会修改事务为预提交状态并持久化到日志，此时事务已不可逆</li>
+</ul>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-37.png" alt="alt text"></p>
+<ul>
+<li>第二个阶段提交事务协调器会向分区Leader节点中发送数据标记，通知Broker事务已经提交，然后事务协调器会修改事务为完成提交状态</li>
+</ul>
+<p><img src="/2025/02/26/Kafka%20%E7%94%9F%E4%BA%A7%E6%95%B0%E6%8D%AE/image-38.png" alt="alt text"></p>
+<p>特殊情况下，事务已经提交成功，但还是读取不到数据，那是因为当前提交成功只是一阶段提交成功，事务协调器会继续向各个Partition发送marker信息，此操作会无限重试，直至成功。</p>
+<p>但是不同的Broker可能无法全部同时接收到marker信息，此时有的Broker上的数据还是无法访问，这也是正常的，因为kafka的事务不能保证强一致性，只能保证最终数据的一致性，无法保证中间的数据是一致的。不过对于常规的场景这里已经够用了，事务协调器会不遗余力的重试，直至成功。</p>
+<h1 id="6-4-4-事务操作代码"><a href="#6-4-4-事务操作代码" class="headerlink" title="6.4.4 事务操作代码"></a>6.4.4 事务操作代码</h1><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.atguigu.test;<br><br><span class="hljs-keyword">import</span> org.apache.kafka.clients.producer.*;<br><span class="hljs-keyword">import</span> org.apache.kafka.common.serialization.StringSerializer;<br><br><span class="hljs-keyword">import</span> java.util.HashMap;<br><span class="hljs-keyword">import</span> java.util.Map;<br><span class="hljs-keyword">import</span> java.util.concurrent.Future;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ProducerTransactionTest</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        Map&lt;String, Object&gt; configMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        configMap.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, <span class="hljs-string">&quot;localhost:9092&quot;</span>);<br>        configMap.put( ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());<br>        configMap.put( ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());<br>        <span class="hljs-comment">// TODO 配置幂等性</span><br>        configMap.put( ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, <span class="hljs-literal">true</span>);<br>        <span class="hljs-comment">// TODO 配置事务ID</span><br>        configMap.put( ProducerConfig.TRANSACTIONAL_ID_CONFIG, <span class="hljs-string">&quot;my-tx-id&quot;</span>);<br>        <span class="hljs-comment">// TODO 配置事务超时时间</span><br>        configMap.put( ProducerConfig.TRANSACTION_TIMEOUT_CONFIG, <span class="hljs-number">5</span>);<br>        <span class="hljs-comment">// TODO 创建生产者对象</span><br>        KafkaProducer&lt;String, String&gt; producer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">KafkaProducer</span>&lt;&gt;(configMap);<br>        <span class="hljs-comment">// TODO 初始化事务</span><br>        producer.initTransactions();<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// TODO 启动事务</span><br>            producer.beginTransaction();<br>            <span class="hljs-comment">// TODO 生产数据</span><br>            <span class="hljs-keyword">for</span> ( <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ ) &#123;<br>                ProducerRecord&lt;String, String&gt; record = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProducerRecord</span>&lt;String, String&gt;(<span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-string">&quot;key&quot;</span> + i, <span class="hljs-string">&quot;value&quot;</span> + i);<br>                <span class="hljs-keyword">final</span> Future&lt;RecordMetadata&gt; send = producer.send(record);<br>            &#125;<br>            <span class="hljs-comment">// TODO 提交事务</span><br>            producer.commitTransaction();<br>        &#125; <span class="hljs-keyword">catch</span> ( Exception e ) &#123;<br>            e.printStackTrace();<br>            <span class="hljs-comment">// TODO 终止事务</span><br>            producer.abortTransaction();<br>        &#125;<br>        <span class="hljs-comment">// TODO 关闭生产者对象</span><br>        producer.close();<br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="6-5数据传输语义"><a href="#6-5数据传输语义" class="headerlink" title="6.5数据传输语义"></a>6.5数据传输语义</h1><table>
+<thead>
+<tr>
+<th>传输语义</th>
+<th>说明</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>at most once</td>
+<td>最多一次：不管是否能接收到，数据最多只传一次。这样数据可能会丢失</td>
+<td>Socket， ACK&#x3D;0</td>
+</tr>
+<tr>
+<td>at least once</td>
+<td>最少一次：消息不会丢失，如果接收不到，那么就继续发，所以会发送多次，直到收到为止，有可能出现数据重复</td>
+<td>ACK&#x3D;1</td>
+</tr>
+<tr>
+<td>Exactly once</td>
+<td>精准一次：消息只会一次，不会丢，也不会重复</td>
+<td>幂等+事务+ACK&#x3D;-1</td>
+</tr>
+</tbody></table>
+</div></article><div class="post-view__sidebar"><div class="sidebar"><div class="tocbot"><h2>Toc</h2><div class="toc__content"></div></div><h2>Links</h2><div class="sidebar__link"><ul><li><a target="_blank" rel="noopener" href="https://github.com/15hmael">Github</a></li><li><a href="/3556897601@qq.com">Mail</a></li></ul></div><h2>Archives</h2><div class="sidebar__archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/">2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul></div><h2>Categories</h2><div class="sidebar__categories"></div><h2>Tags</h2><div class="sidebar__tags"><ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Caffeine/" rel="tag">Caffeine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenResty/" rel="tag">OpenResty</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="tag">Redis.多级缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis%E6%BA%90%E7%A0%81/" rel="tag">Redis源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis%E9%AB%98%E7%BA%A7/" rel="tag">Redis高级</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reids/" rel="tag">Reids</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dpdk/" rel="tag">dpdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hiredis/" rel="tag">hiredis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" rel="tag">分布式缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="tag">多级缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%91%B8%E9%B1%BC/" rel="tag">摸鱼</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul></div></div></div></div><div class="horizontal-line" style="height: 1px"></div><div class="main__bottom"><div class="pre-next"><a class="pre-button" href="/2025/02/27/Kafka%20%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/">Kafka 存储数据</a><a class="next-button" href="/2025/02/25/Kafka%20%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%20%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%20%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98/">Kafka 集群部署 启动服务 创建主题</a></div></div></div></div><div class="footer"><span>©️2019-2025 Designed By&nbsp;<strong><a target="_blank" rel="noopener" href="https://github.com/random-yang">RandomYang</a></strong> Powered By&nbsp;</span><strong><a target="_blank" rel="noopener" href="https://hexo.io">hexo</a></strong></div><div class="darkmode-mask" id="darkmode-mask"></div><div class="sidebar__button"></div></body></html>
