@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0"><meta name="description" content="虚拟机部署开发机 并使用Zsh美化 - This is Pequod! Arriving shortly at LZ!"><meta name="theme-color" content="#6ba8a9"><title>虚拟机部署开发机 并使用Zsh美化 - This is Pequod! Arriving shortly at LZ!</title><style>@font-face {
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0"><meta name="description" content="如何通过docker偷偷地在学校的服务器部署一个开发机3 - This is Pequod! Arriving shortly at LZ!"><meta name="theme-color" content="#6ba8a9"><title>如何通过docker偷偷地在学校的服务器部署一个开发机3 - This is Pequod! Arriving shortly at LZ!</title><style>@font-face {
   font-family: 'Abril Fatface';
   font-style: normal;
   font-weight: 400;
@@ -28,114 +28,35 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
     orderedList: false,
     collapseDepth: 2,
   });
-})</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 7.3.0"></head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">This is Pequod! Arriving shortly at LZ!</a></h1><p></p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">虚拟机部署开发机 并使用Zsh美化</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">虚拟机部署开发机 并使用Zsh美化</a></h2><span class="post__date">2025-09-11</span><a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/"><span class="post__tags">#虚拟机</span></a><a href="/tags/Zsh/"><span class="post__tags">#Zsh</span></a></div></div><div class="article__content"><h1 id="安装Ubuntu虚拟机"><a href="#安装Ubuntu虚拟机" class="headerlink" title="安装Ubuntu虚拟机"></a>安装Ubuntu虚拟机</h1><p>下载镜像文件<br><a target="_blank" rel="noopener" href="https://repo.huaweicloud.com/ubuntu-releases/">华为源</a></p>
-<p>22.04版本<br><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image.png" alt="alt text"></p>
-<p>安装VBox之后直接新建虚拟机，镜像选择刚下载的iso</p>
-<p>启动虚拟机</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-1.png" alt="alt text"></p>
-<p>回车进入安装</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-2.png" alt="alt text"></p>
-<p>软锁死，奇怪</p>
-<p>尝试减少核心，增大内存再重启</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-3.png" alt="alt text"></p>
-<p>好像有效果</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-4.png" alt="alt text"></p>
-<p>在加载中了</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-5.png" alt="alt text"></p>
-<p>进去之后卡的没边，有点无语</p>
-<p>使用命令模式</p>
-<p>CTRL + ALT + F3</p>
-<p>su - 再输入密码进入root</p>
-<p>安装vim</p>
-<p>apt install vim</p>
-<p>没有ssh服务</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-6.png" alt="alt text"></p>
-<p>安装ssh服务</p>
-<p>apt update</p>
-<p>apt install openssh-server</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-7.png" alt="alt text"></p>
-<p>修改配置</p>
-<p>vim &#x2F;etc&#x2F;ssh&#x2F;sshd_config</p>
-<p>启动服务</p>
-<p>systemctl start ssh</p>
-<p>设置开机自启动</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-8.png" alt="alt text"></p>
-<h1 id="ssh连接"><a href="#ssh连接" class="headerlink" title="ssh连接"></a>ssh连接</h1><p>先看一下虚拟机的ip地址</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-9.png" alt="alt text"></p>
-<p>在终端ping不通这个地址，说明肯定连不上</p>
-<p>Vbox换成桥接模式，进入ubuntu系统发现ip变了，再ping就通了</p>
-<p>然后尝试ssh连接</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-11.png" alt="alt text"></p>
-<p>lihao登陆成功</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-12.png" alt="alt text"></p>
-<h1 id="bash美化"><a href="#bash美化" class="headerlink" title="bash美化"></a>bash美化</h1><ol>
-<li>安装基本工具</li>
-</ol>
-<p>apt install zsh git curl -y</p>
-<p>设置默认终端为 zsh</p>
-<p>chsh -s &#x2F;bin&#x2F;zsh</p>
-<ol start="2">
-<li>安装oh-my-zsh</li>
-</ol>
-<p>sh -c “$(curl -fsSL <a target="_blank" rel="noopener" href="https://install.ohmyz.sh/">https://install.ohmyz.sh/</a>)”</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-13.png" alt="alt text"></p>
-<p>等了一会没反应噻</p>
-<p>sh -c “$(curl -fsSL <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh">https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh</a>)”</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-14.png" alt="alt text"></p>
-<p>难顶</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-15.png" alt="alt text"></p>
-<p>wget <a target="_blank" rel="noopener" href="https://sourceforge.net/projects/zsh/files/latest/download/zsh-*.tar.xz">https://sourceforge.net/projects/zsh/files/latest/download/zsh-*.tar.xz</a></p>
-<p>还是卡住不动</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-16.png" alt="alt text"></p>
-<p>这些网址都ping不通，应该是DNS问题</p>
-<p>vim &#x2F;etc&#x2F;systemd&#x2F;resolved.conf</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-17.png" alt="alt text"></p>
-<p>这里等于号后面应该不加空格，写错了</p>
-<p>重启 systemd-resolved 服务</p>
-<p>systemctl restart systemd-resolved</p>
-<p>设置开机启动 systemd-resolved 服务</p>
-<p>systemctl enable systemd-resolved</p>
-<p>备份 systemd-resolved 托管文件 resolv.conf</p>
-<p>mv &#x2F;etc&#x2F;resolv.conf &#x2F;etc&#x2F;resolv.conf.bak</p>
-<p>重新生成</p>
-<p>NAT配置没问题</p>
-<p>尝试ping gitee.com不通</p>
-<p>有把虚拟机网络切回NAT模式，通了</p>
-<p>之前用桥接模式时 ping 不通 Gitee，大概率是 物理网络环境对 “新设备”（虚拟机）有隐性限制，比如：</p>
-<p>物理路由器的 DHCP 服务虽然给了虚拟机 IP，但限制了该 IP 的外网访问权限；</p>
-<p>物理网络的 DNS 服务器（比如公司 &#x2F; 校园网的内网 DNS）无法解析 Gitee 的域名；</p>
-<p>物理网络的防火墙规则拦截了虚拟机 IP 的出站请求（比如禁止非备案设备访问外网）。</p>
-<p>而切换到 NAT 模式后，虚拟机的所有网络流量都会伪装成宿主机的流量（通过宿主机的 IP 和网络配置转发）—— 既然你的物理机本身能正常访问 Gitee，虚拟机自然也能 “借道” 通了。</p>
-<h1 id="暂停美化，解决新问题"><a href="#暂停美化，解决新问题" class="headerlink" title="暂停美化，解决新问题"></a>暂停美化，解决新问题</h1><p>我在NAT模式下怎么才能用ssh连接到虚拟机呢？</p>
-<p>在 NAT 模式下，由于虚拟机的 IP 是 “私有网段”（仅能被宿主机识别，无法被局域网其他设备直接访问），要通过 SSH 连接虚拟机，需要通过 “端口转发”（Port Forwarding）将宿主机的端口映射到虚拟机的 SSH 端口（默认 22）。</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-18.png" alt="alt text"></p>
-<p>VirtualBox</p>
-<p>关闭虚拟机，右键点击虚拟机 →「设置」→「网络」；</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-19.png" alt="alt text"></p>
-<p>选择「NAT」模式，点击「高级」→「端口转发」；</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-20.png" alt="alt text"></p>
-<p>点击「+」添加规则：</p>
-<p>名称：可选（如 “SSH”）；<br>协议：TCP；<br>主机 IP：留空（或填 127.0.0.1 仅允许本地连接）；<br>主机端口：2222（同上，自定义端口）；<br>子系统 IP：虚拟机 IP，在虚拟机里ip addr查看；<br>子系统端口：22；</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-21.png" alt="alt text"></p>
-<p>保存设置，启动虚拟机。</p>
-<p>其他设备的终端执行 ssh 虚拟机用户名@宿主机局域网IP -p 2222</p>
-<p>如果我只在宿主机上ssh虚拟机</p>
-<p>ssh ubuntu@localhost -p 2222 就ok</p>
-<h1 id="继续美化"><a href="#继续美化" class="headerlink" title="继续美化"></a>继续美化</h1><p>这次能ping通了</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-22.png" alt="alt text"></p>
-<p>一步到位</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-23.png" alt="alt text"></p>
-<p>安装zsh -autosuggestions 插件</p>
-<p>zsh-autosuggestions 是一个命令提示插件，当你输入命令时，会自动推测你可能需要输入的命令，按下右键可以快速采用建议。</p>
-<p>git clone <a target="_blank" rel="noopener" href="https://gh.xmly.dev/https://github.com/zsh-users/zsh-autosuggestions">https://gh.xmly.dev/https://github.com/zsh-users/zsh-autosuggestions</a> ${ZSH_CUSTOM:-~&#x2F;.oh-my-zsh&#x2F;custom}&#x2F;plugins&#x2F;zsh-autosuggestions</p>
-<p>zsh-syntax-highlighting 插件</p>
-<p>zsh-syntax-highlighting 是一个命令语法校验插件，在输入命令的过程中，若指令不合法，则指令显示为红色，若指令合法就会显示为绿色。</p>
-<p>git clone <a target="_blank" rel="noopener" href="https://gh.xmly.dev/https://github.com/zsh-users/zsh-syntax-highlighting.git">https://gh.xmly.dev/https://github.com/zsh-users/zsh-syntax-highlighting.git</a> ${ZSH_CUSTOM:-~&#x2F;.oh-my-zsh&#x2F;custom}&#x2F;plugins&#x2F;zsh-syntax-highlighting</p>
-<p>启用插件</p>
-<p>vim ~&#x2F;.zshrc</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-24.png" alt="alt text"></p>
-<p>再装一个fzf，fzf 是一款命令行模糊搜索工具，能与 shell 深度集成，Ctrl+R 进行搜索</p>
-<p>sudo apt install fzf</p>
-<p>还是把它放到vim ~&#x2F;.zshrc的插件列表里就可以了</p>
-<p><img src="/2025/09/11/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/image-25.png" alt="alt text"></p>
-</div></article><div class="post-view__sidebar"><div class="sidebar"><div class="tocbot"><h2>Toc</h2><div class="toc__content"></div></div><h2>Links</h2><div class="sidebar__link"><ul><li><a target="_blank" rel="noopener" href="https://github.com/15hmael">Github</a></li><li><a href="/3556897601@qq.com">Mail</a></li></ul></div><h2>Archives</h2><div class="sidebar__archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/">2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul></div><h2>Categories</h2><div class="sidebar__categories"></div><h2>Tags</h2><div class="sidebar__tags"><ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bazel/" rel="tag">Bazel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Caffeine/" rel="tag">Caffeine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Clangd/" rel="tag">Clangd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLVM/" rel="tag">LLVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenResty/" rel="tag">OpenResty</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="tag">Redis.多级缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis%E6%BA%90%E7%A0%81/" rel="tag">Redis源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis%E9%AB%98%E7%BA%A7/" rel="tag">Redis高级</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reids/" rel="tag">Reids</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zsh/" rel="tag">Zsh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dpdk/" rel="tag">dpdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hiredis/" rel="tag">hiredis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" rel="tag">分布式缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="tag">多级缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%91%B8%E9%B1%BC/" rel="tag">摸鱼</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" rel="tag">虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul></div></div></div></div><div class="horizontal-line" style="height: 1px"></div><div class="main__bottom"><div class="pre-next"><a class="pre-button" href="/2025/09/11/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87docker%E5%81%B7%E5%81%B7%E5%9C%B0%E5%9C%A8%E5%AD%A6%E6%A0%A1%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AA%E5%BC%80%E5%8F%91%E6%9C%BA3/">如何通过docker偷偷地在学校的服务器部署一个开发机3</a><a class="next-button" href="/2025/09/07/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87docker%E5%81%B7%E5%81%B7%E5%9C%B0%E5%9C%A8%E5%AD%A6%E6%A0%A1%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AA%E5%BC%80%E5%8F%91%E6%9C%BA/">如何通过docker偷偷地在学校的服务器部署一个开发机</a></div></div></div></div><div class="footer"><span>©️2019-2025 Designed By&nbsp;<strong><a target="_blank" rel="noopener" href="https://github.com/random-yang">RandomYang</a></strong> Powered By&nbsp;</span><strong><a target="_blank" rel="noopener" href="https://hexo.io">hexo</a></strong></div><div class="darkmode-mask" id="darkmode-mask"></div><div class="sidebar__button"></div></body></html>
+})</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 7.3.0"></head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">This is Pequod! Arriving shortly at LZ!</a></h1><p></p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">如何通过docker偷偷地在学校的服务器部署一个开发机3</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">如何通过docker偷偷地在学校的服务器部署一个开发机3</a></h2><span class="post__date">2025-09-12</span><a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/"><span class="post__tags">#虚拟机</span></a><a href="/tags/Bazel/"><span class="post__tags">#Bazel</span></a><a href="/tags/LLVM/"><span class="post__tags">#LLVM</span></a><a href="/tags/Git/"><span class="post__tags">#Git</span></a></div></div><div class="article__content"><h1 id="美化Shell"><a href="#美化Shell" class="headerlink" title="美化Shell"></a>美化Shell</h1><p>zsh和oh-my-zsh的安装与配置</p>
+<p>正式安装之前，在终端输入以下命令，查看系统现有的shell：</p>
+<p>cat &#x2F;etc&#x2F;shells</p>
+<p><img src="/2025/09/12/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87docker%E5%81%B7%E5%81%B7%E5%9C%B0%E5%9C%A8%E5%AD%A6%E6%A0%A1%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AA%E5%BC%80%E5%8F%91%E6%9C%BA3/image.png" alt="alt text"></p>
+<p>在终端直接输入以下命令，进行安装zsh：</p>
+<p>apt install zsh</p>
+<p><img src="/2025/09/12/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87docker%E5%81%B7%E5%81%B7%E5%9C%B0%E5%9C%A8%E5%AD%A6%E6%A0%A1%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AA%E5%BC%80%E5%8F%91%E6%9C%BA3/image-1.png" alt="alt text"></p>
+<p>遇到点问题，APT 包管理器在下载 zsh 相关依赖时，被强制从 HTTP 重定向到了一个异常地址（含 VLAN 和 MAC 信息），系统禁止此类不安全重定向，导致下载失败。</p>
+<p>APT 依赖本地的「软件源列表」（&#x2F;etc&#x2F;apt&#x2F;sources.list 及相关文件）获取包地址，若列表过时或缓存异常，可能导致地址跳转错误。首先执行更新：</p>
+<ul>
+<li>更新软件源列表<br>apt update</li>
+</ul>
+<p><img src="/2025/09/12/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87docker%E5%81%B7%E5%81%B7%E5%9C%B0%E5%9C%A8%E5%AD%A6%E6%A0%A1%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AA%E5%BC%80%E5%8F%91%E6%9C%BA3/image-2.png" alt="alt text"></p>
+<p>更换软件源为国内镜像</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 备份原有源列表</span><br><span class="hljs-built_in">cp</span> /etc/apt/sources.list /etc/apt/sources.list.bak<br><br><span class="hljs-comment"># 使用国内阿里云镜像源（适用于Ubuntu 24.04 noble）</span><br><span class="hljs-built_in">cat</span> &gt; /etc/apt/sources.list &lt;&lt; <span class="hljs-string">EOF</span><br><span class="hljs-string">deb http://mirrors.aliyun.com/ubuntu/ noble main restricted universe multiverse</span><br><span class="hljs-string">deb-src http://mirrors.aliyun.com/ubuntu/ noble main restricted universe multiverse</span><br><span class="hljs-string">deb http://mirrors.aliyun.com/ubuntu/ noble-security main restricted universe multiverse</span><br><span class="hljs-string">deb-src http://mirrors.aliyun.com/ubuntu/ noble-security main restricted universe multiverse</span><br><span class="hljs-string">deb http://mirrors.aliyun.com/ubuntu/ noble-updates main restricted universe multiverse</span><br><span class="hljs-string">deb-src http://mirrors.aliyun.com/ubuntu/ noble-updates main restricted universe multiverse</span><br><span class="hljs-string">deb http://mirrors.aliyun.com/ubuntu/ noble-backports main restricted universe multiverse</span><br><span class="hljs-string">deb-src http://mirrors.aliyun.com/ubuntu/ noble-backports main restricted universe multiverse</span><br><span class="hljs-string">EOF</span><br><br><span class="hljs-comment"># 再次尝试更新</span><br>apt update<br></code></pre></td></tr></table></figure>
+
+<p>都没解决问题，而且昨天下载vim的时候还好好的</p>
+<p>ok我直接重启就完事了</p>
+<p>docker stop lihaoUbuntu &amp;&amp; docker rm lihaoUbuntu</p>
+<p>重建容器时指定公共 DNS：</p>
+<p>docker run –name lihaoUbuntu -t -i -d -p 3316:22 <br>  –dns 8.8.8.8 –dns 114.114.114.114 <br>  lihao</p>
+<p>连不上了</p>
+<p><img src="/2025/09/12/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87docker%E5%81%B7%E5%81%B7%E5%9C%B0%E5%9C%A8%E5%AD%A6%E6%A0%A1%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AA%E5%BC%80%E5%8F%91%E6%9C%BA3/image-3.png" alt="alt text"></p>
+<p>查看容器运行状态</p>
+<p>docker ps | grep lihaoUbuntu</p>
+<p><img src="/2025/09/12/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87docker%E5%81%B7%E5%81%B7%E5%9C%B0%E5%9C%A8%E5%AD%A6%E6%A0%A1%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AA%E5%BC%80%E5%8F%91%E6%9C%BA3/image-4.png" alt="alt text"></p>
+<p>还行，进入容器检查 SSH 服务状态：</p>
+<p>docker exec -it lihaoUbuntu &#x2F;bin&#x2F;bash</p>
+<p>想起来忘记启动容器的ssh服务了，不仅仅是这样，我重构了容器，里面的操作都没了，大意了</p>
+<p><img src="/2025/09/12/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87docker%E5%81%B7%E5%81%B7%E5%9C%B0%E5%9C%A8%E5%AD%A6%E6%A0%A1%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AA%E5%BC%80%E5%8F%91%E6%9C%BA3/image-5.png" alt="alt text"></p>
+<p>尝试了几次应该是没救了，应该被ban了</p>
+<h1 id="放弃！改用VBox直接部署Ubuntu虚拟机！"><a href="#放弃！改用VBox直接部署Ubuntu虚拟机！" class="headerlink" title="放弃！改用VBox直接部署Ubuntu虚拟机！"></a>放弃！改用VBox直接部署Ubuntu虚拟机！</h1></div></article><div class="post-view__sidebar"><div class="sidebar"><div class="tocbot"><h2>Toc</h2><div class="toc__content"></div></div><h2>Links</h2><div class="sidebar__link"><ul><li><a target="_blank" rel="noopener" href="https://github.com/15hmael">Github</a></li><li><a href="/3556897601@qq.com">Mail</a></li></ul></div><h2>Archives</h2><div class="sidebar__archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/">2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul></div><h2>Categories</h2><div class="sidebar__categories"></div><h2>Tags</h2><div class="sidebar__tags"><ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bazel/" rel="tag">Bazel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Caffeine/" rel="tag">Caffeine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Clangd/" rel="tag">Clangd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLVM/" rel="tag">LLVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/" rel="tag">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenResty/" rel="tag">OpenResty</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="tag">Redis.多级缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis%E6%BA%90%E7%A0%81/" rel="tag">Redis源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis%E9%AB%98%E7%BA%A7/" rel="tag">Redis高级</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reids/" rel="tag">Reids</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zsh/" rel="tag">Zsh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dpdk/" rel="tag">dpdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hiredis/" rel="tag">hiredis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" rel="tag">分布式缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" rel="tag">多级缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%91%B8%E9%B1%BC/" rel="tag">摸鱼</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" rel="tag">虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul></div></div></div></div><div class="horizontal-line" style="height: 1px"></div><div class="main__bottom"><div class="pre-next"><a class="pre-button" href="/2025/09/12/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%BC%80%E5%8F%91%E6%9C%BA%20%E5%B9%B6%E4%BD%BF%E7%94%A8Zsh%E7%BE%8E%E5%8C%96/">虚拟机部署开发机 并使用Zsh美化</a><a class="next-button" href="/2025/09/11/%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87docker%E5%81%B7%E5%81%B7%E5%9C%B0%E5%9C%A8%E5%AD%A6%E6%A0%A1%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AA%E5%BC%80%E5%8F%91%E6%9C%BA2/">如何通过docker偷偷地在学校的服务器部署一个开发机2</a></div></div></div></div><div class="footer"><span>©️2019-2025 Designed By&nbsp;<strong><a target="_blank" rel="noopener" href="https://github.com/random-yang">RandomYang</a></strong> Powered By&nbsp;</span><strong><a target="_blank" rel="noopener" href="https://hexo.io">hexo</a></strong></div><div class="darkmode-mask" id="darkmode-mask"></div><div class="sidebar__button"></div></body></html>
